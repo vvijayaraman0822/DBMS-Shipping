@@ -44,6 +44,6 @@ public class CarrierDAO {
         String name = rs.getString("name");
         String avail_ship_type = rs.getString("avail_ship_type");
         int CID = rs.getInt("CID");
-        return new Carrier(CID, name, avail_ship_type);
+        return new Carrier();
     }
 }

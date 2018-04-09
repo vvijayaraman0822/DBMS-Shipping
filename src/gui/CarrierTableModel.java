@@ -41,8 +41,6 @@ public class CarrierTableModel extends AbstractTableModel{
                 return tempCarrier.getCID();
             case NAME_COL:
                 return tempCarrier.getName();
-            case SHIP_COL:
-                return tempCarrier.getShipType();
             default:
                 return tempCarrier.getName();
         }
