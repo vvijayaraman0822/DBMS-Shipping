@@ -41,8 +41,8 @@ public class Vendor {
     public String getName(){
         return name;  
     }
-    public void setName(String name){
-        this.name = name;
+    public void setName(String n){
+        this.name = n;
     }
     public String getVID(){
         return VID;
@@ -50,7 +50,7 @@ public class Vendor {
     public void setVID(String v){
         this.VID = v;
     }
-    public String getContact(String contact){
+    public String getContact(){
         return contact;
     }
     public void setContact(String p){
