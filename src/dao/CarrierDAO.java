@@ -45,12 +45,13 @@ public class CarrierDAO {
     public void addCarrier(Carrier carrier) throws Exception {
         PreparedStatement stmt = null;
         try {
-            stmt = conn.prepareStatement("insert into carrier values (?, ?, ?)");
+            stmt = conn.prepareStatement("insert into carrier values (?, ?, ?, ?, ?, ?)");
             stmt.setInt(1, carrier.getCID());
             stmt.setString(2, carrier.getName());
-            stmt.setString(3, carrier.getShipType());
-            
-            
+            stmt.setString(3, carrier.getShipType1());
+            stmt.setString(4, carrier.getShipType2());
+            stmt.setString(5, carrier.getShipType3());
+            stmt.setString(6, carrier.getShipType4());
         } finally {
             conn.close(stmt, null);
         }
@@ -69,7 +70,7 @@ public class CarrierDAO {
 
     public void updateCarrier(Carrier carrier) throws Exception {
         PreparedStatement stmt = null;
-        String sql = "update contribution "
+        String sql = "update carrier "
                 + "set CID ?, "
                 + "name = ?, "
                 + "ship_red = ?, "
@@ -80,7 +81,10 @@ public class CarrierDAO {
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, carrier.getCID());
             stmt.setString(2, carrier.getName());
-            stmt.setString(3, carrier.getShipType());
+            stmt.setString(3, carrier.getShipType1());
+            stmt.setString(4, carrier.getShipType2());
+            stmt.setString(5, carrier.getShipType3());
+            stmt.setString(6, carrier.getShipType4());
             
         } finally {
             conn.close(stmt, null);
