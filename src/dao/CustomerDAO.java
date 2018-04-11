@@ -43,7 +43,7 @@ public class CustomerDAO {
         String address = rs.getString("address");
         String city = rs.getString("city");
         String state = rs.getString("state");
-        String zip = rs.getString("zip");
+        int zip = rs.getInt("zip");
         String contact = rs.getString("contact");
         return new Customer(ID,name,address,city,state,zip,contact);
     }
@@ -52,13 +52,13 @@ public class CustomerDAO {
         PreparedStatement stmt = null;
         try {
             stmt = conn.prepareStatement("insert into customer values (null, ?, ?, ?, ?, ?, ?,?)");
-            stmt.setInt(1, customer.ID);
-            stmt.setString(2, customer.name);
-            stmt.setString(3, customer.address);
-            stmt.setString(4, customer.city);
-            stmt.setString(5, customer.state);
-            stmt.setString(6, customer.zip);
-            stmt.setString(7, customer.contact);
+            stmt.setInt(1, customer.getID());
+            stmt.setString(2, customer.getName());
+            stmt.setString(3, customer.getAddress());
+            stmt.setString(4, customer.getCity());
+            stmt.setString(5, customer.getState());
+            stmt.setInt(6, customer.getZip());
+            stmt.setString(7, customer.getContact());
             stmt.execute();
             } finally {
             conn.close(stmt, null);
@@ -69,7 +69,7 @@ public class CustomerDAO {
         PreparedStatement stmt = null;
         try {
             stmt = conn.prepareStatement("delete from customer where ID = ?");
-            stmt.setInt(1, customer.ID);
+            stmt.setInt(1, customer.getID());
             stmt.execute();
         } finally {
             conn.close(stmt, null);
@@ -88,13 +88,13 @@ public class CustomerDAO {
                 + "contact = ?";
         try {
             stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, customer.ID);
-            stmt.setString(2, customer.name);
-            stmt.setString(3, customer.address);
-            stmt.setString(4, customer.city);
-            stmt.setString(5, customer.state);
-            stmt.setString(6, customer.zip);
-            stmt.setString(7, customer.contact);
+            stmt.setInt(1, customer.getID());
+            stmt.setString(2, customer.getName());
+            stmt.setString(3, customer.getAddress());
+            stmt.setString(4, customer.getCity());
+            stmt.setString(5, customer.getState());
+            stmt.setInt(6, customer.getZip());
+            stmt.setString(7, customer.getContact());
             stmt.execute();
         } finally {
             conn.close(stmt, null);
