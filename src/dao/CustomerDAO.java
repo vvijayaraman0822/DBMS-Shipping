@@ -5,8 +5,7 @@
  */
 package dao;
 
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import core.Customer;
@@ -29,8 +28,8 @@ public class CustomerDAO {
             stmt = conn.createStatement();
             rs = stmt.executeQuery("select * from customer");
             while (rs.next()) {
-                Customer fund = convertRowToCustomer(rs);
-                list.add(fund);
+                Customer cust = convertRowToCustomer(rs);
+                list.add(cust);
             }
             return list;
         } finally {
@@ -46,6 +45,59 @@ public class CustomerDAO {
         String state = rs.getString("state");
         String zip = rs.getString("zip");
         String contact = rs.getString("contact");
-        return new Customer();
+        return new Customer(ID,name,address,city,state,zip,contact);
+    }
+    
+    public void addCustomer(Customer customer) throws Exception {
+        PreparedStatement stmt = null;
+        try {
+            stmt = conn.prepareStatement("insert into customer values (null, ?, ?, ?, ?, ?, ?,?)");
+            stmt.setInt(1, customer.ID);
+            stmt.setString(2, customer.name);
+            stmt.setString(3, customer.address);
+            stmt.setString(4, customer.city);
+            stmt.setString(5, customer.state);
+            stmt.setString(6, customer.zip);
+            stmt.setString(7, customer.contact);
+            stmt.execute();
+            } finally {
+            conn.close(stmt, null);
+            }
+    }
+    
+    public void deleteCustomer(Customer customer) throws Exception {
+        PreparedStatement stmt = null;
+        try {
+            stmt = conn.prepareStatement("delete from customer where ID = ?");
+            stmt.setInt(1, customer.ID);
+            stmt.execute();
+        } finally {
+            conn.close(stmt, null);
+        }
+    }
+    
+    public void updateCustomer(Customer customer) throws Exception {
+        PreparedStatement stmt = null;
+        String sql = "update customer "
+                + "set where ID = ?, "
+                + "name = ?, "
+                + "address = ?, "
+                + "city = ?, "
+                + "state = ?, "
+                + "zip = ? "
+                + "contact = ?";
+        try {
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, customer.ID);
+            stmt.setString(2, customer.name);
+            stmt.setString(3, customer.address);
+            stmt.setString(4, customer.city);
+            stmt.setString(5, customer.state);
+            stmt.setString(6, customer.zip);
+            stmt.setString(7, customer.contact);
+            stmt.execute();
+        } finally {
+            conn.close(stmt, null);
+        }
     }
 }
