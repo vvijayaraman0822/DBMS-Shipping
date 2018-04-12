@@ -16,7 +16,7 @@ public class Customer {
     private String address;
     private String city;
     private String state;
-    private int zip;
+    private String zip;
     private String contact;
     
     public Customer() {
@@ -25,12 +25,12 @@ public class Customer {
         address = "";
         city = "";
         state = "";
-        zip = -1;
+        zip = "";
         contact = "";
         
     }
     
-    public Customer(int i, String x, String y, String z, String s, int j, String p){
+    public Customer(int i, String x, String y, String z, String s, String j, String p){
         ID = i;
         name = x;
         address = y;
@@ -79,11 +79,11 @@ public class Customer {
         this.state = state;
     }
     
-    public int getZip(){
+    public String getZip(){
         return zip;
     }
     
-    public void setZip(int zip){
+    public void setZip(String zip){
         this.zip = zip;
     }
     
