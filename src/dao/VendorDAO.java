@@ -40,7 +40,8 @@ public class VendorDAO {
             conn.close(stmt, rs);
         }
     }
-    public void updatePart(Vendor vend)throws Exception{
+    
+    public void updateVendor(Vendor vend)throws Exception{
        PreparedStatement stmt = null;
        String sql = "update vendor"
                   + "set VID = ?,"
@@ -66,7 +67,7 @@ public class VendorDAO {
         
     }
     
-    public void addPart(Vendor vend)throws Exception{
+    public void addVendor(Vendor vend)throws Exception{
         PreparedStatement stmt = null;
         try{
             stmt = conn.prepareStatement("insert into vendor values(?,?,?,?,?,?,?)");
@@ -82,7 +83,21 @@ public class VendorDAO {
         finally{
             conn.close(stmt, null);   
         }
+    }    
+        public void deleteVendor(Vendor vend)throws Exception{
+        String sql ="delete from vendor where VID = ?";
+        PreparedStatement stmt = null;
+        String id = vend.getVID();
+        try{
+            stmt=conn.prepareStatement(sql);
+            stmt.setString(1,id );
+            stmt.executeUpdate();
+        }
+        finally{
+            conn.close(stmt, null);  
+        } 
     }
+    
     
     private Vendor convertRowToVendor(ResultSet rs) throws Exception {
         String VID = rs.getString("VID");
