@@ -55,7 +55,7 @@ public class Carrier {
     public String getShipType1(){
         return ship_red;  
     }
-    public void setShipType(String r){
+    public void setShipType1(String r){
         this.ship_red = r;
     }
     public String getShipType2(){
