@@ -43,7 +43,7 @@ public class CustomerDAO {
         String address = rs.getString("address");
         String city = rs.getString("city");
         String state = rs.getString("state");
-        int zip = rs.getInt("zip");
+        String zip = rs.getString("zip");
         String contact = rs.getString("contact");
         return new Customer(ID,name,address,city,state,zip,contact);
     }
@@ -57,7 +57,7 @@ public class CustomerDAO {
             stmt.setString(3, customer.getAddress());
             stmt.setString(4, customer.getCity());
             stmt.setString(5, customer.getState());
-            stmt.setInt(6, customer.getZip());
+            stmt.setString(6, customer.getZip());
             stmt.setString(7, customer.getContact());
             stmt.execute();
             } finally {
@@ -93,7 +93,7 @@ public class CustomerDAO {
             stmt.setString(3, customer.getAddress());
             stmt.setString(4, customer.getCity());
             stmt.setString(5, customer.getState());
-            stmt.setInt(6, customer.getZip());
+            stmt.setString(6, customer.getZip());
             stmt.setString(7, customer.getContact());
             stmt.execute();
         } finally {
