@@ -11,6 +11,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import core.Carrier;
+import java.sql.PreparedStatement;
 
 /**
  *
@@ -37,6 +38,56 @@ public class CarrierDAO {
             return list;
         } finally {
             conn.close(stmt, rs);
+        }
+    }
+    
+
+    public void addCarrier(Carrier carrier) throws Exception {
+        PreparedStatement stmt = null;
+        try {
+            stmt = conn.prepareStatement("insert into carrier values (?, ?, ?, ?, ?, ?)");
+            stmt.setInt(1, carrier.getCID());
+            stmt.setString(2, carrier.getName());
+            stmt.setString(3, carrier.getShipType1());
+            stmt.setString(4, carrier.getShipType2());
+            stmt.setString(5, carrier.getShipType3());
+            stmt.setString(6, carrier.getShipType4());
+        } finally {
+            conn.close(stmt, null);
+        }
+    }
+
+    public void deleteCarrier(Carrier carrier) throws Exception {
+        PreparedStatement stmt = null;
+        try {
+            stmt = conn.prepareStatement("delete from carrier where ID = ?");
+            stmt.setInt(1, carrier.getCID());
+            stmt.execute();
+        } finally {
+            conn.close(stmt, null);
+        }
+    }
+
+    public void updateCarrier(Carrier carrier) throws Exception {
+        PreparedStatement stmt = null;
+        String sql = "update carrier "
+                + "set CID ?, "
+                + "name = ?, "
+                + "ship_red = ?, "
+                + "ship_blue = ?, "
+                + "ship_ground = ?, "
+                + "walk_in = ? ";
+        try {
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, carrier.getCID());
+            stmt.setString(2, carrier.getName());
+            stmt.setString(3, carrier.getShipType1());
+            stmt.setString(4, carrier.getShipType2());
+            stmt.setString(5, carrier.getShipType3());
+            stmt.setString(6, carrier.getShipType4());
+            
+        } finally {
+            conn.close(stmt, null);
         }
     }
     

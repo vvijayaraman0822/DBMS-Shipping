@@ -42,7 +42,20 @@ public class PartDAO {
             conn.close(statement, resultSet);
         }
     }
-    
+    public void deletePart(Part part)throws Exception{
+        String sql ="delete from part where PID = ?";
+        PreparedStatement stmt = null;
+        int id = part.getPID();
+        try{
+            stmt=conn.prepareStatement(sql);
+            stmt.setInt(1,id );
+            stmt.executeUpdate();
+        }
+        finally{
+            conn.close(stmt, null);  
+        } 
+        
+    }
     public void updatePart(Part part)throws Exception{
        PreparedStatement stmt = null;
        String sql = "update part"
