@@ -48,7 +48,7 @@ public class repairOrderDAO {
         try {
             stmt = conn.prepareStatement("insert into repair order values (?, ?, ?, ?, ?, ?, ?)");
             stmt.setInt(1, repairOrder.getShipOut_CID());
-            stmt.setInt(1, repairOrder.getShipIn_CID());
+            stmt.setInt(2, repairOrder.getShipIn_CID());
             stmt.setInt(3, repairOrder.getEID());
             stmt.setInt(4, repairOrder.getRID());
             stmt.setString(5, repairOrder.getDateRecd());
