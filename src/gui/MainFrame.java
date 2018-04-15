@@ -6,6 +6,7 @@
 package gui;
 import dao.CarrierDAO;
 import dao.DBConnection;
+import javax.swing.JFrame;
 
 /**
  *
@@ -26,8 +27,28 @@ public class MainFrame extends javax.swing.JFrame {
         catch(Exception e){
             System.out.println("Problem opening connection");
         }
-        CarrierFrame c = new CarrierFrame(myConn);   
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+         
+        // Instantiate frames for most tables in the DB
+        CarrierFrame c = new CarrierFrame(myConn);
+        //CustomerFrame u = new CustomerFrame(myConn);
+        //EmployeeFrame e = new EmployeeFrame(myConn);
+        //EquipmentFrame q = new EquipmentFrame(myConn);
+        //PartFrame p = new PartFrame(myConn);
+        //VendorFrame v = new VendorFrame(myConn);
+        //OrderFrame o = new OrderFrame(myConn);
+        //RepairOrderFrame r = new RepairOrderFrame(myConn);
+        
+        //add the contents of each frame to their appropriate panels
         PanelCarrier.add(c.getContentPane());
+        //PanelCustomer.add(u.getContentPane());
+        //PanelEmployee.add(d.getContentPane());
+        //PanelEquipment.add(q.getContentPane());
+        //PanelPart.add(p.getContentPane());
+        //PanelVendor.add(v.getContentPane());
+        //PanelOrder.add(o.getContentPane());
+        //PanelRerpairOrder.add(r.getContentPane());
+        
     }
 
     /**
@@ -39,50 +60,148 @@ public class MainFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        JTabbedPane1 = new javax.swing.JTabbedPane();
+        TabbedPaneEcho = new javax.swing.JTabbedPane();
         PanelHome = new javax.swing.JPanel();
+        PanelRepairOrder = new javax.swing.JPanel();
+        PanelPartOrder = new javax.swing.JPanel();
+        PanelCustomer = new javax.swing.JPanel();
+        PanelEquipment = new javax.swing.JPanel();
         PanelCarrier = new javax.swing.JPanel();
+        PanelEmployee = new javax.swing.JPanel();
+        PanelPart = new javax.swing.JPanel();
+        PanelVendor = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        TabbedPaneEcho.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
 
         javax.swing.GroupLayout PanelHomeLayout = new javax.swing.GroupLayout(PanelHome);
         PanelHome.setLayout(PanelHomeLayout);
         PanelHomeLayout.setHorizontalGroup(
             PanelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 634, Short.MAX_VALUE)
+            .addGap(0, 880, Short.MAX_VALUE)
         );
         PanelHomeLayout.setVerticalGroup(
             PanelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 470, Short.MAX_VALUE)
+            .addGap(0, 467, Short.MAX_VALUE)
         );
 
-        JTabbedPane1.addTab("Home", PanelHome);
+        TabbedPaneEcho.addTab("Home", PanelHome);
+
+        javax.swing.GroupLayout PanelRepairOrderLayout = new javax.swing.GroupLayout(PanelRepairOrder);
+        PanelRepairOrder.setLayout(PanelRepairOrderLayout);
+        PanelRepairOrderLayout.setHorizontalGroup(
+            PanelRepairOrderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 880, Short.MAX_VALUE)
+        );
+        PanelRepairOrderLayout.setVerticalGroup(
+            PanelRepairOrderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 467, Short.MAX_VALUE)
+        );
+
+        TabbedPaneEcho.addTab("Repair Orders", PanelRepairOrder);
+
+        javax.swing.GroupLayout PanelPartOrderLayout = new javax.swing.GroupLayout(PanelPartOrder);
+        PanelPartOrder.setLayout(PanelPartOrderLayout);
+        PanelPartOrderLayout.setHorizontalGroup(
+            PanelPartOrderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 880, Short.MAX_VALUE)
+        );
+        PanelPartOrderLayout.setVerticalGroup(
+            PanelPartOrderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 467, Short.MAX_VALUE)
+        );
+
+        TabbedPaneEcho.addTab("Part Orders", PanelPartOrder);
+
+        javax.swing.GroupLayout PanelCustomerLayout = new javax.swing.GroupLayout(PanelCustomer);
+        PanelCustomer.setLayout(PanelCustomerLayout);
+        PanelCustomerLayout.setHorizontalGroup(
+            PanelCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 880, Short.MAX_VALUE)
+        );
+        PanelCustomerLayout.setVerticalGroup(
+            PanelCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 467, Short.MAX_VALUE)
+        );
+
+        TabbedPaneEcho.addTab("Customers", PanelCustomer);
+
+        javax.swing.GroupLayout PanelEquipmentLayout = new javax.swing.GroupLayout(PanelEquipment);
+        PanelEquipment.setLayout(PanelEquipmentLayout);
+        PanelEquipmentLayout.setHorizontalGroup(
+            PanelEquipmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 880, Short.MAX_VALUE)
+        );
+        PanelEquipmentLayout.setVerticalGroup(
+            PanelEquipmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 467, Short.MAX_VALUE)
+        );
+
+        TabbedPaneEcho.addTab("Equipment", PanelEquipment);
 
         javax.swing.GroupLayout PanelCarrierLayout = new javax.swing.GroupLayout(PanelCarrier);
         PanelCarrier.setLayout(PanelCarrierLayout);
         PanelCarrierLayout.setHorizontalGroup(
             PanelCarrierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 634, Short.MAX_VALUE)
+            .addGap(0, 880, Short.MAX_VALUE)
         );
         PanelCarrierLayout.setVerticalGroup(
             PanelCarrierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 470, Short.MAX_VALUE)
+            .addGap(0, 467, Short.MAX_VALUE)
         );
 
-        JTabbedPane1.addTab("Carrier", PanelCarrier);
+        TabbedPaneEcho.addTab("Carriers", PanelCarrier);
+
+        javax.swing.GroupLayout PanelEmployeeLayout = new javax.swing.GroupLayout(PanelEmployee);
+        PanelEmployee.setLayout(PanelEmployeeLayout);
+        PanelEmployeeLayout.setHorizontalGroup(
+            PanelEmployeeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 880, Short.MAX_VALUE)
+        );
+        PanelEmployeeLayout.setVerticalGroup(
+            PanelEmployeeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 467, Short.MAX_VALUE)
+        );
+
+        TabbedPaneEcho.addTab("Employees", PanelEmployee);
+
+        javax.swing.GroupLayout PanelPartLayout = new javax.swing.GroupLayout(PanelPart);
+        PanelPart.setLayout(PanelPartLayout);
+        PanelPartLayout.setHorizontalGroup(
+            PanelPartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 880, Short.MAX_VALUE)
+        );
+        PanelPartLayout.setVerticalGroup(
+            PanelPartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 467, Short.MAX_VALUE)
+        );
+
+        TabbedPaneEcho.addTab("Parts", PanelPart);
+
+        javax.swing.GroupLayout PanelVendorLayout = new javax.swing.GroupLayout(PanelVendor);
+        PanelVendor.setLayout(PanelVendorLayout);
+        PanelVendorLayout.setHorizontalGroup(
+            PanelVendorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 880, Short.MAX_VALUE)
+        );
+        PanelVendorLayout.setVerticalGroup(
+            PanelVendorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 467, Short.MAX_VALUE)
+        );
+
+        TabbedPaneEcho.addTab("Vendors", PanelVendor);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(JTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 639, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 46, Short.MAX_VALUE))
+            .addComponent(TabbedPaneEcho)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(JTabbedPane1)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(TabbedPaneEcho)
                 .addContainerGap())
         );
 
@@ -124,9 +243,17 @@ public class MainFrame extends javax.swing.JFrame {
         });
     }
 
+    private javax.swing.JLabel HomeLabel;
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTabbedPane JTabbedPane1;
     private javax.swing.JPanel PanelCarrier;
+    private javax.swing.JPanel PanelCustomer;
+    private javax.swing.JPanel PanelEmployee;
+    private javax.swing.JPanel PanelEquipment;
     private javax.swing.JPanel PanelHome;
+    private javax.swing.JPanel PanelPart;
+    private javax.swing.JPanel PanelPartOrder;
+    private javax.swing.JPanel PanelRepairOrder;
+    private javax.swing.JPanel PanelVendor;
+    private javax.swing.JTabbedPane TabbedPaneEcho;
     // End of variables declaration//GEN-END:variables
 }
