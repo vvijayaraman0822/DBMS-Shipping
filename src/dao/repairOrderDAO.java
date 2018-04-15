@@ -1,13 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package dao;
 
 import java.sql.*;
@@ -53,7 +44,7 @@ public class repairOrderDAO {
             stmt.setInt(4, repairOrder.getRID());
             stmt.setString(5, repairOrder.getDateRecd());
             stmt.setString(6, repairOrder.getDateShipped());
-            stmt.setString(7, repairOrder.getShipOutType());
+            stmt.setString(7, repairOrder.getShipType());
             stmt.execute();
         } finally {
             conn.close(stmt, null);
@@ -87,7 +78,7 @@ public class repairOrderDAO {
             stmt.setInt(4, repairOrder.getRID());
             stmt.setString(5, repairOrder.getDateRecd());
             stmt.setString(6, repairOrder.getDateShipped());
-            stmt.setString(7, repairOrder.getShipOutType());
+            stmt.setString(7, repairOrder.getShipType());
             stmt.execute();
         } finally {
             conn.close(stmt, null);
@@ -97,7 +88,7 @@ public class repairOrderDAO {
     private RepairOrder convertRowToRepairOrder(ResultSet rs) throws Exception {
         String dateRecd = rs.getString("Date Recieved");
         String dateShipped = rs.getString("Date Shipped");
-        String shipOutType = rs.getString("Ship-out Type");
+        String shipOut = rs.getString("Ship-out Type");
         int shipOut_CID = rs.getInt("Ship-out CID");
         int EID = rs.getInt("EID");
         int shipIn_CID = rs.getInt("Ship-in CID");
