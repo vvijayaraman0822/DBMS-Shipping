@@ -91,7 +91,7 @@ public class RepairOrder
     {
         this.CID = cid;
     }
-    public void setShipout_CID(int shipCID)
+    public void setShipOut_CID(int shipCID)
     {
         this.shipOut_CID = shipCID;
     }
