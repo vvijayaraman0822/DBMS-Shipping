@@ -84,7 +84,7 @@ public class repairOrderTableModel extends AbstractTableModel{
             case shipOut_CID_COL:
                 tempOrder.setShipOut_CID((int) val);
             case shipType_COL:
-                tempOrder.setShiptType((String) val);
+                tempOrder.setShipType((String) val);
         }
     }
     
