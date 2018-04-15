@@ -83,7 +83,7 @@ public class RepairOrder
     {
         this.dateShipped = dateS;
     }
-    public void setShiptType(String shipType)
+    public void setShipType(String shipType)
     {
         this.shipType = shipType;
     }
