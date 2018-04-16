@@ -86,12 +86,12 @@ public class repairOrderDAO {
     }
     
     private RepairOrder convertRowToRepairOrder(ResultSet rs) throws Exception {
-        String dateRecd = rs.getString("Date Recieved");
-        String dateShipped = rs.getString("Date Shipped");
-        String shipOut = rs.getString("Ship-out Type");
-        int shipOut_CID = rs.getInt("Ship-out CID");
+        String dateRecd = rs.getString("dateRecd");
+        String dateShipped = rs.getString("dateShipped");
+        String shipType = rs.getString("shipType");
+        int shipOut_CID = rs.getInt("shipOut_CID");
         int EID = rs.getInt("EID");
-        int shipIn_CID = rs.getInt("Ship-in CID");
+        int shipIn_CID = rs.getInt("shipIn_CID");
         int RID = rs.getInt("RID");
         return new RepairOrder();
     }

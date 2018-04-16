@@ -15,14 +15,13 @@ import javax.swing.table.AbstractTableModel;
  */
 public class repairOrderTableModel extends AbstractTableModel{
     private static final int RID_COL = 0;
-    private static final int dateRecd_COL = 7;
-    private static final int dateShipped_COL = 6;
-    private static final int shipType_COL = 5;
-    private static final int CID_COL = 2;
-    private static final int shipOut_CID_COL = 4;
-    private static final int shipIn_CID_COL = 3;
+    private static final int dateRecd_COL = 6;
+    private static final int dateShipped_COL = 5;
+    private static final int shipType_COL = 4;
+    private static final int shipOut_CID_COL = 3;
+    private static final int shipIn_CID_COL = 2;
     private static final int EID_COL = 1;  
-    private String[] columnNames = {"RID", "EID", "CID", "ShipIn CID",
+    private String[] columnNames = {"RID", "EID", "ShipIn CID",
         "ShipOut CID", "shipType", "dateShipped", "dateRecd"};
     private List<RepairOrder> repairOrder;
     
@@ -49,8 +48,6 @@ public class repairOrderTableModel extends AbstractTableModel{
                 return tempOrder.getRID();
             case EID_COL:
                 return tempOrder.getEID();
-            case CID_COL:
-                return tempOrder.getCID();
             case shipType_COL:
                 return tempOrder.getShipType();
             case shipIn_CID_COL:
@@ -73,8 +70,6 @@ public class repairOrderTableModel extends AbstractTableModel{
                 tempOrder.setEID((int) val);
             case dateRecd_COL:
                 tempOrder.setDateRecd((String) val);
-            case CID_COL:
-                tempOrder.setCID((int) val);
             case RID_COL:
                 tempOrder.setRID((int) val);
             case dateShipped_COL:

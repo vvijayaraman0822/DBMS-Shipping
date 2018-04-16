@@ -14,7 +14,6 @@ public class RepairOrder
     private String dateRecd;
     private String dateShipped;
     private String shipType;
-    private int CID;
     private int shipOut_CID;
     private int shipIn_CID;
     private int EID;   
@@ -24,18 +23,16 @@ public class RepairOrder
         dateRecd = "";
         dateShipped = "";
         shipType = "";
-        CID = 0;
         shipOut_CID = 0;
         shipIn_CID = 0;
         EID = 0;
     }
-    public RepairOrder(int r, String dr, String ds, String st, int c, int sc, int sc2, int e)
+    public RepairOrder(int r, String dr, String ds, String st, int sc, int sc2, int e)
     {
         RID = r;
         dateRecd = dr;
         dateShipped = ds;
         shipType = st;
-        CID = c;
         shipOut_CID = sc;
         shipIn_CID = sc2;
         EID = e;
@@ -55,10 +52,6 @@ public class RepairOrder
     public String getShipType()
     {
         return shipType;
-    }
-    public int getCID()
-    {
-        return CID;
     }
     public int getShipOut_CID()
     {
@@ -86,10 +79,6 @@ public class RepairOrder
     public void setShipType(String shipType)
     {
         this.shipType = shipType;
-    }
-    public void setCID(int cid)
-    {
-        this.CID = cid;
     }
     public void setShipOut_CID(int shipCID)
     {
