@@ -41,7 +41,10 @@ public class CarrierDAO {
         }
     }
     
-
+/**
+ *
+ * @author yani.muskwe
+ */
     public void addCarrier(Carrier carrier) throws Exception {
         PreparedStatement stmt = null;
         try {
@@ -52,6 +55,7 @@ public class CarrierDAO {
             stmt.setString(4, carrier.getShipType2());
             stmt.setString(5, carrier.getShipType3());
             stmt.setString(6, carrier.getShipType4());
+            stmt.execute();
         } finally {
             conn.close(stmt, null);
         }
@@ -85,7 +89,7 @@ public class CarrierDAO {
             stmt.setString(4, carrier.getShipType2());
             stmt.setString(5, carrier.getShipType3());
             stmt.setString(6, carrier.getShipType4());
-            
+            stmt.execute();
         } finally {
             conn.close(stmt, null);
         }
@@ -93,8 +97,11 @@ public class CarrierDAO {
     
     private Carrier convertRowToCarrier(ResultSet rs) throws Exception {
         String name = rs.getString("name");
-        String avail_ship_type = rs.getString("avail_ship_type");
+        String shipType1 = rs.getString("shipType1");
+        String shipType2 = rs.getString("shipType2");
+        String shipType3 = rs.getString("shipType3");
+        String shipType4 = rs.getString("shipType4");
         int CID = rs.getInt("CID");
-        return new Carrier();
+        return new Carrier(CID, name, shipType1, shipType2, shipType3, shipType4);
     }
 }
