@@ -49,6 +49,18 @@ public class EmployeeTableModel extends AbstractTableModel{
         }
     }
     
+    public void setValueAt(Object val, int row, int col) {
+        Employee tempEmployee = employees.get(row);
+        switch (col) {
+            case EID_COL:
+                tempEmployee.setEID((int) val);
+            case FIRST_NAME_COL:
+                tempEmployee.setFirstName((String) val);
+            case LAST_NAME_COL:
+                tempEmployee.setLastName((String) val);
+        }
+    }
+    
     public Class getColumnClass(int col) {
         return getValueAt(0, col).getClass();
     }
