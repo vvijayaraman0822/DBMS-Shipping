@@ -5,6 +5,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import core.Fixes;
+import java.sql.PreparedStatement;
+
 /**
  *
  * @author Clorissa
@@ -44,8 +46,8 @@ public class FixesDAO {
         PreparedStatement stmt = null;
         try {
             stmt = conn.prepareStatement("insert into customer values (?,?)");
-            stmt.setInt(1, fix.EID);
-            stmt.setInt(2, fix.RID);
+            stmt.setInt(1, fix.getEID());
+            stmt.setInt(2, fix.getRID());
             stmt.execute();
             } finally {
             conn.close(stmt, null);
@@ -56,22 +58,22 @@ public class FixesDAO {
         PreparedStatement stmt = null;
         try {
             stmt = conn.prepareStatement("delete from fixes where EID = ?");
-            stmt.setInt(1, fix.EID);
+            stmt.setInt(1, fix.getEID());
             stmt.execute();
         } finally {
             conn.close(stmt, null);
         }
     }
     
-    public void updateFixesCustomer customer) throws Exception {
+    public void updateFixes (Fixes fix) throws Exception {
         PreparedStatement stmt = null;
         String sql = "update fixes "
-                + "set where ID = ?, "
+                + "set where EID = ?, "
                 + "name = ?";
         try {
             stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, fix.EID);
-            stmt.setInt(2, fix.RID);
+            stmt.setInt(1, fix.getEID());
+            stmt.setInt(2, fix.getRID());
             stmt.execute();
         } finally {
             conn.close(stmt, null);
