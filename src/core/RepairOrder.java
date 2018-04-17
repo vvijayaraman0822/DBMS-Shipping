@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package core;
 /**
  *
@@ -14,8 +9,8 @@ public class RepairOrder
     private String dateRecd;
     private String dateShipped;
     private String shipType;
-    private int CID;
-    private int shipout_CID;
+    private int shipOut_CID;
+    private int shipIn_CID;
     private int EID;   
     public RepairOrder()
     {
@@ -23,18 +18,18 @@ public class RepairOrder
         dateRecd = "";
         dateShipped = "";
         shipType = "";
-        CID = 0;
-        shipout_CID = 0;
+        shipOut_CID = 0;
+        shipIn_CID = 0;
         EID = 0;
     }
-    public RepairOrder(int r, String dr, String ds, String st, int c, int sc, int e)
+    public RepairOrder(int r, String dr, String ds, String st, int sc, int sc2, int e)
     {
         RID = r;
         dateRecd = dr;
         dateShipped = ds;
         shipType = st;
-        CID = c;
-        shipout_CID = sc;
+        shipOut_CID = sc;
+        shipIn_CID = sc2;
         EID = e;
     }
     public int getRID()
@@ -53,13 +48,12 @@ public class RepairOrder
     {
         return shipType;
     }
-    public int getCID()
+    public int getShipOut_CID()
     {
-        return CID;
+        return shipOut_CID;
     }
-    public int getShipout_CID()
-    {
-        return shipout_CID;
+    public int getShipIn_CID(){
+        return shipIn_CID;
     }
     public int getEID()
     {
@@ -77,17 +71,16 @@ public class RepairOrder
     {
         this.dateShipped = dateS;
     }
-    public void setShiptType(String shipType)
+    public void setShipType(String shipType)
     {
         this.shipType = shipType;
     }
-    public void setCID(int cid)
+    public void setShipOut_CID(int shipCID)
     {
-        this.CID = cid;
+        this.shipOut_CID = shipCID;
     }
-    public void setShipout_CID(int shipCID)
-    {
-        this.shipout_CID = shipCID;
+    public void setShipIn_CID(int shipCID2){
+        this.shipIn_CID = shipCID2;
     }
     public void setEID(int EID)
     {

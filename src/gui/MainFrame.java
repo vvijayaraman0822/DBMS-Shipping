@@ -37,7 +37,7 @@ public class MainFrame extends javax.swing.JFrame {
         //PartFrame p = new PartFrame(myConn);
         //VendorFrame v = new VendorFrame(myConn);
         //OrderFrame o = new OrderFrame(myConn);
-        //RepairOrderFrame r = new RepairOrderFrame(myConn);
+        RepairOrderFrame r = new RepairOrderFrame(myConn);
         
         //add the contents of each frame to their appropriate panels
         PanelCarrier.add(c.getContentPane());
@@ -47,7 +47,7 @@ public class MainFrame extends javax.swing.JFrame {
         //PanelPart.add(p.getContentPane());
         //PanelVendor.add(v.getContentPane());
         //PanelOrder.add(o.getContentPane());
-        //PanelRerpairOrder.add(r.getContentPane());
+        PanelRepairOrder.add(r.getContentPane());
         
     }
 
