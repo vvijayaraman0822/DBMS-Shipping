@@ -10,10 +10,10 @@ import core.RepairOrder;
  *
  * @author Bob
  */
-public class repairOrderDAO {
+public class RepairOrderDAO {
     private DBConnection conn;
     
-    public repairOrderDAO(DBConnection conn) {
+    public RepairOrderDAO(DBConnection conn) {
         this.conn = conn;
     }
     

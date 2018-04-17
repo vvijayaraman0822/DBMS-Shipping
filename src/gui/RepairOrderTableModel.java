@@ -13,7 +13,7 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author Bob
  */
-public class repairOrderTableModel extends AbstractTableModel{
+public class RepairOrderTableModel extends AbstractTableModel{
     private static final int RID_COL = 0;
     private static final int dateRecd_COL = 6;
     private static final int dateShipped_COL = 5;
@@ -25,7 +25,7 @@ public class repairOrderTableModel extends AbstractTableModel{
         "ShipOut CID", "shipType", "dateShipped", "dateRecd"};
     private List<RepairOrder> repairOrder;
     
-    public repairOrderTableModel(List<RepairOrder> rpo){
+    public RepairOrderTableModel(List<RepairOrder> rpo){
         repairOrder = rpo;
     }
     
