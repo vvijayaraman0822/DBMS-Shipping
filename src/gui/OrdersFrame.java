@@ -54,6 +54,7 @@ private DBConnection conn;
         ComboBoxEID = new javax.swing.JComboBox<>();
         TextFieldQuantity = new javax.swing.JTextField();
         TextFieldDRecd = new javax.swing.JTextField();
+        ButtonReset = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -107,12 +108,14 @@ private DBConnection conn;
             }
         });
 
+        ButtonReset.setText("Reset");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(49, 49, 49)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -139,13 +142,15 @@ private DBConnection conn;
                                         .addGroup(layout.createSequentialGroup()
                                             .addGap(104, 104, 104)
                                             .addComponent(TextFieldDRecd, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(37, 37, 37)
                         .addComponent(ButtonAddOrders, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(82, 82, 82)
+                        .addGap(26, 26, 26)
                         .addComponent(ButtonUpdateButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(ButtonDeleteButton)))
+                        .addGap(18, 18, 18)
+                        .addComponent(ButtonDeleteButton)
+                        .addGap(18, 18, 18)
+                        .addComponent(ButtonReset, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(47, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -177,7 +182,8 @@ private DBConnection conn;
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ButtonAddOrders)
                     .addComponent(ButtonUpdateButton)
-                    .addComponent(ButtonDeleteButton))
+                    .addComponent(ButtonDeleteButton)
+                    .addComponent(ButtonReset))
                 .addContainerGap())
         );
 
@@ -234,6 +240,7 @@ private DBConnection conn;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ButtonAddOrders;
     private javax.swing.JButton ButtonDeleteButton;
+    private javax.swing.JButton ButtonReset;
     private javax.swing.JButton ButtonUpdateButton;
     private javax.swing.JComboBox<String> ComboBoxEID;
     private javax.swing.JComboBox<String> ComboBoxPID;
