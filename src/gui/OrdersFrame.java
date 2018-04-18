@@ -15,7 +15,8 @@ import java.util.List;
  * @author Clorissa & Jeron
  */
 public class OrdersFrame extends javax.swing.JFrame {
-private DBConnection conn;
+    private DBConnection conn;
+    private List<Orders> orders;
     private OrdersDAO ordersDAO;
     OrdersTableModel model;
     /**
@@ -25,6 +26,26 @@ private DBConnection conn;
         initComponents();
         this.conn = myConn;
         ordersDAO = new OrdersDAO(this.conn);
+        try{
+            //Get a connection to the DB
+            
+            //Retrieve tuples from Instructor table
+            orders = ordersDAO.getAllOrders();          
+        }
+        catch(Exception exc){
+            System.out.println("Error Populating table!");
+        }
+        OrdersTableModel model = new OrdersTableModel(orders);
+        TableOrders.setModel(model);
+        
+       // ordersDAO = new OrdersDAO(this.conn);
+        
+      
+        
+        
+    }
+        
+    /**
     };
 
     /**
