@@ -21,7 +21,7 @@ public class CustomerTableModel extends AbstractTableModel{
     private static final int STATE_COL = 5;
     private static final int ZIP_COL = 6;
     private static final int CONTACT_COL = 7;
-    private String[] columnNames = {"ID", ""};
+    private String[] columnNames = {"ID", "Name", "Address", "City", "State", "Zipcode", "Contact"};
     private List<Customer> customers;
     
     public CustomerTableModel(List<Customer> c) {
