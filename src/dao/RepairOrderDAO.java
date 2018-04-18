@@ -42,6 +42,7 @@ public class RepairOrderDAO {
         PreparedStatement stmt = null;
         try {
             stmt = conn.prepareStatement("insert into repair order values (?, ?, ?, ?, ?, ?, ?)");
+
             stmt.setInt(1, repairOrder.shipOut_CID);
             stmt.setInt(2, repairOrder.shipIn_CID);
             stmt.setInt(3, repairOrder.EID);
@@ -49,6 +50,13 @@ public class RepairOrderDAO {
             stmt.setString(5, repairOrder.dateRecd);
             stmt.setString(6, repairOrder.dateShipped);
             stmt.setString(7, repairOrder.shipOutType);
+            stmt.setInt(1, repairOrder.getShipOut_CID());
+            stmt.setInt(2, repairOrder.getShipIn_CID());
+            stmt.setInt(3, repairOrder.getEID());
+            stmt.setInt(4, repairOrder.getRID());
+            stmt.setString(5, repairOrder.getDateRecd());
+            stmt.setString(6, repairOrder.getDateShipped());
+            stmt.setString(7, repairOrder.getShipType());
             stmt.execute();
         } finally {
             conn.close(stmt, null);
@@ -60,6 +68,7 @@ public class RepairOrderDAO {
         try {
             stmt = conn.prepareStatement("delete from repair order where RID = ?");
             stmt.setInt(1, repairOrder.RID);
+            stmt.setInt(1, repairOrder.getRID());
             stmt.execute();
         } finally {
             conn.close(stmt, null);
@@ -83,6 +92,13 @@ public class RepairOrderDAO {
             stmt.setString(5, repairOrder.dateRecd);
             stmt.setString(6, repairOrder.dateShipped);
             stmt.setString(7, repairOrder.shipOutType);
+            stmt.setInt(1, repairOrder.getShipOut_CID());
+            stmt.setInt(2, repairOrder.getShipIn_CID());
+            stmt.setInt(3, repairOrder.getEID());
+            stmt.setInt(4, repairOrder.getRID());
+            stmt.setString(5, repairOrder.getDateRecd());
+            stmt.setString(6, repairOrder.getDateShipped());
+            stmt.setString(7, repairOrder.getShipType());
             stmt.execute();
         } finally {
             conn.close(stmt, null);
@@ -96,6 +112,10 @@ public class RepairOrderDAO {
         int shipOut_CID = rs.getInt("ShipOut_CID");
         int EID = rs.getInt("EID");
         int shipIn_CID = rs.getInt("ShipIn_CID");
+        String shipType = rs.getString("shipType");
+        int shipOut_CID = rs.getInt("shipOut_CID");
+        int EID = rs.getInt("EID");
+        int shipIn_CID = rs.getInt("shipIn_CID");
         int RID = rs.getInt("RID");
         return new RepairOrder();
     }
