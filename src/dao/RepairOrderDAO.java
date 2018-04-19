@@ -17,8 +17,8 @@ import core.RepairOrder;
 public class RepairOrderDAO {
     private DBConnection conn;
     
-    public RepairOrderDAO(DBConnection myConn) {
-        this.conn = myConn;
+    public RepairOrderDAO(DBConnection conn) {
+        this.conn = conn;
     }
     
     public List<RepairOrder> getAllRepairOrders() throws Exception {
