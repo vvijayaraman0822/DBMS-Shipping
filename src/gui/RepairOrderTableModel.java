@@ -18,12 +18,12 @@ public class RepairOrderTableModel extends AbstractTableModel{
     private static final int RID_COL = 0;
     private static final int dateRecd_COL = 6;
     private static final int dateShipped_COL = 5;
-    private static final int shipType_COL = 4;
+    private static final int shipOutType_COL = 4;
     private static final int shipOut_CID_COL = 3;
     private static final int shipIn_CID_COL = 2;
     private static final int EID_COL = 1;  
     private String[] columnNames = {"RID", "EID", "ShipIn CID",
-        "ShipOut CID", "shipType", "dateShipped", "dateRecd"};
+        "ShipOut CID", "shipOutType", "dateShipped", "dateRecd"};
     private List<RepairOrder> repairOrder;
     
     public RepairOrderTableModel(List<RepairOrder> rpo){
@@ -49,8 +49,8 @@ public class RepairOrderTableModel extends AbstractTableModel{
                 return tempOrder.getRID();
             case EID_COL:
                 return tempOrder.getEID();
-            case shipType_COL:
-                return tempOrder.getShipType();
+            case shipOutType_COL:
+                return tempOrder.getShipOutType();
             case shipIn_CID_COL:
                 return tempOrder.getShipIn_CID();
             case shipOut_CID_COL:
@@ -79,8 +79,8 @@ public class RepairOrderTableModel extends AbstractTableModel{
                 tempOrder.setShipIn_CID((int) val);
             case shipOut_CID_COL:
                 tempOrder.setShipOut_CID((int) val);
-            case shipType_COL:
-                tempOrder.setShipType((String) val);
+            case shipOutType_COL:
+                tempOrder.setShipOutType((String) val);
         }
     }
     
