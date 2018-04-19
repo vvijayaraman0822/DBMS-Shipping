@@ -3,6 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+/**
+ *
+ * @author(s) yani.muskwe
+ */
 package gui;
 
 import core.Customer;
@@ -25,21 +29,34 @@ import javax.swing.table.TableModel;
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableCellRenderer;
-/**
- *
- * @author BO119LabStudent
- */
+import javax.swing.table.TableRowSorter;
+
 public class CustomerFrame extends javax.swing.JFrame {
     private DBConnection conn;
-    private CustomerDAO CDAO;
+    private CustomerDAO customerDAO;
     private List<Customer> customers;
     CustomerTableModel model;
 
     /**
      * Creates new form CustomerFrame
      */
-    public CustomerFrame() {
+    public CustomerFrame(DBConnection myConn) {
         initComponents();
+        this.conn = myConn;
+        customerDAO = new CustomerDAO(this.conn);
+        customer_table.setAutoCreateRowSorter(true);
+        
+        try
+        {
+            customers = customerDAO.getAllCustomers();
+            model = new CustomerTableModel(customers);
+            customer_table.setModel(model);            
+        } 
+        catch(Exception ex)
+        {
+            Logger.getLogger(CustomerFrame.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Error 2: " + ex, "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     /**
@@ -52,7 +69,7 @@ public class CustomerFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        customer_table = new javax.swing.JTable();
         add_bttn = new javax.swing.JButton();
         reset_bttn = new javax.swing.JButton();
         delete_bttn = new javax.swing.JButton();
@@ -76,7 +93,7 @@ public class CustomerFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        customer_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -94,6 +111,7 @@ public class CustomerFrame extends javax.swing.JFrame {
                 "ID", "Name", "Address", "City", "Zipcode", "Contact"
             }
         ));
+        jScrollPane1.setViewportView(customer_table);
 
         add_bttn.setText("Add");
 
@@ -179,10 +197,11 @@ public class CustomerFrame extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)
                     .addComponent(jScrollPane2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(id_label)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(id_txtfld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(add_bttn))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(id_label)
+                        .addComponent(add_bttn)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(name_label)
@@ -199,9 +218,9 @@ public class CustomerFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(city_label)
-                            .addComponent(city_txtfld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(city_txtfld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(city_label))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(state_label)
@@ -262,7 +281,7 @@ public class CustomerFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CustomerFrame().setVisible(true);
+                new CustomerFrame(null).setVisible(true);
             }
         });
     }
@@ -275,13 +294,13 @@ public class CustomerFrame extends javax.swing.JFrame {
     private javax.swing.JTextField city_txtfld;
     private javax.swing.JLabel contact_label;
     private javax.swing.JTextField contact_txtfld;
+    private javax.swing.JTable customer_table;
     private javax.swing.JButton delete_bttn;
     private javax.swing.JLabel id_label;
     private javax.swing.JTextField id_txtfld;
     private javax.swing.JScrollBar jScrollBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel name_label;
     private javax.swing.JTextField name_txtfld;
     private javax.swing.JButton reset_bttn;
