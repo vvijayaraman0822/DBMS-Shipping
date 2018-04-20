@@ -11,7 +11,7 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author Cory Press
  */
-public class VendorTableModel {
+public class VendorTableModel extends AbstractTableModel{
     private static final int VID_COL = 0;
     private static final int NAME_COL = 1;
     private static final int CONTACT_COL = 2;
