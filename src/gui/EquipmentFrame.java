@@ -32,7 +32,7 @@ public class EquipmentFrame extends javax.swing.JFrame {
         EDAO = new EquipmentDAO(conn);
         
         try {
-            equipment = EDAO.getAllEquipment();
+            equipment = EDAO.getallEquipment();
             model = new EquipmentTableModel(equipment);
             TableEquipment.setModel(model);
         }
