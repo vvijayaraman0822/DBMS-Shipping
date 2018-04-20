@@ -31,7 +31,8 @@ public class EmployeeDAO {
         
         try{
             statement = conn.createStatement();
-            results = statement.executeQuery("select * from employees");
+            // Change actually commited by Luong
+            results = statement.executeQuery("select * from employee");
               while(results.next()){
                 Employee employee = convertToEmployee(results);
                 employees.add(employee);
