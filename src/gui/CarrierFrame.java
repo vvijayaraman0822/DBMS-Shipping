@@ -9,6 +9,7 @@ import core.Carrier;
 import dao.CarrierDAO;
 import dao.DBConnection;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -26,6 +27,17 @@ public class CarrierFrame extends javax.swing.JFrame {
         initComponents();
         this.conn = myConn;
         carrierDAO = new CarrierDAO(this.conn);
+        
+        try{
+            carrierList = carrierDAO.getAllCarriers();
+            model = new CarrierTableModel(carrierList);
+            CarrierTable.setModel(model);
+        }
+        catch(Exception e)
+        {
+            
+            JOptionPane.showMessageDialog(this, "Message: " + e,"ERROR",JOptionPane.ERROR_MESSAGE);
+        }
     };
 
     /**
