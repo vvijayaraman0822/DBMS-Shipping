@@ -5,17 +5,40 @@
  */
 package gui;
 
+
+import java.util.*;
+import core.Equipment;
+import dao.EquipmentDAO;
+import dao.DBConnection;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Bob
  */
 public class EquipmentFrame extends javax.swing.JFrame {
 
+    private DBConnection conn;
+    private EquipmentDAO EDAO;
+    private List<Equipment> equipment;
+    EquipmentTableModel model;
     /**
      * Creates new form EquipmentTable
      */
     public EquipmentFrame() {
         initComponents();
+        
+        TableEquipment.setAutoCreateRowSorter(true);
+        conn = myConn;
+        EDAO = new EquipmentDAO(conn);
+        
+        try {
+            equipment = EDAO.getallEquipment();
+            model = new EquipmentTableModel(equipment);
+            TableEquipment.setModel(model);
+        }
+        catch (Exception ex){
+            JOptionPane.showMessageDialog(this, "Error 2: " + ex, "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     /**
