@@ -22,7 +22,7 @@ public class RepairOrder
         shipIn_CID = 0;
         EID = 0;
     }
-    public RepairOrder(int r, String dr, String ds, String st, int sc, int sc2, int e)
+    public RepairOrder(int r, String dr, String ds, String st, int sc,int e, int sc2)
     {
         RID = r;
         dateRecd = dr;
