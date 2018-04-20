@@ -35,7 +35,7 @@ public class MainFrame extends javax.swing.JFrame {
         //EmployeeFrame e = new EmployeeFrame(myConn);
         //EquipmentFrame q = new EquipmentFrame(myConn);
         PartFrame p = new PartFrame(myConn);
-        //VendorFrame v = new VendorFrame(myConn);
+        VendorFrame v = new VendorFrame(myConn);
         OrdersFrame o = new OrdersFrame(myConn);
         RepairOrderFrame r = new RepairOrderFrame(myConn);
         
@@ -45,7 +45,7 @@ public class MainFrame extends javax.swing.JFrame {
         //PanelEmployee.add(e.getContentPane());
         //PanelEquipment.add(q.getContentPane());
         PanelPart.add(p.getContentPane());
-        //PanelVendor.add(v.getContentPane());
+        PanelVendor.add(v.getContentPane());
         PanelPartOrder.add(o.getContentPane());
         PanelRepairOrder.add(r.getContentPane());
         
