@@ -17,6 +17,11 @@ import java.util.List;
  *
  * @author drew
  */
+/**
+ * 
+ * @author downw edits by Micahel Lewis on 4/18 
+ */
+
 public class PartDAO {
     private DBConnection conn;
     
@@ -25,7 +30,7 @@ public class PartDAO {
     }
     
     public List<Part> getAllPart() throws Exception{
-        List<Part> list = new ArrayList();
+        List<Part> list = new ArrayList<>();
         Statement statement = null;
         ResultSet resultSet = null;
           
@@ -42,13 +47,14 @@ public class PartDAO {
             conn.close(statement, resultSet);
         }
     }
+//edit by Michael Lewis to fix PID to String From int
     public void deletePart(Part part)throws Exception{
         String sql ="delete from part where PID = ?";
         PreparedStatement stmt = null;
-        int id = part.getPID();
+        String id = part.getPID();
         try{
             stmt=conn.prepareStatement(sql);
-            stmt.setInt(1,id );
+            stmt.setString(1,id );
             stmt.executeUpdate();
         }
         finally{
@@ -56,6 +62,8 @@ public class PartDAO {
         } 
         
     }
+  //edit by Michael Lewis to fix PID and VID to strings instead of ints as they
+  //are varchars in database, cascading issue from part.java
     public void updatePart(Part part)throws Exception{
        PreparedStatement stmt = null;
        String sql = "update part"
@@ -65,10 +73,10 @@ public class PartDAO {
                   + "set VID = ?";
        try{
            stmt = conn.prepareStatement(sql);
-           stmt.setInt(1, part.getPID());
+           stmt.setString(1, part.getPID());
            stmt.setString(2, part.getname());
            stmt.setString(3,part.getdescription());
-           stmt.setInt(4, part.getVID());
+           stmt.setString(4, part.getVID());
            stmt.execute();
        }
        finally{
@@ -76,15 +84,16 @@ public class PartDAO {
        }
         
     }
-    
+  //edit by Michael Lewis to fix PID and VID to strings instead of ints as they
+  //are varchars in database, cascading issue from part.java   
     public void addPart(Part part)throws Exception{
         PreparedStatement stmt = null;
         try{
             stmt = conn.prepareStatement("insert into part values(?,?,?,?)");
-            stmt.setInt(1, part.getPID());
+            stmt.setString(1, part.getPID());
             stmt.setString(2, part.getname());
             stmt.setString(3, part.getdescription());
-            stmt.setInt(4, part.getVID());
+            stmt.setString(4, part.getVID());
             stmt.execute();
         }
         finally{
@@ -92,12 +101,13 @@ public class PartDAO {
         }
     }
     
-  
+  //edit by Michael Lewis to fix PID and VID to strings instead of ints as they
+  //are varchars in database, cascading issue from part.java
     private Part convertRowToPart(ResultSet rs) throws Exception{
-        int pid = rs.getInt("PID");
+        String pid = rs.getString("PID");
         String name = rs.getString("name");
         String desc = rs.getString("description");
-        int vid = rs.getInt("VID");
+        String vid = rs.getString("VID");
         return new Part (pid, name, desc, vid);
     }
 }

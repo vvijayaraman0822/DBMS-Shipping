@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package gui;
-import core.Employee;
 import java.util.List;
 import core.Part;
 import javax.swing.table.AbstractTableModel;
@@ -12,7 +11,7 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author downw
  */
-public class PartsTableModel 
+public class PartsTableModel extends AbstractTableModel
 {
     private static final int PID_COL = 0;
     private static final int NAME_COL = 1;

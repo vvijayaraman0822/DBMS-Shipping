@@ -5,10 +5,14 @@
  */
 package gui;
 
+import java.io.*;
 import java.util.List;
 import core.Part;
+import core.Vendor;
 import dao.PartDAO;
+import dao.VendorDAO;
 import dao.DBConnection;
+import javax.swing.DefaultComboBoxModel;
 /**
  *
  * @author downw
@@ -16,15 +20,26 @@ import dao.DBConnection;
 public class PartFrame extends javax.swing.JFrame {
     private DBConnection conn;
     private PartDAO PartDAO;
+    private VendorDAO VDAO;
     private List<Part> parts;
-    RepairOrderTableModel model;
+    private String[] vend = new String[100];
+    PartsTableModel model;
     /**
      * Creates new form PartFrame
      */
     public PartFrame(DBConnection myConn) {
         initComponents();
-        conn = myConn;
-        PartDAO = new PartDAO(conn);
+        this.conn = myConn;
+        PartDAO = new PartDAO(this.conn);
+        VDAO = new VendorDAO(this.conn);
+        try{
+            parts = PartDAO.getAllPart();
+        }
+        catch(Exception ex){
+            System.out.println("Error populating Part table.");
+        }
+        PartsTableModel model = new PartsTableModel(parts);
+        partTable.setModel(model);
     }
 
     /**
@@ -51,6 +66,7 @@ public class PartFrame extends javax.swing.JFrame {
         jDesktopPane1 = new javax.swing.JDesktopPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         partTable = new javax.swing.JTable();
+        jButtonReset = new javax.swing.JButton();
 
         PIDTextField.setText("P");
 
@@ -71,9 +87,9 @@ public class PartFrame extends javax.swing.JFrame {
 
         jNameLabel.setText("Name");
 
-        jPIDLabel.setText("PID");
+        jPIDLabel.setText("Product ID");
 
-        jVIDLabel.setText("jLabel1");
+        jVIDLabel.setText("Vendor ID");
 
         jDescriptionLabel.setText("Description");
 
@@ -107,7 +123,7 @@ public class PartFrame extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "PID", "Name", "Description", "VID"
+                "Product ID", "Name", "Description", "Vendor ID"
             }
         ));
         jScrollPane1.setViewportView(partTable);
@@ -131,6 +147,8 @@ public class PartFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jButtonReset.setText("Reset");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -138,12 +156,13 @@ public class PartFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jVIDLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jDescriptionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPIDLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPIDLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(50, 50, 50)
+                            .addComponent(jDescriptionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jVIDLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(38, 38, 38)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jDescriptionTextField)
                             .addComponent(jNameTextField)
@@ -154,10 +173,12 @@ public class PartFrame extends javax.swing.JFrame {
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButtonInsert)
-                        .addGap(74, 74, 74)
+                        .addGap(50, 50, 50)
                         .addComponent(jButtonUpdate)
-                        .addGap(74, 74, 74)
+                        .addGap(50, 50, 50)
                         .addComponent(jButtonDelete)))
+                .addGap(50, 50, 50)
+                .addComponent(jButtonReset)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addComponent(jDesktopPane1)
         );
@@ -170,22 +191,23 @@ public class PartFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonInsert)
                     .addComponent(jButtonUpdate)
-                    .addComponent(jButtonDelete))
+                    .addComponent(jButtonDelete)
+                    .addComponent(jButtonReset))
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jPIDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPIDLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jNameTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jNameLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jDescriptionTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jDescriptionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jDescriptionLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jVIDCombo, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jVIDCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jVIDLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -236,6 +258,7 @@ public class PartFrame extends javax.swing.JFrame {
     private javax.swing.JTextField PIDTextField;
     private javax.swing.JButton jButtonDelete;
     private javax.swing.JButton jButtonInsert;
+    private javax.swing.JButton jButtonReset;
     private javax.swing.JButton jButtonUpdate;
     private javax.swing.JLabel jDescriptionLabel;
     private javax.swing.JTextField jDescriptionTextField;

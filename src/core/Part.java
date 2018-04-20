@@ -9,38 +9,44 @@ package core;
  *
  * @author Jesse
  */
+/**
+ * 
+ * @author downw edits by Micahel Lewis on 4/18 
+ */
+//edited by Michael Lewis, Reason: VID and PID are varchar on database
+//steps taken changed PID and VID to String from int
 public class Part {
-    private int PID;
+    private String PID;
     private String name;
     private String description;
-    private int VID;
-    
- public Part (int P, String n) {
+    private String VID;
+ //edited by Michael Lewis PID to string being passed in. VID to empty stringstring.   
+ public Part (String P, String n) {
      PID = P;
      name = n;
      description = "";
-     VID = 0;
+     VID = "";
  }
- 
- public Part (int P, String n, String d) {
+ //see default constructor above.
+ public Part (String P, String n, String d) {
      PID = P;
      name = n;
      description = d;
-     VID = 0;
+     VID = "";
  }
- 
- public Part (int P, String n, String d, int V) {
+ //see previous constructors
+ public Part (String P, String n, String d, String V) {
      PID = P;
      name = n;
      description = d;
      VID = V;
  }
- 
- public int getPID () {
+ //edited by Michael Lewis, int to string.
+ public String getPID () {
      return PID;
  }
- 
- public void setPID(int P) {
+ //edited by Michael Lewis, int to string.
+ public void setPID(String P) {
      PID = P;
  }
  public String getname () {
@@ -54,16 +60,16 @@ public class Part {
  public String getdescription () {
      return description;
  }
- 
- public void setPID(String d) {
+ //setdescription was nameed setPID, edit by Michael Lewis
+ public void setdescription(String d) {
      description = d;
  }
- 
- public int getVID () {
+//edited by Michael Lewis, int to string. 
+ public String getVID () {
      return VID;
  }
- 
- public void setVID(int V) {
+ //edited by Michael Lewis, int to string.
+ public void setVID(String V) {
      VID = V;
  }
 }
