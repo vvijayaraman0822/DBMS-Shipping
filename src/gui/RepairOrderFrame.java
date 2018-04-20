@@ -11,8 +11,8 @@ import dao.RepairOrderDAO;
 import dao.DBConnection;
 
 // **** //
-//import java.util.logging.Level;
-//import java.util.logging.Logger;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 // **** //
 
@@ -31,25 +31,25 @@ public class RepairOrderFrame extends javax.swing.JFrame {
     public RepairOrderFrame(DBConnection myConn) {
         initComponents();
         
+        conn = myConn;
+        RODAO = new RepairOrderDAO(conn);
         // enable column sorting on any attribute in the table
         // follows from https://github.com/LegendaryZReborn/4123-DatabaseManagement/blob/master/Donation%20Tracker/src/gui/FundFrame.java
         TableRepairOrders.setAutoCreateRowSorter(true);
-        
-        conn = myConn;
-        RODAO = new RepairOrderDAO(conn);
-        
         try {
             repairOrders = RODAO.getAllRepairOrders();
             model = new RepairOrderTableModel(repairOrders);
             TableRepairOrders.setModel(model);
         }
         catch(Exception ex) {
+            Logger.getLogger(RepairOrderFrame.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, "Error 2: " + ex, "Error", JOptionPane.ERROR_MESSAGE);
         }
 //        catch(Exception ex) {
 //            Logger.getLogger(ContributionFrame.class.getName()).log(Level.SEVERE, null, ex);
 //            JOptionPane.showMessageDialog(this, "Error 2: " + ex, "Error", JOptionPane.ERROR_MESSAGE);
 //        }
+        
     }
 
     /**
@@ -111,11 +111,11 @@ public class RepairOrderFrame extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null}
             },
             new String [] {
-                "RID", "dateShipped", "dateRecd", "shipOutType", "shipOut_CID", "receivingEID", "CID"
+                "RID", "dateRecd", "dateShipped", "shipOutType", "shipOut_CID", "EID", "shipIn_CID"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
             };
 
             public Class getColumnClass(int columnIndex) {
