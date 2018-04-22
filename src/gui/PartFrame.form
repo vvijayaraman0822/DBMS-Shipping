@@ -42,15 +42,10 @@
                       </Group>
                       <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jDescriptionTextField" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jNameTextField" alignment="0" max="32767" attributes="0"/>
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jPIDTextField" min="-2" pref="120" max="-2" attributes="0"/>
-                                  <Component id="jVIDCombo" min="-2" pref="90" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="jPIDTextField" min="-2" pref="120" max="-2" attributes="0"/>
+                          <Component id="jVIDCombo" min="-2" pref="90" max="-2" attributes="0"/>
+                          <Component id="jNameTextField" min="-2" pref="253" max="-2" attributes="0"/>
+                          <Component id="jDescriptionTextField" min="-2" pref="426" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -61,7 +56,7 @@
                       <Component id="jButtonDelete" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="jButtonReset" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
           </Group>
@@ -242,6 +237,9 @@
                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="partTableMouseClicked"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

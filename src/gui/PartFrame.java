@@ -126,6 +126,11 @@ public class PartFrame extends javax.swing.JFrame {
                 "Product ID", "Name", "Description", "Vendor ID"
             }
         ));
+        partTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                partTableMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(partTable);
 
         jDesktopPane1.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -164,20 +169,17 @@ public class PartFrame extends javax.swing.JFrame {
                             .addComponent(jVIDLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(38, 38, 38)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jDescriptionTextField)
-                            .addComponent(jNameTextField)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jPIDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jVIDCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                            .addComponent(jPIDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jVIDCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jDescriptionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 426, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButtonInsert)
                         .addGap(50, 50, 50)
                         .addComponent(jButtonUpdate)
                         .addGap(50, 50, 50)
                         .addComponent(jButtonDelete)))
-                .addGap(50, 50, 50)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonReset)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addComponent(jDesktopPane1)
@@ -218,6 +220,15 @@ public class PartFrame extends javax.swing.JFrame {
     private void jNameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jNameTextFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jNameTextFieldActionPerformed
+
+    private void partTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_partTableMouseClicked
+        int selectedRowIndex = partTable.getSelectedRow();
+        int selectedRowModel = partTable.convertRowIndexToModel(selectedRowIndex);     
+        jPIDTextField.setText(partTable.getValueAt(selectedRowModel, 0).toString());
+        jNameTextField.setText(partTable.getValueAt(selectedRowModel, 1).toString());
+        jDescriptionTextField.setText(partTable.getValueAt(selectedRowModel, 2).toString());
+        jButtonInsert.setEnabled(false);       
+    }//GEN-LAST:event_partTableMouseClicked
 
     /**
      * @param args the command line arguments
