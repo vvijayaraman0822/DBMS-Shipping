@@ -24,17 +24,17 @@ public class EquipmentFrame extends javax.swing.JFrame {
     /**
      * Creates new form EquipmentTable
      */
-    public EquipmentFrame() {
+    public EquipmentFrame(DBConnection myConn) {
         initComponents();
         
-        TableEquipment.setAutoCreateRowSorter(true);
-        conn = myConn;
-        EDAO = new EquipmentDAO(conn);
+        this.conn = myConn;
+        EDAO = new EquipmentDAO(this.conn);        
+        EquipmentTable.setAutoCreateRowSorter(true);
         
         try {
             equipment = EDAO.getallEquipment();
             model = new EquipmentTableModel(equipment);
-            TableEquipment.setModel(model);
+            EquipmentTable.setModel(model);
         }
         catch (Exception ex){
             JOptionPane.showMessageDialog(this, "Error 2: " + ex, "Error", JOptionPane.ERROR_MESSAGE);
@@ -52,7 +52,7 @@ public class EquipmentFrame extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        EquipmentTable = new javax.swing.JTable();
         jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
         jTextField3 = new javax.swing.JTextField();
@@ -69,7 +69,7 @@ public class EquipmentFrame extends javax.swing.JFrame {
 
         jScrollPane1.setToolTipText("");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        EquipmentTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -83,7 +83,12 @@ public class EquipmentFrame extends javax.swing.JFrame {
                 "SerialNum", "ID", "Name"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        EquipmentTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                EquipmentTableMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(EquipmentTable);
 
         jLabel2.setText("SerialNum:");
 
@@ -168,6 +173,15 @@ public class EquipmentFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void EquipmentTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EquipmentTableMouseClicked
+        int selectedRowIndex = EquipmentTable.getSelectedRow();
+        int selectedRowModel = EquipmentTable.convertRowIndexToModel(selectedRowIndex);
+        jTextField1.setText(EquipmentTable.getValueAt(selectedRowModel,0).toString());
+        jTextField2.setText(EquipmentTable.getValueAt(selectedRowModel,1).toString());
+        jTextField3.setText(EquipmentTable.getValueAt(selectedRowModel,2).toString());
+        
+    }//GEN-LAST:event_EquipmentTableMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -198,12 +212,13 @@ public class EquipmentFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new EquipmentFrame().setVisible(true);
+                new EquipmentFrame(null).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable EquipmentTable;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
@@ -211,7 +226,6 @@ public class EquipmentFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
