@@ -31,21 +31,21 @@ public class MainFrame extends javax.swing.JFrame {
          
         // Instantiate frames for most tables in the DB
         CarrierFrame c = new CarrierFrame(myConn);
-        //CustomerFrame u = new CustomerFrame(myConn);
+        CustomerFrame u = new CustomerFrame(myConn);
         //EmployeeFrame e = new EmployeeFrame(myConn);
         //EquipmentFrame q = new EquipmentFrame(myConn);
-        //PartFrame p = new PartFrame(myConn);
-        //VendorFrame v = new VendorFrame(myConn);
+        PartFrame p = new PartFrame(myConn);
+        VendorFrame v = new VendorFrame(myConn);
         OrdersFrame o = new OrdersFrame(myConn);
         RepairOrderFrame r = new RepairOrderFrame(myConn);
         
         //add the contents of each frame to their appropriate panels
         PanelCarrier.add(c.getContentPane());
-        //PanelCustomer.add(u.getContentPane());
-        //PanelEmployee.add(d.getContentPane());
+        PanelCustomer.add(u.getContentPane());
+        //PanelEmployee.add(e.getContentPane());
         //PanelEquipment.add(q.getContentPane());
-        //PanelPart.add(p.getContentPane());
-        //PanelVendor.add(v.getContentPane());
+        PanelPart.add(p.getContentPane());
+        PanelVendor.add(v.getContentPane());
         PanelPartOrder.add(o.getContentPane());
         PanelRepairOrder.add(r.getContentPane());
         

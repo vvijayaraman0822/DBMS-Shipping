@@ -97,10 +97,10 @@ public class CarrierDAO {
     
     private Carrier convertRowToCarrier(ResultSet rs) throws Exception {
         String name = rs.getString("name");
-        String shipType1 = rs.getString("shipType1");
-        String shipType2 = rs.getString("shipType2");
-        String shipType3 = rs.getString("shipType3");
-        String shipType4 = rs.getString("shipType4");
+        String shipType1 = rs.getString("ship_red");
+        String shipType2 = rs.getString("ship_blue");
+        String shipType3 = rs.getString("ship_ground");
+        String shipType4 = rs.getString("walk_in");
         int CID = rs.getInt("CID");
         return new Carrier(CID, name, shipType1, shipType2, shipType3, shipType4);
     }
