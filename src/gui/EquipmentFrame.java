@@ -25,8 +25,7 @@ public class EquipmentFrame extends javax.swing.JFrame {
      * Creates new form EquipmentTable
      */
     public EquipmentFrame(DBConnection myConn) {
-        initComponents();
-        
+        initComponents();       
         this.conn = myConn;
         EDAO = new EquipmentDAO(this.conn);        
         EquipmentTable.setAutoCreateRowSorter(true);
@@ -35,6 +34,7 @@ public class EquipmentFrame extends javax.swing.JFrame {
             equipment = EDAO.getallEquipment();
             model = new EquipmentTableModel(equipment);
             EquipmentTable.setModel(model);
+
         }
         catch (Exception ex){
             JOptionPane.showMessageDialog(this, "Error 2: " + ex, "Error", JOptionPane.ERROR_MESSAGE);

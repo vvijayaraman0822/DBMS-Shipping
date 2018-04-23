@@ -55,7 +55,7 @@ public class CarrierFrame extends javax.swing.JFrame {
         NameLabel = new javax.swing.JLabel();
         RedShipLabel = new javax.swing.JLabel();
         NameTextField = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        RedShipTextField = new javax.swing.JTextField();
         BlueShipLabel = new javax.swing.JLabel();
         GroundShipLabel = new javax.swing.JLabel();
         WalkinLabel = new javax.swing.JLabel();
@@ -87,6 +87,11 @@ public class CarrierFrame extends javax.swing.JFrame {
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+        });
+        CarrierTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                CarrierTableMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(CarrierTable);
@@ -132,7 +137,7 @@ public class CarrierFrame extends javax.swing.JFrame {
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                         .addComponent(WalkinTextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
                                         .addComponent(GroundShipTextField, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jTextField3, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(RedShipTextField, javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(BlueShipTextField, javax.swing.GroupLayout.Alignment.LEADING))
                                     .addComponent(CIDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(RedShipLabel)
@@ -164,7 +169,7 @@ public class CarrierFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(RedShipLabel)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(RedShipTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(BlueShipLabel)
@@ -191,6 +196,21 @@ public class CarrierFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void CarrierTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CarrierTableMouseClicked
+        int selectedRow = CarrierTable.getSelectedRow();
+        int selectedRowModel = CarrierTable.convertRowIndexToModel(selectedRow);
+        
+        CIDTextField.setText(model.getValueAt(selectedRowModel,0).toString());
+        NameTextField.setText(model.getValueAt(selectedRowModel,1).toString());
+        RedShipTextField.setText(model.getValueAt(selectedRowModel,2).toString());
+        BlueShipTextField.setText(model.getValueAt(selectedRowModel,3).toString());
+        GroundShipTextField.setText(model.getValueAt(selectedRowModel,4).toString());
+        WalkinTextField.setText(model.getValueAt(selectedRowModel,5).toString());
+        
+        AddButton.setEnabled(false);
+        
+    }//GEN-LAST:event_CarrierTableMouseClicked
 
     /**
      * @param args the command line arguments
@@ -240,11 +260,11 @@ public class CarrierFrame extends javax.swing.JFrame {
     private javax.swing.JLabel NameLabel;
     private javax.swing.JTextField NameTextField;
     private javax.swing.JLabel RedShipLabel;
+    private javax.swing.JTextField RedShipTextField;
     private javax.swing.JButton ResetButton;
     private javax.swing.JButton UpdateButton;
     private javax.swing.JLabel WalkinLabel;
     private javax.swing.JTextField WalkinTextField;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField3;
     // End of variables declaration//GEN-END:variables
 }
