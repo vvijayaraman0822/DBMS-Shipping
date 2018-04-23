@@ -264,6 +264,8 @@ public class OrdersFrame extends javax.swing.JFrame {
        TextFieldOID.setText("");
        TextFieldQuantity.setText("");
        TextFieldDRecd.setText("");
+       ComboBoxEID.setSelectedItem(null);
+       ComboBoxPID.setSelectedItem(null); 
        
       
     }//GEN-LAST:event_ButtonResetMouseClicked
@@ -273,6 +275,8 @@ public class OrdersFrame extends javax.swing.JFrame {
        TextFieldOID.setText("");
        TextFieldQuantity.setText("");
        TextFieldDRecd.setText("");
+       ComboBoxEID.setSelectedItem(null);
+       ComboBoxPID.setSelectedItem(null);
     }//GEN-LAST:event_ButtonResetKeyPressed
 
     private void ButtonUpdateOrdersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonUpdateOrdersMouseClicked
@@ -306,7 +310,8 @@ public class OrdersFrame extends javax.swing.JFrame {
        TextFieldOID.setText(TableOrders.getValueAt(selectedRowModel, 0).toString());
        TextFieldQuantity.setText(TableOrders.getValueAt(selectedRowModel, 3).toString());
        TextFieldDRecd.setText(TableOrders.getValueAt(selectedRowModel, 4).toString());
-       
+       ComboBoxEID.setSelectedItem(TableOrders.getValueAt(selectedRowModel, 2).toString());
+       ComboBoxPID.setSelectedItem(TableOrders.getValueAt(selectedRowModel, 1).toString());
        //disable add button
        ButtonAddOrders.setEnabled(false);
                                            
