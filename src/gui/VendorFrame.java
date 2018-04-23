@@ -8,8 +8,6 @@ import core.Vendor;
 import dao.VendorDAO;
 import dao.DBConnection;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 /**
  *
  * @author Holden.Hall
@@ -33,10 +31,13 @@ public class VendorFrame extends javax.swing.JFrame {
         catch(Exception exc){
             System.out.println("Error Populating table!");
         }
-        VendorTableModel model = new VendorTableModel(vendorList);
+        model = new VendorTableModel(vendorList);
         VendorTable.setModel(model);
         
+         
     }
+    
+  
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -49,23 +50,24 @@ public class VendorFrame extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         VendorTable = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        VID_Label = new javax.swing.JLabel();
+        VID_TextField = new javax.swing.JTextField();
+        name_Label = new javax.swing.JLabel();
+        contact_Label = new javax.swing.JLabel();
+        address_Label = new javax.swing.JLabel();
+        city_Label = new javax.swing.JLabel();
+        state_Label = new javax.swing.JLabel();
+        zip_Label = new javax.swing.JLabel();
+        name_TextField = new javax.swing.JTextField();
+        contact_TextField = new javax.swing.JTextField();
+        address_TextField = new javax.swing.JTextField();
+        city_TextField = new javax.swing.JTextField();
+        state_TextField = new javax.swing.JTextField();
+        zip_TextField = new javax.swing.JTextField();
+        Create_Button = new javax.swing.JButton();
+        Update_Button = new javax.swing.JButton();
+        Delete_Button = new javax.swing.JButton();
+        Reset_Button = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -80,63 +82,76 @@ public class VendorFrame extends javax.swing.JFrame {
                 "VID", "name", "contact", "address", "city", "state", "zip"
             }
         ));
+        VendorTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                VendorTableMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(VendorTable);
 
-        jLabel1.setText("VID:");
+        VID_Label.setText("VID:");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        VID_TextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                VID_TextFieldActionPerformed(evt);
             }
         });
 
-        jLabel2.setText("name:");
+        name_Label.setText("name:");
 
-        jLabel3.setText("contact:");
+        contact_Label.setText("contact:");
 
-        jLabel4.setText("address:");
+        address_Label.setText("address:");
 
-        jLabel5.setText("city:");
+        city_Label.setText("city:");
 
-        jLabel6.setText("state:");
+        state_Label.setText("state:");
 
-        jLabel7.setText("zip:");
+        zip_Label.setText("zip:");
 
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        name_TextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                name_TextFieldActionPerformed(evt);
             }
         });
 
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        contact_TextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                contact_TextFieldActionPerformed(evt);
             }
         });
 
-        jTextField5.addActionListener(new java.awt.event.ActionListener() {
+        address_TextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField5ActionPerformed(evt);
+                address_TextFieldActionPerformed(evt);
             }
         });
 
-        jTextField6.addActionListener(new java.awt.event.ActionListener() {
+        city_TextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField6ActionPerformed(evt);
+                city_TextFieldActionPerformed(evt);
             }
         });
 
-        jTextField7.addActionListener(new java.awt.event.ActionListener() {
+        state_TextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField7ActionPerformed(evt);
+                state_TextFieldActionPerformed(evt);
             }
         });
 
-        jButton1.setText("Create");
+        zip_TextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                zip_TextFieldActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Update");
+        Create_Button.setText("Create");
 
-        jButton3.setText("Delete");
+        Update_Button.setText("Update");
+
+        Delete_Button.setText("Delete");
+
+        Reset_Button.setText("Reset");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -144,48 +159,36 @@ public class VendorFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 520, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 920, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Create_Button)
                             .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel2)
-                                            .addComponent(jLabel1))
-                                        .addGap(37, 37, 37)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)
-                                            .addComponent(jTextField2)))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel3)
-                                        .addGap(27, 27, 27)
-                                        .addComponent(jTextField3))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel4)
-                                        .addGap(25, 25, 25)
-                                        .addComponent(jTextField4))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel5)
-                                        .addGap(46, 46, 46)
-                                        .addComponent(jTextField5))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel6)
-                                            .addComponent(jLabel7))
-                                        .addGap(38, 38, 38)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jTextField6)
-                                            .addComponent(jTextField7)))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(name_Label)
+                                    .addComponent(VID_Label)
+                                    .addComponent(address_Label)
+                                    .addComponent(city_Label)
+                                    .addComponent(contact_Label)
+                                    .addComponent(state_Label)
+                                    .addComponent(zip_Label))))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(state_TextField)
+                            .addComponent(city_TextField)
+                            .addComponent(address_TextField)
+                            .addComponent(contact_TextField)
+                            .addComponent(name_TextField)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton1)
+                                .addComponent(Update_Button)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton2)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton3)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                                .addComponent(Delete_Button))
+                            .addComponent(VID_TextField)
+                            .addComponent(zip_TextField))
+                        .addGap(18, 18, 18)
+                        .addComponent(Reset_Button)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -193,66 +196,90 @@ public class VendorFrame extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(Create_Button)
+                    .addComponent(Update_Button)
+                    .addComponent(Delete_Button)
+                    .addComponent(Reset_Button))
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(VID_Label)
+                    .addComponent(VID_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(name_Label)
+                    .addComponent(name_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(6, 6, 6)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(contact_Label)
+                    .addComponent(contact_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(6, 6, 6)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(address_Label)
+                    .addComponent(address_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(6, 6, 6)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(city_Label)
+                    .addComponent(city_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(6, 6, 6)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(state_Label)
+                    .addComponent(state_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(6, 6, 6)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(zip_Label)
+                    .addComponent(zip_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 28, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void VID_TextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VID_TextFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_VID_TextFieldActionPerformed
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void contact_TextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contact_TextFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_contact_TextFieldActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void name_TextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_name_TextFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_name_TextFieldActionPerformed
 
-    private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
+    private void city_TextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_city_TextFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField5ActionPerformed
+    }//GEN-LAST:event_city_TextFieldActionPerformed
 
-    private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
+    private void state_TextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_state_TextFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField6ActionPerformed
+    }//GEN-LAST:event_state_TextFieldActionPerformed
 
-    private void jTextField7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField7ActionPerformed
+    private void zip_TextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zip_TextFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField7ActionPerformed
+    }//GEN-LAST:event_zip_TextFieldActionPerformed
+
+    private void VendorTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_VendorTableMouseClicked
+        // TODO add your handling code here:
+        
+       int selectedRowIndex = VendorTable.getSelectedRow();
+       int selectedRowModel = VendorTable.convertRowIndexToModel(selectedRowIndex);
+       
+       
+       VID_TextField.setText(model.getValueAt(selectedRowModel, 0).toString());
+       name_TextField.setText(model.getValueAt(selectedRowModel, 1).toString());
+       contact_TextField.setText(model.getValueAt(selectedRowModel, 2).toString());
+       address_TextField.setText(model.getValueAt(selectedRowModel, 3).toString());
+       city_TextField.setText(model.getValueAt(selectedRowModel, 4).toString());
+       state_TextField.setText(model.getValueAt(selectedRowModel, 5).toString());
+       zip_TextField.setText(model.getValueAt(selectedRowModel, 6).toString());
+       
+       //disable create button
+       Create_Button.setEnabled(false);
+    }//GEN-LAST:event_VendorTableMouseClicked
+
+    private void address_TextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_address_TextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_address_TextFieldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -290,24 +317,25 @@ public class VendorFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Create_Button;
+    private javax.swing.JButton Delete_Button;
+    private javax.swing.JButton Reset_Button;
+    private javax.swing.JButton Update_Button;
+    private javax.swing.JLabel VID_Label;
+    private javax.swing.JTextField VID_TextField;
     private javax.swing.JTable VendorTable;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel address_Label;
+    private javax.swing.JTextField address_TextField;
+    private javax.swing.JLabel city_Label;
+    private javax.swing.JTextField city_TextField;
+    private javax.swing.JLabel contact_Label;
+    private javax.swing.JTextField contact_TextField;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
+    private javax.swing.JLabel name_Label;
+    private javax.swing.JTextField name_TextField;
+    private javax.swing.JLabel state_Label;
+    private javax.swing.JTextField state_TextField;
+    private javax.swing.JLabel zip_Label;
+    private javax.swing.JTextField zip_TextField;
     // End of variables declaration//GEN-END:variables
 }
