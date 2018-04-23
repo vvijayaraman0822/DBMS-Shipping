@@ -26,15 +26,15 @@ public class EquipmentFrame extends javax.swing.JFrame {
      */
     public EquipmentFrame() {
         initComponents();
-        
-        TableEquipment.setAutoCreateRowSorter(true);
-        conn = myConn;
-        EDAO = new EquipmentDAO(conn);
+
+        this.conn = myConn;
+        EDAO = new EquipmentDAO(this.conn);        
+        jTable1.setAutoCreateRowSorter(true);
         
         try {
             equipment = EDAO.getallEquipment();
             model = new EquipmentTableModel(equipment);
-            TableEquipment.setModel(model);
+            jTable1.setModel(model);
         }
         catch (Exception ex){
             JOptionPane.showMessageDialog(this, "Error 2: " + ex, "Error", JOptionPane.ERROR_MESSAGE);
@@ -198,7 +198,7 @@ public class EquipmentFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new EquipmentFrame().setVisible(true);
+                new EquipmentFrame(null).setVisible(true);
             }
         });
     }
