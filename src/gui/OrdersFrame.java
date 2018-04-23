@@ -100,11 +100,6 @@ public class OrdersFrame extends javax.swing.JFrame {
         });
 
         ButtonUpdateOrders.setText("Update Order");
-        ButtonUpdateOrders.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ButtonUpdateOrdersMouseClicked(evt);
-            }
-        });
 
         ButtonDeleteButton.setText("Delete Order");
 
@@ -118,9 +113,9 @@ public class OrdersFrame extends javax.swing.JFrame {
 
         LabelDRecd.setText("Date Received:");
 
-        ComboBoxPID.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "GG2220", "Item 2", "Item 3", "Item 4" }));
+        ComboBoxPID.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "GG2220", "RE1410", "WG3100", "WG3720", "WR0103" }));
 
-        ComboBoxEID.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "66", "2", "3", "4" }));
+        ComboBoxEID.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "3", "4", "5", "6", "7" }));
 
         TextFieldQuantity.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -138,11 +133,6 @@ public class OrdersFrame extends javax.swing.JFrame {
         ButtonReset.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ButtonResetMouseClicked(evt);
-            }
-        });
-        ButtonReset.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                ButtonResetKeyPressed(evt);
             }
         });
 
@@ -179,9 +169,9 @@ public class OrdersFrame extends javax.swing.JFrame {
                                             .addGap(104, 104, 104)
                                             .addComponent(TextFieldDRecd, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
+                        .addGap(37, 37, 37)
                         .addComponent(ButtonAddOrders, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35)
+                        .addGap(26, 26, 26)
                         .addComponent(ButtonUpdateOrders)
                         .addGap(18, 18, 18)
                         .addComponent(ButtonDeleteButton)
@@ -266,8 +256,8 @@ public class OrdersFrame extends javax.swing.JFrame {
        TextFieldDRecd.setText("");
        ComboBoxEID.setSelectedItem(null);
        ComboBoxPID.setSelectedItem(null); 
-       
-      
+       ButtonAddOrders.enable();
+            
     }//GEN-LAST:event_ButtonResetMouseClicked
 
     private void ButtonResetKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ButtonResetKeyPressed
@@ -277,11 +267,12 @@ public class OrdersFrame extends javax.swing.JFrame {
        TextFieldDRecd.setText("");
        ComboBoxEID.setSelectedItem(null);
        ComboBoxPID.setSelectedItem(null);
+       ButtonAddOrders.enable();
     }//GEN-LAST:event_ButtonResetKeyPressed
 
     private void ButtonUpdateOrdersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonUpdateOrdersMouseClicked
         // TODO add your handling code here:
-        Orders update = new Orders();
+       /* Orders update = new Orders();
         try {
         update.setOID(Integer.parseInt(TextFieldOID.getText()));
         update.setEID(Integer.parseInt(ComboBoxEID.getSelectedItem().toString()));
@@ -300,10 +291,10 @@ public class OrdersFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Database Error : " + error, "Error", JOptionPane.ERROR_MESSAGE);
         } 
         
-              
+         */     
     }//GEN-LAST:event_ButtonUpdateOrdersMouseClicked
 
-    private void TableOrdersMouseClicked(java.awt.event.MouseEvent evt) {                                         
+    private void TableOrdersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableOrdersMouseClicked
         // TODO add your handling code here:
        int selectedRowIndex = TableOrders.getSelectedRow();
        int selectedRowModel = TableOrders.convertRowIndexToModel(selectedRowIndex);
@@ -315,8 +306,9 @@ public class OrdersFrame extends javax.swing.JFrame {
        //disable add button
        ButtonAddOrders.setEnabled(false);
                                            
+    }//GEN-LAST:event_TableOrdersMouseClicked
 
-    }                                        
+                                       
 
     /**
      * @param args the command line arguments
