@@ -46,7 +46,7 @@ public class OrdersDAO {
     public void addOrders(Orders orders) throws Exception {
         PreparedStatement stmt = null;
         try {
-            stmt = conn.prepareStatement("insert into orders values (null, ?,?,?,?,?)");
+            stmt = conn.prepareStatement("insert into orders values (?,?,?,?,?)");
             stmt.setInt(1, orders.getOID());
             stmt.setString(2, orders.getPID());
             stmt.setInt(3, orders.getEID());

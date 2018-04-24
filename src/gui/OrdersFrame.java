@@ -239,8 +239,10 @@ public class OrdersFrame extends javax.swing.JFrame {
     }
     private void ButtonAddOrdersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonAddOrdersActionPerformed
         // TODO add your handling code here:
-          try {Orders addOrder = new Orders(Integer.parseInt(TextFieldOID.getText()),ComboBoxPID.getSelectedItem().toString(),Integer.parseInt(ComboBoxEID.getSelectedItem().toString()),Integer.parseInt(TextFieldQuantity.getText()),TextFieldDRecd.getText());
+        try {
+          Orders addOrder = new Orders(Integer.parseInt(TextFieldOID.getText()),ComboBoxPID.getSelectedItem().toString(),Integer.parseInt(ComboBoxEID.getSelectedItem().toString()),Integer.parseInt(TextFieldQuantity.getText()),TextFieldDRecd.getText());
           ordersDAO.addOrders(addOrder);
+          JOptionPane.showMessageDialog(this,"Your item has been added!");
         }
         catch(Exception ex) {
             JOptionPane.showMessageDialog(this, "Database Error : " + ex, "Error", JOptionPane.ERROR_MESSAGE);
@@ -370,7 +372,5 @@ public class OrdersFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 
-    private void updateOrders(Orders update) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+   
 }
