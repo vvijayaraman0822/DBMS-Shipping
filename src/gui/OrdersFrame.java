@@ -239,6 +239,12 @@ public class OrdersFrame extends javax.swing.JFrame {
     }
     private void ButtonAddOrdersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonAddOrdersActionPerformed
         // TODO add your handling code here:
+          try {Orders addOrder = new Orders(Integer.parseInt(TextFieldOID.getText()),ComboBoxPID.getSelectedItem().toString(),Integer.parseInt(ComboBoxEID.getSelectedItem().toString()),Integer.parseInt(TextFieldQuantity.getText()),TextFieldDRecd.getText());
+          ordersDAO.addOrders(addOrder);
+        }
+        catch(Exception ex) {
+            JOptionPane.showMessageDialog(this, "Database Error : " + ex, "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_ButtonAddOrdersActionPerformed
 
     private void TextFieldQuantityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldQuantityActionPerformed
@@ -256,7 +262,7 @@ public class OrdersFrame extends javax.swing.JFrame {
        TextFieldDRecd.setText("");
        ComboBoxEID.setSelectedItem(null);
        ComboBoxPID.setSelectedItem(null); 
-       ButtonAddOrders.enable();
+       ButtonAddOrders.setEnabled(true);
             
     }//GEN-LAST:event_ButtonResetMouseClicked
 
@@ -267,7 +273,7 @@ public class OrdersFrame extends javax.swing.JFrame {
        TextFieldDRecd.setText("");
        ComboBoxEID.setSelectedItem(null);
        ComboBoxPID.setSelectedItem(null);
-       ButtonAddOrders.enable();
+       ButtonAddOrders.setEnabled(true);
     }//GEN-LAST:event_ButtonResetKeyPressed
 
     private void ButtonUpdateOrdersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonUpdateOrdersMouseClicked
