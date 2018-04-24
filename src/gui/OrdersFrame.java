@@ -28,13 +28,11 @@ public class OrdersFrame extends javax.swing.JFrame {
         this.conn = myConn;
         ordersDAO = new OrdersDAO(this.conn);
         try{
-            //Get a connection to the DB
-            
             //Retrieve tuples from Instructor table
             orders = ordersDAO.getAllOrders();          
         }
         catch(Exception exc){
-            System.out.println("Error Populating table!");
+            System.out.println("Error Populating table!" + exc);
         }
         OrdersTableModel model = new OrdersTableModel(orders);
         TableOrders.setModel(model);
@@ -58,7 +56,7 @@ public class OrdersFrame extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         TableOrders = new javax.swing.JTable();
         ButtonAddOrders = new javax.swing.JButton();
-        ButtonUpdateOrders = new javax.swing.JButton();
+        ButtonUpdateButton = new javax.swing.JButton();
         ButtonDeleteButton = new javax.swing.JButton();
         LabelOID = new javax.swing.JLabel();
         LabelPID = new javax.swing.JLabel();
@@ -99,9 +97,19 @@ public class OrdersFrame extends javax.swing.JFrame {
             }
         });
 
-        ButtonUpdateOrders.setText("Update Order");
+        ButtonUpdateButton.setText("Update Order");
+        ButtonUpdateButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonUpdateButtonActionPerformed(evt);
+            }
+        });
 
         ButtonDeleteButton.setText("Delete Order");
+        ButtonDeleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonDeleteButtonActionPerformed(evt);
+            }
+        });
 
         LabelOID.setText("Order ID:");
 
@@ -114,8 +122,11 @@ public class OrdersFrame extends javax.swing.JFrame {
         LabelDRecd.setText("Date Received:");
 
         ComboBoxPID.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "GG2220", "RE1410", "WG3100", "WG3720", "WR0103" }));
+        ComboBoxPID.setSelectedIndex(-1);
+        ComboBoxPID.setToolTipText("");
 
         ComboBoxEID.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "3", "4", "5", "6", "7" }));
+        ComboBoxEID.setSelectedIndex(-1);
 
         TextFieldQuantity.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -130,9 +141,9 @@ public class OrdersFrame extends javax.swing.JFrame {
         });
 
         ButtonReset.setText("Reset");
-        ButtonReset.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ButtonResetMouseClicked(evt);
+        ButtonReset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonResetActionPerformed(evt);
             }
         });
 
@@ -172,7 +183,7 @@ public class OrdersFrame extends javax.swing.JFrame {
                         .addGap(37, 37, 37)
                         .addComponent(ButtonAddOrders, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26)
-                        .addComponent(ButtonUpdateOrders)
+                        .addComponent(ButtonUpdateButton)
                         .addGap(18, 18, 18)
                         .addComponent(ButtonDeleteButton)
                         .addGap(18, 18, 18)
@@ -207,7 +218,7 @@ public class OrdersFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ButtonAddOrders)
-                    .addComponent(ButtonUpdateOrders)
+                    .addComponent(ButtonUpdateButton)
                     .addComponent(ButtonDeleteButton)
                     .addComponent(ButtonReset))
                 .addContainerGap())
@@ -215,32 +226,21 @@ public class OrdersFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    private void initComponent() {
-         TableOrders.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                TableOrdersMouseClicked(evt);
-            }
-        });
-         ButtonUpdateOrders.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ButtonUpdateOrdersMouseClicked(evt);
-            }
-         });
-         ButtonReset.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ButtonResetMouseClicked(evt);
-            }
-         });
-         ButtonReset.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                ButtonResetKeyPressed(evt);
-            }
-        });
-    }
+   
     private void ButtonAddOrdersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonAddOrdersActionPerformed
         // TODO add your handling code here:
+        try {
+          Orders addOrder = new Orders(Integer.parseInt(TextFieldOID.getText()),ComboBoxPID.getSelectedItem().toString(),Integer.parseInt(ComboBoxEID.getSelectedItem().toString()),Integer.parseInt(TextFieldQuantity.getText()),TextFieldDRecd.getText());
+          ordersDAO.addOrders(addOrder);
+          JOptionPane.showMessageDialog(this,"Your order has been added!");
+          OrdersTableModel model = new OrdersTableModel(ordersDAO.getAllOrders());
+          TableOrders.setModel(model);
+        }
+        catch(Exception ex) {
+            JOptionPane.showMessageDialog(this, "Database Error : " + ex, "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_ButtonAddOrdersActionPerformed
-
+     
     private void TextFieldQuantityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldQuantityActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TextFieldQuantityActionPerformed
@@ -250,36 +250,20 @@ public class OrdersFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_TextFieldDRecdActionPerformed
 
     private void ButtonResetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonResetMouseClicked
-        // TODO add your handling code here:
-       TextFieldOID.setText("");
-       TextFieldQuantity.setText("");
-       TextFieldDRecd.setText("");
-       ComboBoxEID.setSelectedItem(null);
-       ComboBoxPID.setSelectedItem(null); 
-       ButtonAddOrders.enable();
-            
+                 
     }//GEN-LAST:event_ButtonResetMouseClicked
 
     private void ButtonResetKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ButtonResetKeyPressed
-        // TODO add your handling code here:
-       TextFieldOID.setText("");
-       TextFieldQuantity.setText("");
-       TextFieldDRecd.setText("");
-       ComboBoxEID.setSelectedItem(null);
-       ComboBoxPID.setSelectedItem(null);
-       ButtonAddOrders.enable();
+      
     }//GEN-LAST:event_ButtonResetKeyPressed
 
     private void ButtonUpdateOrdersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonUpdateOrdersMouseClicked
         // TODO add your handling code here:
-       /* Orders update = new Orders();
+         
+      /* Orders update = new Orders(Integer.parseInt(TextFieldOID.getText()),ComboBoxPID.getSelectedItem().toString(),Integer.parseInt(ComboBoxEID.getSelectedItem().toString()),Integer.parseInt(TextFieldQuantity.getText()), TextFieldDRecd.getText());
         try {
-        update.setOID(Integer.parseInt(TextFieldOID.getText()));
-        update.setEID(Integer.parseInt(ComboBoxEID.getSelectedItem().toString()));
-        update.setQuantity(Integer.parseInt(TextFieldQuantity.getText()));
-        update.setPID(ComboBoxPID.getSelectedItem().toString());
-        update.setDateRecd(TextFieldDRecd.getText());
-        updateOrders(update);
+        ordersDAO.updateOrders(update);
+        JOptionPane.showMessageDialog(this,"Your item has been updated!");
         }catch (NumberFormatException ex){
             JOptionPane.showMessageDialog(this, "Value Error : " + ex, "Error", JOptionPane.ERROR_MESSAGE);
 
@@ -291,7 +275,7 @@ public class OrdersFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Database Error : " + error, "Error", JOptionPane.ERROR_MESSAGE);
         } 
         
-         */     
+        */     
     }//GEN-LAST:event_ButtonUpdateOrdersMouseClicked
 
     private void TableOrdersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableOrdersMouseClicked
@@ -307,6 +291,54 @@ public class OrdersFrame extends javax.swing.JFrame {
        ButtonAddOrders.setEnabled(false);
                                            
     }//GEN-LAST:event_TableOrdersMouseClicked
+
+    private void ButtonDeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonDeleteButtonActionPerformed
+        // TODO add your handling code here:
+       int p = JOptionPane.showConfirmDialog(null,"Are you sure you wish to delete this order?","Delete",JOptionPane.YES_NO_OPTION);
+       if (p==0)
+       {
+           try {
+          Orders deleteOrder = new Orders(Integer.parseInt(TextFieldOID.getText()),ComboBoxPID.getSelectedItem().toString(),Integer.parseInt(ComboBoxEID.getSelectedItem().toString()),Integer.parseInt(TextFieldQuantity.getText()),TextFieldDRecd.getText());
+          ordersDAO.deleteOrders(deleteOrder);
+          JOptionPane.showMessageDialog(this,"Your order has been deleted!");
+        OrdersTableModel model = new OrdersTableModel(ordersDAO.getAllOrders());
+        TableOrders.setModel(model);
+        }
+        catch(Exception ex) {
+            JOptionPane.showMessageDialog(this, "Database Error : " + ex, "Error", JOptionPane.ERROR_MESSAGE);
+        }
+         
+       }
+       else {
+           JOptionPane.showMessageDialog(this, "Delete Cancelled");
+       }
+        
+    }//GEN-LAST:event_ButtonDeleteButtonActionPerformed
+
+    private void ButtonResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonResetActionPerformed
+      // TODO add your handling code here:
+      
+      TextFieldOID.setText("");
+      TextFieldQuantity.setText("");
+      TextFieldDRecd.setText("");
+      ComboBoxEID.setSelectedItem(null);
+      ComboBoxPID.setSelectedItem(null); 
+      ButtonAddOrders.setEnabled(true);
+    }//GEN-LAST:event_ButtonResetActionPerformed
+
+    private void ButtonUpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonUpdateButtonActionPerformed
+        // TODO add your handling code here:
+        try {
+          Orders updateOrder = new Orders(Integer.parseInt(TextFieldOID.getText()),ComboBoxPID.getSelectedItem().toString(),Integer.parseInt(ComboBoxEID.getSelectedItem().toString()),Integer.parseInt(TextFieldQuantity.getText()),TextFieldDRecd.getText());
+          ordersDAO.updateOrders(updateOrder);
+          JOptionPane.showMessageDialog(this,"Your order has been updated!");
+          OrdersTableModel model = new OrdersTableModel(ordersDAO.getAllOrders());
+          TableOrders.setModel(model);
+        }
+        catch(Exception ex) {
+            JOptionPane.showMessageDialog(this, "Database Error : " + ex, "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_ButtonUpdateButtonActionPerformed
 
                                        
 
@@ -349,7 +381,7 @@ public class OrdersFrame extends javax.swing.JFrame {
     private javax.swing.JButton ButtonAddOrders;
     private javax.swing.JButton ButtonDeleteButton;
     private javax.swing.JButton ButtonReset;
-    private javax.swing.JButton ButtonUpdateOrders;
+    private javax.swing.JButton ButtonUpdateButton;
     private javax.swing.JComboBox<String> ComboBoxEID;
     private javax.swing.JComboBox<String> ComboBoxPID;
     private javax.swing.JLabel LabelDRecd;
@@ -364,7 +396,5 @@ public class OrdersFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 
-    private void updateOrders(Orders update) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+   
 }

@@ -46,7 +46,7 @@ public class OrdersDAO {
     public void addOrders(Orders orders) throws Exception {
         PreparedStatement stmt = null;
         try {
-            stmt = conn.prepareStatement("insert into orders values (null, ?,?,?,?,?)");
+            stmt = conn.prepareStatement("insert into orders values (?,?,?,?,?)");
             stmt.setInt(1, orders.getOID());
             stmt.setString(2, orders.getPID());
             stmt.setInt(3, orders.getEID());
@@ -61,7 +61,7 @@ public class OrdersDAO {
     public void deleteOrders(Orders orders) throws Exception {
         PreparedStatement stmt = null;
         try {
-            stmt = conn.prepareStatement("delete from customer where OID = ?");
+            stmt = conn.prepareStatement("delete from orders where OID = ?");
             stmt.setInt(1, orders.getOID());
             stmt.execute();
         } finally {
@@ -72,18 +72,18 @@ public class OrdersDAO {
     public void updateOrders(Orders orders) throws Exception {
         PreparedStatement stmt = null;
         String sql = "update orders "
-                + "set where OID = ?, "
-                + "PID = ?, "
+                + "set PID = ?, "
                 + "EID = ?, "
-                + "quantity = ?, "
-                + "dateRecd = ?, ";
+                + "quantity = ?,"
+                + "dateRecd = ? "
+                + "where OID = ? ";
         try {
             stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, orders.getOID());
-            stmt.setString(2, orders.getPID());
-            stmt.setInt(3, orders.getEID());
-            stmt.setInt(4, orders.getQuantity());
-            stmt.setString(5, orders.getDateRecd());
+            stmt.setInt(5, orders.getOID());
+            stmt.setString(1, orders.getPID());
+            stmt.setInt(2, orders.getEID());
+            stmt.setInt(3, orders.getQuantity());
+            stmt.setString(4, orders.getDateRecd());
             stmt.execute();
         } finally {
             conn.close(stmt, null);
