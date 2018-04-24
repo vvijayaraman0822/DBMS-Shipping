@@ -45,7 +45,7 @@ public class FixesDAO {
     public void addFixes(Fixes fix) throws Exception {
         PreparedStatement stmt = null;
         try {
-            stmt = conn.prepareStatement("insert into customer values (?,?)");
+            stmt = conn.prepareStatement("insert into fixes values (?,?)");
             stmt.setInt(1, fix.getEID());
             stmt.setInt(2, fix.getRID());
             stmt.execute();
@@ -68,8 +68,8 @@ public class FixesDAO {
     public void updateFixes (Fixes fix) throws Exception {
         PreparedStatement stmt = null;
         String sql = "update fixes "
-                + "set where EID = ?, "
-                + "name = ?";
+                + "set name = ?,"
+                + "where EID = ?";
         try {
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, fix.getEID());
