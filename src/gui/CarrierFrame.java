@@ -10,10 +10,11 @@ import dao.CarrierDAO;
 import dao.DBConnection;
 import java.util.List;
 import javax.swing.JOptionPane;
+import java.awt.event.KeyEvent;
 
 /**
  *
- * @author ramona.wuthrich
+ * @author Vasudev Vijayaraman
  */
 public class CarrierFrame extends javax.swing.JFrame {
     private DBConnection conn;
@@ -102,6 +103,8 @@ public class CarrierFrame extends javax.swing.JFrame {
 
         RedShipLabel.setText("Red Shipment:");
 
+        RedShipTextField.setText("554");
+
         BlueShipLabel.setText("Blue Shipment:");
 
         GroundShipLabel.setText("Ground Shipment:");
@@ -109,12 +112,32 @@ public class CarrierFrame extends javax.swing.JFrame {
         WalkinLabel.setText("Walk-in:");
 
         AddButton.setText("Add");
+        AddButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AddButtonActionPerformed(evt);
+            }
+        });
 
         DeleteButton.setText("Delete");
+        DeleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DeleteButtonActionPerformed(evt);
+            }
+        });
 
         UpdateButton.setText("Update");
+        UpdateButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UpdateButtonActionPerformed(evt);
+            }
+        });
 
         ResetButton.setText("Reset");
+        ResetButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ResetButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -197,6 +220,7 @@ public class CarrierFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+  
     private void CarrierTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CarrierTableMouseClicked
         int selectedRow = CarrierTable.getSelectedRow();
         int selectedRowModel = CarrierTable.convertRowIndexToModel(selectedRow);
@@ -212,7 +236,68 @@ public class CarrierFrame extends javax.swing.JFrame {
         
     }//GEN-LAST:event_CarrierTableMouseClicked
 
-    /**
+    private void AddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddButtonActionPerformed
+        // TODO add your handling code here:
+        try {
+          Carrier addCarrier = new Carrier(Integer.parseInt(CIDTextField.getText()),NameTextField.getText(),RedShipTextField.getText(),BlueShipTextField.getText(), GroundShipTextField.getText(), WalkinTextField.getText());
+          carrierDAO.addCarrier(addCarrier);
+          JOptionPane.showMessageDialog(this,"Your Carrier has been added!");
+          CarrierTableModel model = new CarrierTableModel(carrierDAO.getAllCarriers());
+          CarrierTable.setModel(model);
+        }
+        catch(Exception ex) {
+            JOptionPane.showMessageDialog(this, "Database Error : " + ex, "Error", JOptionPane.ERROR_MESSAGE);
+        }        
+    }//GEN-LAST:event_AddButtonActionPerformed
+
+    private void DeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteButtonActionPerformed
+        // TODO add your handling code here:
+              int p = JOptionPane.showConfirmDialog(null,"Are you sure you wish to delete this order?","Delete",JOptionPane.YES_NO_OPTION);
+       if (p==0)
+       {
+           try {
+          Carrier deleteCarrier = new Carrier(Integer.parseInt(CIDTextField.getText()),NameTextField.getText(),RedShipTextField.getText(),BlueShipTextField.getText(), GroundShipTextField.getText(), WalkinTextField.getText());
+          carrierDAO.deleteCarrier(deleteCarrier);
+          JOptionPane.showMessageDialog(this,"Your carrier has been deleted!");
+        CarrierTableModel model = new CarrierTableModel(carrierDAO.getAllCarriers());
+        CarrierTable.setModel(model);
+        }
+        catch(Exception ex) {
+            JOptionPane.showMessageDialog(this, "Database Error : " + ex, "Error", JOptionPane.ERROR_MESSAGE);
+        }
+         
+       }
+       else {
+           JOptionPane.showMessageDialog(this, "Delete Cancelled");
+       }
+    }//GEN-LAST:event_DeleteButtonActionPerformed
+
+    private void UpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateButtonActionPerformed
+        // TODO add your handling code here:
+        try {
+          Carrier updateCarrier = new Carrier(Integer.parseInt(CIDTextField.getText()),NameTextField.getText(),RedShipTextField.getText(),BlueShipTextField.getText(), GroundShipTextField.getText(), WalkinTextField.getText());
+          carrierDAO.updateCarrier(updateCarrier);
+          JOptionPane.showMessageDialog(this,"Your carrier has been updated!");
+          CarrierTableModel model = new CarrierTableModel(carrierDAO.getAllCarriers());
+          CarrierTable.setModel(model);
+        }
+        catch(Exception ex) {
+            JOptionPane.showMessageDialog(this, "Database Error : " + ex, "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_UpdateButtonActionPerformed
+
+    private void ResetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResetButtonActionPerformed
+        // TODO add your handling code here:
+      CIDTextField.setText("");
+      NameTextField.setText("");
+      RedShipTextField.setText("");
+      BlueShipTextField.setText("");
+      GroundShipTextField.setText(""); 
+      WalkinTextField.setText("");
+      AddButton.setEnabled(true);
+    }//GEN-LAST:event_ResetButtonActionPerformed
+/*
+    /*
      * @param args the command line arguments
      */
     public static void main(String args[]) {

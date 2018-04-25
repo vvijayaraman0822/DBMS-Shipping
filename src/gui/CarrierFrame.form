@@ -41,7 +41,7 @@
                                   <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
                                       <Component id="WalkinTextField" alignment="0" pref="55" max="32767" attributes="0"/>
                                       <Component id="GroundShipTextField" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="jTextField3" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="RedShipTextField" alignment="0" max="32767" attributes="0"/>
                                       <Component id="BlueShipTextField" alignment="0" max="32767" attributes="0"/>
                                   </Group>
                                   <Component id="CIDTextField" alignment="0" min="-2" pref="55" max="-2" attributes="0"/>
@@ -84,7 +84,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="RedShipLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextField3" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="RedShipTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -176,6 +176,9 @@
               <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="CarrierTableMouseClicked"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -196,7 +199,10 @@
     </Component>
     <Component class="javax.swing.JTextField" name="NameTextField">
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField3">
+    <Component class="javax.swing.JTextField" name="RedShipTextField">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="554"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="BlueShipLabel">
       <Properties>
@@ -225,21 +231,33 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Add"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AddButtonActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="DeleteButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Delete"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="DeleteButtonActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="UpdateButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Update"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="UpdateButtonActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="ResetButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Reset"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ResetButtonActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
