@@ -23,108 +23,91 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <Component id="jScrollPane1" min="-2" pref="783" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="618" max="32767" attributes="0"/>
+          </Group>
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                  <Component id="SerialNum3Label" min="-2" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="workingEID3Label" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" attributes="0">
-                              <Component id="SerialNum1Label" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="ROAddButton" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="275" max="-2" attributes="0"/>
-                              <Component id="workingEID4Label" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="workingEID2Label" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="workingEID1Label" alignment="1" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="419" max="-2" attributes="0"/>
-                          <Component id="SerialNum4Label" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <Component id="receivingEIDLabel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                      <Component id="receivingEIDComboBox" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="SerialNum2Label" min="-2" max="-2" attributes="0"/>
-                  </Group>
-              </Group>
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-          </Group>
-          <Group type="102" alignment="1" attributes="0">
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
-                  <Group type="102" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="shipOut_CIDLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="CIDLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="shipOut_CIDLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="shipOutTypeLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="dateShippedLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="dateRecdLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="dateShippedTextField" min="-2" pref="150" max="-2" attributes="0"/>
+                          <Component id="RIDLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="receivingEIDLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                              <Group type="102" alignment="1" attributes="0">
                                   <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="shipOut_CIDComboBox" min="-2" max="-2" attributes="0"/>
-                                      <Component id="CIDComboBox" min="-2" max="-2" attributes="0"/>
-                                      <Component id="shipTypeComboBox" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="ROAddButton" min="-2" max="-2" attributes="0"/>
+                                      <Component id="CIDLabel" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="dateRecdTextField" alignment="0" min="-2" pref="150" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                              <Component id="SN1ComboBox" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="41" max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="ROUpdateButton" min="-2" max="-2" attributes="0"/>
-                                  <Component id="SN1FormattedTextField" min="-2" pref="145" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="RORemoveButton" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
-                                      <Component id="ROResetButton" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="159" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="workEID3ComboBox" min="-2" max="-2" attributes="0"/>
-                                          <Component id="workEID4ComboBox" min="-2" max="-2" attributes="0"/>
-                                          <Component id="workEID2ComboBox" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="workEID1ComboBox" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="SN2ComboBox" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="SN3ComboBox" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="SN4ComboBox" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="SN4FormattedTextField" min="-2" pref="145" max="-2" attributes="0"/>
-                                                  <Component id="SN3FormattedTextField" min="-2" pref="145" max="-2" attributes="0"/>
-                                                  <Component id="SN2FormattedTextField" min="-2" pref="145" max="-2" attributes="0"/>
-                                              </Group>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="dateRecdTextField" min="-2" pref="150" max="-2" attributes="0"/>
+                                              <Component id="RIDTextField" min="-2" pref="150" max="-2" attributes="0"/>
+                                              <Component id="dateShippedTextField" alignment="0" min="-2" pref="150" max="-2" attributes="0"/>
+                                              <Component id="shipTypeComboBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="shipOut_CIDComboBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="receivingEIDComboBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="shipIn_CIDComboBox" alignment="0" min="-2" max="-2" attributes="0"/>
                                           </Group>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace min="-2" pref="78" max="-2" attributes="0"/>
+                                          <Component id="ROUpdateButton" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
-                              <EmptySpace pref="34" max="32767" attributes="0"/>
+                              <Component id="dateRecdLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
+                      </Group>
+                      <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="RORemoveButton" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="SerialNum1Label" min="-2" max="-2" attributes="0"/>
+                              <Component id="SerialNum2Label" min="-2" max="-2" attributes="0"/>
+                              <Component id="SerialNum3Label" min="-2" max="-2" attributes="0"/>
+                              <Component id="SerialNum4Label" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="workingEID1Label" min="-2" max="-2" attributes="0"/>
+                          <Component id="workingEID2Label" min="-2" max="-2" attributes="0"/>
+                          <Component id="workingEID3Label" min="-2" max="-2" attributes="0"/>
+                          <Component id="workingEID4Label" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="695" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="77" max="-2" attributes="0"/>
+                      <Component id="ROResetButton" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="workEID3ComboBox" min="-2" max="-2" attributes="0"/>
+                          <Component id="workEID4ComboBox" min="-2" max="-2" attributes="0"/>
+                          <Component id="workEID2ComboBox" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="workEID1ComboBox" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="SN4ComboBox" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="SN3ComboBox" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="SN2ComboBox" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="SN1ComboBox" alignment="1" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="SN1FormattedTextField" min="-2" pref="145" max="-2" attributes="0"/>
+                          <Component id="SN2FormattedTextField" min="-2" pref="145" max="-2" attributes="0"/>
+                          <Component id="SN3FormattedTextField" min="-2" pref="145" max="-2" attributes="0"/>
+                          <Component id="SN4FormattedTextField" min="-2" pref="145" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+              </Group>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -132,74 +115,89 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jScrollPane1" min="-2" pref="275" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="SerialNum2Label" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="receivingEIDLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="SN2ComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="SN2FormattedTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Component id="receivingEIDComboBox" alignment="1" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jScrollPane1" min="-2" pref="242" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="CIDLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="CIDComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="SerialNum3Label" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="SN3ComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="SN3FormattedTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="shipOut_CIDLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="shipOut_CIDComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="SerialNum4Label" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="SN4ComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="SN4FormattedTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="shipOutTypeLabel" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
-                  <Component id="shipTypeComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="workingEID1Label" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="workEID1ComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="dateShippedLabel" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
-                  <Component id="dateShippedTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="workingEID2Label" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="workEID2ComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="dateRecdLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="dateRecdTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="workingEID3Label" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="workEID3ComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="SerialNum1Label" min="-2" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="SN1ComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="SN1FormattedTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                      <Component id="workingEID4Label" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="workEID4ComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="RIDLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="RIDTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="SerialNum1Label" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="SN1ComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="SN1FormattedTextField" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="ROAddButton" min="-2" max="-2" attributes="0"/>
-                  <Component id="ROUpdateButton" min="-2" max="-2" attributes="0"/>
-                  <Component id="RORemoveButton" min="-2" max="-2" attributes="0"/>
-                  <Component id="ROResetButton" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="SN2ComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="SN2FormattedTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="SerialNum2Label" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                      <Component id="dateRecdLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="dateRecdTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace pref="95" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="SerialNum3Label" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="SN3ComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="SN3FormattedTextField" alignment="0" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="dateShippedLabel" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
+                      <Component id="dateShippedTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="SerialNum4Label" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="SN4ComboBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="SN4FormattedTextField" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="shipOutTypeLabel" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="shipOut_CIDLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="shipOut_CIDComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="workingEID1Label" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="workEID1ComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="receivingEIDLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="receivingEIDComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="workingEID2Label" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="workEID2ComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Component id="shipTypeComboBox" alignment="0" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="shipIn_CIDComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="CIDLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="workingEID3Label" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="workEID3ComboBox" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="workingEID4Label" min="-2" max="-2" attributes="0"/>
+                  <Component id="workEID4ComboBox" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="ROAddButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="ROUpdateButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="RORemoveButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="ROResetButton" alignment="0" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="112" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -217,12 +215,12 @@
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
               <Table columnCount="7" rowCount="5">
                 <Column editable="true" title="RID" type="java.lang.Integer"/>
-                <Column editable="true" title="dateRecd" type="java.lang.Object"/>
-                <Column editable="true" title="dateShipped" type="java.lang.Object"/>
-                <Column editable="true" title="shipOutType" type="java.lang.String"/>
-                <Column editable="true" title="shipOut_CID" type="java.lang.Integer"/>
+                <Column editable="true" title="Date Received" type="java.lang.Object"/>
+                <Column editable="true" title="Date Shipped" type="java.lang.Object"/>
+                <Column editable="true" title="Carrier Delivery Type" type="java.lang.String"/>
+                <Column editable="true" title="Outbound CID" type="java.lang.Integer"/>
                 <Column editable="true" title="EID" type="java.lang.Integer"/>
-                <Column editable="true" title="shipIn_CID" type="java.lang.Integer"/>
+                <Column editable="true" title="Inbound CID" type="java.lang.Integer"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -268,6 +266,9 @@
               <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="TableRepairOrdersMouseClicked"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -343,7 +344,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="dateShippedTextField">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Date shipped*"/>
+        <Property name="text" type="java.lang.String" value="Date Repair Order Shipped"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dateShippedTextFieldActionPerformed"/>
@@ -351,7 +352,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="dateRecdTextField">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Date received*"/>
+        <Property name="text" type="java.lang.String" value="Date Repair Order Received"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="ROAddButton">
@@ -389,7 +390,7 @@
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JComboBox" name="CIDComboBox">
+    <Component class="javax.swing.JComboBox" name="shipIn_CIDComboBox">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="4">
@@ -576,6 +577,16 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SN4FormattedTextFieldActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="RIDLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="RID:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="RIDTextField">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Order Repair ID"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>
