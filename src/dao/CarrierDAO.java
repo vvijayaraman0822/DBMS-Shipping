@@ -64,7 +64,7 @@ public class CarrierDAO {
     public void deleteCarrier(Carrier carrier) throws Exception {
         PreparedStatement stmt = null;
         try {
-            stmt = conn.prepareStatement("delete from carrier where ID = ?");
+            stmt = conn.prepareStatement("delete from carrier where CID = ?");
             stmt.setInt(1, carrier.getCID());
             stmt.execute();
         } finally {
@@ -75,20 +75,21 @@ public class CarrierDAO {
     public void updateCarrier(Carrier carrier) throws Exception {
         PreparedStatement stmt = null;
         String sql = "update carrier "
-                + "set CID ?, "
-                + "name = ?, "
+                + "set name = ?, "
                 + "ship_red = ?, "
                 + "ship_blue = ?, "
                 + "ship_ground = ?, "
-                + "walk_in = ? ";
+                + "walk_in = ? "
+                + "where CID = ?";
         try {
             stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, carrier.getCID());
-            stmt.setString(2, carrier.getName());
-            stmt.setString(3, carrier.getShipType1());
-            stmt.setString(4, carrier.getShipType2());
-            stmt.setString(5, carrier.getShipType3());
-            stmt.setString(6, carrier.getShipType4());
+            stmt.setString(1, carrier.getName());
+            stmt.setString(2, carrier.getShipType1());
+            stmt.setString(3, carrier.getShipType2());
+            stmt.setString(4, carrier.getShipType3());
+            stmt.setString(5, carrier.getShipType4());
+            stmt.setInt(6, carrier.getCID());
+            
             stmt.execute();
         } finally {
             conn.close(stmt, null);
