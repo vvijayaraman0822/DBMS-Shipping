@@ -43,22 +43,23 @@ public class VendorDAO {
     
     public void updateVendor(Vendor vend)throws Exception{
        PreparedStatement stmt = null;
-       String sql = "update vendor"
-                  + "set VID = ?,"
-                  + "set contact = ?,"
-                  + "set address = ?,"
-                  + "set city = ?,"
-                  + "set state = ?,"
-                  + "set zip = ?,";
+       String sql = "update vendor "
+                  + "SET name = ?, "
+                  + "contact = ?, "
+                  + "address = ?, "
+                  + "city = ?, "
+                  + "state = ?, "
+                  + "zip = ? "
+                  + "where VID = ?";
        try{
            stmt = conn.prepareStatement(sql);
-           stmt.setString(1, vend.getVID());
-           stmt.setString(2, vend.getName());
-           stmt.setString(3,vend.getContact());
-           stmt.setString(4, vend.getAddress());
-           stmt.setString(5, vend.getCity());
-           stmt.setString(6, vend.getState());
-           stmt.setString(7, vend.getZip());
+           stmt.setString(1, vend.getName());
+           stmt.setString(2,vend.getContact());
+           stmt.setString(3, vend.getAddress());
+           stmt.setString(4, vend.getCity());
+           stmt.setString(5, vend.getState());
+           stmt.setString(6, vend.getZip());
+           stmt.setString(7, vend.getVID());
            stmt.execute();
        }
        finally{
