@@ -16,11 +16,11 @@ import javax.swing.table.AbstractTableModel;
 public class CustomerTableModel extends AbstractTableModel{
     private static final int ID_COL = 0;
     private static final int NAME_COL = 1;
-    private static final int ADDRESS_COL = 3;
-    private static final int CITY_COL = 4;
-    private static final int STATE_COL = 5;
-    private static final int ZIP_COL = 6;
-    private static final int CONTACT_COL = 7;
+    private static final int ADDRESS_COL = 2;
+    private static final int CITY_COL = 3;
+    private static final int STATE_COL = 4;
+    private static final int ZIP_COL = 5;
+    private static final int CONTACT_COL = 6;
     private String[] columnNames = {"ID", "Name", "Address", "City", "State", "Zipcode", "Contact"};
     private List<Customer> customers;
     
