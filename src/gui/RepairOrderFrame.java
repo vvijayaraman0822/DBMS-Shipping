@@ -169,12 +169,32 @@ public class RepairOrderFrame extends javax.swing.JFrame {
         dateRecdTextField.setText("Date Repair Order Received");
 
         ROAddButton.setText("Add");
+        ROAddButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ROAddButtonMouseClicked(evt);
+            }
+        });
 
         ROUpdateButton.setText("Update");
+        ROUpdateButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ROUpdateButtonMouseClicked(evt);
+            }
+        });
 
         RORemoveButton.setText("Remove");
+        RORemoveButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                RORemoveButtonMouseClicked(evt);
+            }
+        });
 
         ROResetButton.setText("Reset");
+        ROResetButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ROResetButtonMouseClicked(evt);
+            }
+        });
 
         receivingEIDComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -313,20 +333,20 @@ public class RepairOrderFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(SerialNum3Label)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(SN3ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(SN3FormattedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(SN3FormattedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(SN3ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(dateShippedLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(dateShippedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(SerialNum4Label)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(SN4ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(SN4FormattedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(shipOutTypeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(SerialNum4Label)
+                                .addComponent(shipOutTypeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(shipOut_CIDLabel)
@@ -372,7 +392,7 @@ public class RepairOrderFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_SN4FormattedTextFieldActionPerformed
 
-    shipTypeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "GG2220", "RE1410", "WG3100", "WG3720", "WR0103" }));
+//////    shipTypeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "GG2220", "RE1410", "WG3100", "WG3720", "WR0103" }));
         
     private void TableRepairOrdersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableRepairOrdersMouseClicked
         // TODO add your handling code here:
@@ -389,8 +409,97 @@ public class RepairOrderFrame extends javax.swing.JFrame {
         
         
         
-        ROAddButton.setEnabled(false);
+        ROAddButton.setEnabled(true);
     }//GEN-LAST:event_TableRepairOrdersMouseClicked
+
+    private void reset(){
+       RIDTextField.setText("");
+       receivingEIDComboBox.setSelectedItem("");
+       shipIn_CIDComboBox.setSelectedItem("");
+       shipOut_CIDComboBox.setSelectedItem("");
+       shipTypeComboBox.setSelectedItem("");
+       dateShippedTextField.setText("");
+       dateRecdTextField.setText("");
+       SN1ComboBox.setSelectedItem("");
+       SN1FormattedTextField.setText("");
+       SN2ComboBox.setSelectedItem("");
+       SN3ComboBox.setSelectedItem("");
+       SN4ComboBox.setSelectedItem("");
+       workEID1ComboBox.setSelectedItem("");
+       workEID2ComboBox.setSelectedItem("");
+       workEID3ComboBox.setSelectedItem("");
+       workEID4ComboBox.setSelectedItem("");
+       SN2FormattedTextField.setText("");
+       SN3FormattedTextField.setText("");
+       SN4FormattedTextField.setText("");
+    }
+    
+    private void ROResetButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ROResetButtonMouseClicked
+        // TODO add your handling code here:
+       reset();
+    }//GEN-LAST:event_ROResetButtonMouseClicked
+
+    private void ROUpdateButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ROUpdateButtonMouseClicked
+        // TODO add your handling code here:
+   int r =Integer.parseInt(RIDTextField.getText());
+   String dr = dateRecdTextField.getText().toString();
+   String ds = dateShippedTextField.getText().toString();
+   String st = shipTypeComboBox.getSelectedItem().toString();
+   int sc = Integer.parseInt(shipOut_CIDComboBox.getSelectedItem().toString());
+   int e = Integer.parseInt(receivingEIDComboBox.getSelectedItem().toString());
+   int sc2 = Integer.parseInt(shipIn_CIDComboBox.getSelectedItem().toString());
+   RepairOrder newOrder = new RepairOrder(r,dr,ds,st,sc,e,sc2);
+   try{RODAO.updateRepairOrder(newOrder);}
+   catch(Exception ex){
+        JOptionPane.showMessageDialog(this, "Error! Unable to update");
+   }
+   finally{
+       JOptionPane.showMessageDialog(this,"Order will be updated");
+       reset();
+   }
+    }//GEN-LAST:event_ROUpdateButtonMouseClicked
+
+    private void RORemoveButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RORemoveButtonMouseClicked
+        // TODO add your handling code here:
+   int r =Integer.parseInt(RIDTextField.getText());
+   String dr = dateRecdTextField.getText().toString();
+   String ds = dateShippedTextField.getText().toString();
+   String st = shipTypeComboBox.getSelectedItem().toString();
+   int sc = Integer.parseInt(shipOut_CIDComboBox.getSelectedItem().toString());
+   int e = Integer.parseInt(receivingEIDComboBox.getSelectedItem().toString());
+   int sc2 = Integer.parseInt(shipIn_CIDComboBox.getSelectedItem().toString());
+
+   RepairOrder newOrder = new RepairOrder(r,dr,ds,st,sc,e,sc2);
+   try{RODAO.deleteRepairOrder(newOrder);}
+   catch(Exception ex){
+       JOptionPane.showMessageDialog(this, "Error! Unable to remove");
+   }
+   finally{
+       JOptionPane.showMessageDialog(this, "Order will be deleted");
+       reset();
+   }
+    }//GEN-LAST:event_RORemoveButtonMouseClicked
+
+    private void ROAddButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ROAddButtonMouseClicked
+        // TODO add your handling code here:
+   int r = Integer.parseInt(RIDTextField.getText());
+   String dr = dateRecdTextField.getText().toString();
+   String ds = dateShippedTextField.getText().toString();
+   String st = shipTypeComboBox.getSelectedItem().toString();
+   int sc = Integer.parseInt(shipOut_CIDComboBox.getSelectedItem().toString());
+   int e = Integer.parseInt(receivingEIDComboBox.getSelectedItem().toString());
+   int sc2 = Integer.parseInt(shipIn_CIDComboBox.getSelectedItem().toString());
+
+   RepairOrder newOrder = new RepairOrder(r,dr,ds,st,sc,e,sc2);
+   try{RODAO.addRepairOrder(newOrder);}
+   catch(Exception ex){
+       JOptionPane.showMessageDialog(this, "Error, New entry not added!");
+   }
+   finally{
+       JOptionPane.showMessageDialog(this, "Order will be added");
+       reset();
+   }
+    }//GEN-LAST:event_ROAddButtonMouseClicked
 
     /**
      * @param args the command line arguments
