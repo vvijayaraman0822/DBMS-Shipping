@@ -114,6 +114,11 @@ public class CustomerFrame extends javax.swing.JFrame {
         jScrollPane1.setViewportView(customer_table);
 
         add_bttn.setText("Add");
+        add_bttn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                add_bttnActionPerformed(evt);
+            }
+        });
 
         reset_bttn.setText("Reset");
         reset_bttn.addActionListener(new java.awt.event.ActionListener() {
@@ -123,8 +128,18 @@ public class CustomerFrame extends javax.swing.JFrame {
         });
 
         delete_bttn.setText("Delete");
+        delete_bttn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                delete_bttnActionPerformed(evt);
+            }
+        });
 
         update_bttn.setText("Update");
+        update_bttn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                update_bttnActionPerformed(evt);
+            }
+        });
 
         id_label.setText("ID");
 
@@ -246,11 +261,69 @@ public class CustomerFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    
+    private void add_bttnActionPerformed(java.awt.event.ActionEvent evt){
+        Customer customer = new Customer(Integer.parseInt(id_txtfld.getText()),
+            name_txtfld.getText(), address_txtfld.getText(),city_txtfld.getText(),
+            state_txtfld.getText(), zipcode_txtfld.getText(), contact_txtfld.getText());
+        
+        
+        try{
+            customerDAO.addCustomer(customer);
+            
+            customers = customerDAO.getAllCustomers();
+        }
+        catch(Exception exc){
+            System.out.println("A Problem occured while adding a Customer: " + exc);
+        }
+        
+        model = new CustomerTableModel(customers);
+        customer_table.setModel(model);
+
+        resetTextFields();
+    }
 
     private void reset_bttnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reset_bttnActionPerformed
-        // TODO add your handling code here:
+        resetTextFields();
     }//GEN-LAST:event_reset_bttnActionPerformed
 
+    private void delete_bttnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reset_bttnActionPerformed
+        Customer customer = new Customer(Integer.parseInt(id_txtfld.getText()),
+            name_txtfld.getText(), address_txtfld.getText(),city_txtfld.getText(),
+            state_txtfld.getText(), zipcode_txtfld.getText(), contact_txtfld.getText());
+        
+        try{
+            customerDAO.deleteCustomer(customer);
+            
+            customers = customerDAO.getAllCustomers();
+        }
+        catch(Exception exc){
+            System.out.println("A Problem occured while deleting a Customer: " + exc);
+        }
+        
+        model = new CustomerTableModel(customers);
+        customer_table.setModel(model);
+    }
+    
+    private void update_bttnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reset_bttnActionPerformed
+        Customer customer = new Customer(Integer.parseInt(id_txtfld.getText()),
+            name_txtfld.getText(), address_txtfld.getText(),city_txtfld.getText(),
+            state_txtfld.getText(), zipcode_txtfld.getText(), contact_txtfld.getText());
+        
+        try{
+            customerDAO.updateCustomer(customer);
+            customers = customerDAO.getAllCustomers();
+        }
+        catch(Exception exc){
+            System.out.println("A Problem occured while updating a Customer: " + exc);
+        }
+        
+        model = new CustomerTableModel(customers);
+        customer_table.setModel(model);
+    }
+    
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -277,6 +350,9 @@ public class CustomerFrame extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(CustomerFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -284,6 +360,19 @@ public class CustomerFrame extends javax.swing.JFrame {
                 new CustomerFrame(null).setVisible(true);
             }
         });
+    }
+    
+    
+    private void resetTextFields(){
+        id_txtfld.setText("");
+        name_txtfld.setText("");
+        address_txtfld.setText("");
+        city_txtfld.setText("");
+        state_txtfld.setText("");
+        zipcode_txtfld.setText("");
+        contact_txtfld.setText("");
+        
+        add_bttn.setEnabled(true);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -310,4 +399,12 @@ public class CustomerFrame extends javax.swing.JFrame {
     private javax.swing.JLabel zipcode_label;
     private javax.swing.JTextField zipcode_txtfld;
     // End of variables declaration//GEN-END:variables
+    
+    
+    
+    
+    
+    
+    
+    
 }
