@@ -216,30 +216,28 @@ public class EmployeeFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(39, 39, 39)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(AddButton, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(first_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(last_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(UpdateButton))
+                            .addComponent(AddButton, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(first_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel1))
                             .addGroup(layout.createSequentialGroup()
+                                .addComponent(UpdateButton)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(DeleteButton)
-                                    .addComponent(jLabel3)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(EIDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ResetButton)
-                .addGap(0, 234, Short.MAX_VALUE))
+                                    .addComponent(last_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel2))))
+                        .addGap(11, 11, 11)
+                        .addComponent(ResetButton))
+                    .addComponent(EIDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 238, Short.MAX_VALUE))
         );
 
         pack();
@@ -300,7 +298,7 @@ public class EmployeeFrame extends javax.swing.JFrame {
     private void AddButtonActionPerformed(java.awt.event.ActionEvent evt) {                                          
         // TODO add your handling code here:
 
-        /*try {
+        try {
           Employee newEmployee = new Employee(Integer.parseInt(EIDTextField.getText()),first_name.getText(),last_name.getText());
           employeeDAO.addEmployee(newEmployee);
           JOptionPane.showMessageDialog(this,"Your employee has been added!");
@@ -310,24 +308,7 @@ public class EmployeeFrame extends javax.swing.JFrame {
         }
         catch(Exception ex) {
             JOptionPane.showMessageDialog(this, "Database Error : " + ex, "Error", JOptionPane.ERROR_MESSAGE);
-        }*/
-        Integer eID;
-        String fname, lname;
-        eID = Integer.parseInt(EIDTextField.getText());
-        fname = first_name.getText();
-        lname = last_name.getText();
-        
-        Employee newEmployee = new Employee (eID,fname,lname);
-        
-        try{
-        employeeDAO.addEmployee(newEmployee);
-        employee = employeeDAO.getAllEmployees();
-        EmployeeTableModel model = new EmployeeTableModel(employeeDAO.getAllEmployees());
-        EmployeeTable.setModel(model);
-        }
-        catch(Exception ex){
-            System.out.println("Problem with updating employee" + ex);
-        }
+        }      
 
       EIDTextField.setText("");
       first_name.setText("");
@@ -341,7 +322,7 @@ public class EmployeeFrame extends javax.swing.JFrame {
 
     private void UpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateButtonActionPerformed
         // TODO add your handling code here:
-         /*try {
+        try {
           Employee newEmployees = new Employee(Integer.parseInt(EIDTextField.getText()),first_name.getText(),last_name.getText());
           employeeDAO.updateEmployee(newEmployees);
           JOptionPane.showMessageDialog(this,"Your employee has been updated!");
@@ -350,24 +331,8 @@ public class EmployeeFrame extends javax.swing.JFrame {
         }
         catch(Exception ex) {
             JOptionPane.showMessageDialog(this, "Database Error : " + ex, "Error", JOptionPane.ERROR_MESSAGE);
-        }*/
-        Integer eID;
-        String fname, lname;
-        eID = Integer.parseInt(EIDTextField.getText());
-        fname = first_name.getText();
-        lname = last_name.getText();
-        
-        Employee newEmployee = new Employee (eID,fname,lname);
-        
-        try{
-        employeeDAO.updateEmployee(newEmployee);
-        employee = employeeDAO.getAllEmployees();
-        EmployeeTableModel model = new EmployeeTableModel(employeeDAO.getAllEmployees());
-        EmployeeTable.setModel(model);
         }
-        catch(Exception ex){
-            System.out.println("Problem with updating employee" + ex);
-        }
+        
         
       EIDTextField.setText("");
       first_name.setText("");
