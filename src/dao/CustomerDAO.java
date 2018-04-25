@@ -51,7 +51,7 @@ public class CustomerDAO {
     public void addCustomer(Customer customer) throws Exception {
         PreparedStatement stmt = null;
         try {
-            stmt = conn.prepareStatement("insert into customer values (null, ?, ?, ?, ?, ?, ?,?)");
+            stmt = conn.prepareStatement("insert into customer values (?, ?, ?, ?, ?, ?, ?)");
             stmt.setInt(1, customer.getID());
             stmt.setString(2, customer.getName());
             stmt.setString(3, customer.getAddress());
@@ -79,22 +79,23 @@ public class CustomerDAO {
     public void updateCustomer(Customer customer) throws Exception {
         PreparedStatement stmt = null;
         String sql = "update customer "
-                + "set where ID = ?, "
-                + "name = ?, "
+                + "set name = ?, "
                 + "address = ?, "
                 + "city = ?, "
                 + "state = ?, "
-                + "zip = ? "
-                + "contact = ?";
+                + "zip = ?, "
+                + "contact = ?"
+                + "where id = ?";
         try {
             stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, customer.getID());
-            stmt.setString(2, customer.getName());
-            stmt.setString(3, customer.getAddress());
-            stmt.setString(4, customer.getCity());
-            stmt.setString(5, customer.getState());
-            stmt.setString(6, customer.getZip());
-            stmt.setString(7, customer.getContact());
+            
+            stmt.setString(1, customer.getName());
+            stmt.setString(2, customer.getAddress());
+            stmt.setString(3, customer.getCity());
+            stmt.setString(4, customer.getState());
+            stmt.setString(5, customer.getZip());
+            stmt.setString(6, customer.getContact());
+            stmt.setInt(7, customer.getID());
             stmt.execute();
         } finally {
             conn.close(stmt, null);
