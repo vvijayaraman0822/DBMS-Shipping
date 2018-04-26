@@ -5,11 +5,15 @@
  */
 package gui;
 import core.Orders;
+import core.Part;
+import core.Employee;
 import dao.OrdersDAO;
+import dao.PartDAO;
+import dao.EmployeeDAO;
 import dao.DBConnection;
 import java.util.List;
-import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
+import java.sql.*;
 
 /**
  *
@@ -18,7 +22,11 @@ import javax.swing.JOptionPane;
 public class OrdersFrame extends javax.swing.JFrame {
     private DBConnection conn;
     private List<Orders> orders;
+    private Part parts;
+    private List<Employee> employees;
     private OrdersDAO ordersDAO;
+    private PartDAO partDAO;
+    private EmployeeDAO employeeDAO;
     OrdersTableModel model;
     /**
      * Creates new form OrdersFrame
@@ -28,8 +36,8 @@ public class OrdersFrame extends javax.swing.JFrame {
         this.conn = myConn;
         ordersDAO = new OrdersDAO(this.conn);
         TableOrders.setAutoCreateRowSorter(true);
-        try{
-            //Retrieve tuples from Instructor table
+        try
+        {
             orders = ordersDAO.getAllOrders();          
         }
         catch(Exception exc){
@@ -37,9 +45,28 @@ public class OrdersFrame extends javax.swing.JFrame {
         }
         OrdersTableModel model = new OrdersTableModel(orders);
         TableOrders.setModel(model);
-        
-       // ordersDAO = new OrdersDAO(this.conn);
-        
+        try 
+        {       
+            partDAO = new PartDAO(this.conn);
+            List listPID=partDAO.comboValues();
+           for(int i = 0; i < listPID.size(); i++)
+           ComboBoxPID.addItem(listPID.get(i).toString());
+        }
+        catch(Exception e)
+        {
+           JOptionPane.showMessageDialog(null,"Error population Combo Box PID" + e);
+        }
+        try 
+        {       
+            employeeDAO = new EmployeeDAO(this.conn);
+            List listEID = employeeDAO.comboValues();
+           for(int i = 0; i < listEID.size(); i++)
+           ComboBoxEID.addItem(listEID.get(i).toString());
+        }
+        catch(Exception e)
+        {
+           JOptionPane.showMessageDialog(null,"Error population Combo Box EID" + e);
+        }
       
         
         
@@ -122,11 +149,14 @@ public class OrdersFrame extends javax.swing.JFrame {
 
         LabelDRecd.setText("Date Received:");
 
-        ComboBoxPID.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "GG2220", "RE1410", "WG3100", "WG3720", "WR0103" }));
         ComboBoxPID.setSelectedIndex(-1);
         ComboBoxPID.setToolTipText("");
+        ComboBoxPID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ComboBoxPIDActionPerformed(evt);
+            }
+        });
 
-        ComboBoxEID.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "3", "4", "5", "6", "7" }));
         ComboBoxEID.setSelectedIndex(-1);
 
         TextFieldQuantity.addActionListener(new java.awt.event.ActionListener() {
@@ -340,6 +370,10 @@ public class OrdersFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Database Error : " + ex, "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_ButtonUpdateButtonActionPerformed
+
+    private void ComboBoxPIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBoxPIDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ComboBoxPIDActionPerformed
 
                                        
 

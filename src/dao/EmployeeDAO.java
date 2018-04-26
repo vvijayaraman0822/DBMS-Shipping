@@ -98,6 +98,19 @@ public class EmployeeDAO {
         
         return new Employee (employeeID, lname, fname);
     }
+    public List comboValues () throws Exception{
+            List list = new ArrayList<>();
+            String employees;
+            Statement statement;
+            ResultSet resultSet;
+            statement = conn.createStatement();
+            resultSet = statement.executeQuery("select * from employee");
+              while(resultSet.next()){
+                employees= resultSet.getString("EID");
+                list.add(employees);
+              }
+        return list;
+    }
     
     
 }

@@ -110,4 +110,17 @@ public class PartDAO {
         String vid = rs.getString("VID");
         return new Part (pid, name, desc, vid);
     }
+        public List comboValues () throws Exception{
+            List list = new ArrayList<>();
+            String pid;
+            Statement statement;
+            ResultSet resultSet;
+            statement = conn.createStatement();
+            resultSet = statement.executeQuery("select * from part");
+              while(resultSet.next()){
+                pid = resultSet.getString("PID");
+                list.add(pid);
+              }
+        return list;
+    }
 }
