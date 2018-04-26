@@ -27,6 +27,7 @@ public class OrdersFrame extends javax.swing.JFrame {
         initComponents();
         this.conn = myConn;
         ordersDAO = new OrdersDAO(this.conn);
+        TableOrders.setAutoCreateRowSorter(true);
         try{
             //Retrieve tuples from Instructor table
             orders = ordersDAO.getAllOrders();          
