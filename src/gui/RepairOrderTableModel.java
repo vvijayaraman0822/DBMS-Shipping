@@ -16,12 +16,12 @@ import javax.swing.table.AbstractTableModel;
  */
 public class RepairOrderTableModel extends AbstractTableModel{
     private static final int RID_COL = 0;
-    private static final int dateRecd_COL = 2;
-    private static final int dateShipped_COL = 3;
-    private static final int shipOutType_COL = 4;
-    private static final int shipOut_CID_COL = 5;
-    private static final int shipIn_CID_COL = 7;
-    private static final int EID_COL = 6;  
+    private static final int dateRecd_COL = 1;
+    private static final int dateShipped_COL = 2;
+    private static final int shipOutType_COL = 3;
+    private static final int shipOut_CID_COL = 4;
+    private static final int shipIn_CID_COL = 6;
+    private static final int EID_COL = 5;  
     private String[] columnNames = {"RID", "dateRecd", "dateShipped",
         "shipOutType", "shipOut_CID", "EID", "shipIn_CID"};
     private List<RepairOrder> repairOrder;
