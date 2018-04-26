@@ -61,8 +61,8 @@ public class EmployeeDAO {
     public void updateEmployee(Employee employee)throws Exception{
        PreparedStatement statement = null;
        String comand = "update employee "                  
-                  + "set first_name = ?,"
-                  + "last_name = ?"
+                  + "set last_name = ?,"
+                  + "first_name = ?"
                   + "where EID = ?";
 
        try{
