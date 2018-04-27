@@ -1,19 +1,16 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+Imports all the necessary libraries and packages
  */
 package gui;
 import core.Orders;
-import core.Part;
-import core.Employee;
 import dao.OrdersDAO;
 import dao.PartDAO;
 import dao.EmployeeDAO;
 import dao.DBConnection;
 import java.util.List;
 import javax.swing.JOptionPane;
-import java.sql.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  *
@@ -22,54 +19,59 @@ import java.sql.*;
 public class OrdersFrame extends javax.swing.JFrame {
     private DBConnection conn;
     private List<Orders> orders;
-    private Part parts;
-    private List<Employee> employees;
     private OrdersDAO ordersDAO;
     private PartDAO partDAO;
     private EmployeeDAO employeeDAO;
     OrdersTableModel model;
+    SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+          Date date = new Date();
     /**
      * Creates new form OrdersFrame
      */
     public OrdersFrame(DBConnection myConn) {
         initComponents();
+        //Establishes connection
         this.conn = myConn;
         ordersDAO = new OrdersDAO(this.conn);
+        
+        //Sort columns in the table 
         TableOrders.setAutoCreateRowSorter(true);
-        try
-        {
+        
+        /*Gets all tuples from the orders table in the databease*/
+        try{
             orders = ordersDAO.getAllOrders();          
         }
+        //catch any errors and outputs an error message
         catch(Exception exc){
-            System.out.println("Error Populating table!" + exc);
+            JOptionPane.showMessageDialog(null,"Error Populating table!" + exc);
         }
+        ///*Attempts to populate the table        
         OrdersTableModel model = new OrdersTableModel(orders);
         TableOrders.setModel(model);
-        try 
-        {       
-            partDAO = new PartDAO(this.conn);
-            List listPID=partDAO.comboValues();
+       
+        /*Populates the PID combo box with the PID values fromthe database*/
+        try{       
+           partDAO = new PartDAO(this.conn);
+           List listPID=partDAO.comboValues();
+           
            for(int i = 0; i < listPID.size(); i++)
-           ComboBoxPID.addItem(listPID.get(i).toString());
+            ComboBoxPID.addItem(listPID.get(i).toString());
         }
-        catch(Exception e)
-        {
+        catch(Exception e){
            JOptionPane.showMessageDialog(null,"Error population Combo Box PID" + e);
         }
-        try 
-        {       
-            employeeDAO = new EmployeeDAO(this.conn);
-            List listEID = employeeDAO.comboValues();
+        
+        /*Populates the EID combo box with the EID values fromthe database*/
+        try{       
+           employeeDAO = new EmployeeDAO(this.conn);
+           List listEID = employeeDAO.comboValues();
+           
            for(int i = 0; i < listEID.size(); i++)
-           ComboBoxEID.addItem(listEID.get(i).toString());
+              ComboBoxEID.addItem(listEID.get(i).toString());
         }
-        catch(Exception e)
-        {
+        catch(Exception e){
            JOptionPane.showMessageDialog(null,"Error population Combo Box EID" + e);
-        }
-      
-        
-        
+        }    
     }
         
     /**
@@ -149,7 +151,6 @@ public class OrdersFrame extends javax.swing.JFrame {
 
         LabelDRecd.setText("Date Received:");
 
-        ComboBoxPID.setSelectedIndex(-1);
         ComboBoxPID.setToolTipText("");
         ComboBoxPID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -157,14 +158,13 @@ public class OrdersFrame extends javax.swing.JFrame {
             }
         });
 
-        ComboBoxEID.setSelectedIndex(-1);
-
         TextFieldQuantity.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TextFieldQuantityActionPerformed(evt);
             }
         });
 
+        TextFieldDRecd.setText(formatter.format(date));
         TextFieldDRecd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TextFieldDRecdActionPerformed(evt);
@@ -260,16 +260,56 @@ public class OrdersFrame extends javax.swing.JFrame {
    
     private void ButtonAddOrdersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonAddOrdersActionPerformed
         // TODO add your handling code here:
+       //Gets the information from the textfields and combo boxes
+      
+       Orders addOrder = new Orders(Integer.parseInt(TextFieldOID.getText()),ComboBoxPID.getSelectedItem().toString(),Integer.parseInt(ComboBoxEID.getSelectedItem().toString()),Integer.parseInt(TextFieldQuantity.getText()),TextFieldDRecd.getText());
+          
         try {
-          Orders addOrder = new Orders(Integer.parseInt(TextFieldOID.getText()),ComboBoxPID.getSelectedItem().toString(),Integer.parseInt(ComboBoxEID.getSelectedItem().toString()),Integer.parseInt(TextFieldQuantity.getText()),TextFieldDRecd.getText());
+        if (Integer.parseInt(TextFieldQuantity.getText())<=0 ||Integer.parseInt(TextFieldOID.getText())<0 ){
+              JOptionPane.showMessageDialog(this,"Invalid Order Entry","Error Adding Order",JOptionPane.ERROR_MESSAGE);
+          }
+        else{
+          //Adds order to the database
           ordersDAO.addOrders(addOrder);
-          JOptionPane.showMessageDialog(this,"Your order has been added!");
+          //Refreshes the table
           OrdersTableModel model = new OrdersTableModel(ordersDAO.getAllOrders());
           TableOrders.setModel(model);
+          //Notifies the user that their order has been added
+          JOptionPane.showMessageDialog(this,"Your order has been added!");
         }
+        }
+        // Catches errors
         catch(Exception ex) {
-            JOptionPane.showMessageDialog(this, "Database Error : " + ex, "Error", JOptionPane.ERROR_MESSAGE);
+             String error;
+             //Prints error message if OID is already used
+             if (ex.getMessage().contains("for key 'PRIMARY'")){
+                error = "OID is already being used.";
+                JOptionPane.showMessageDialog(this, error, "Error Adding Order", JOptionPane.ERROR_MESSAGE);
+                int p = JOptionPane.showConfirmDialog(null,"Do you wish to update this order instead?","Update",JOptionPane.YES_NO_OPTION);
+                if (p==0){
+                   try{
+                    ordersDAO.updateOrders(addOrder);
+                    OrdersTableModel model = new OrdersTableModel(ordersDAO.getAllOrders());
+                    TableOrders.setModel(model);
+                    JOptionPane.showMessageDialog(this,"Your order has been updated!");
+                    }
+                   catch(Exception e){
+                       JOptionPane.showMessageDialog(null, "Error updating order! Error Message:" + e, "Error Updating", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+             }
+             else{
+                JOptionPane.showMessageDialog(null, "Error adding order! Error Message: " + ex, "Error Adding Order", JOptionPane.ERROR_MESSAGE);
+             }
         }
+        finally{
+          //Resets the fields
+          TextFieldOID.setText("");
+          TextFieldQuantity.setText("");
+          TextFieldDRecd.setText(formatter.format(date));
+          ComboBoxEID.setSelectedItem(null);
+          ComboBoxPID.setSelectedItem(null); }
+       
     }//GEN-LAST:event_ButtonAddOrdersActionPerformed
      
     private void TextFieldQuantityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldQuantityActionPerformed
@@ -289,28 +329,12 @@ public class OrdersFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_ButtonResetKeyPressed
 
     private void ButtonUpdateOrdersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonUpdateOrdersMouseClicked
-        // TODO add your handling code here:
-         
-      /* Orders update = new Orders(Integer.parseInt(TextFieldOID.getText()),ComboBoxPID.getSelectedItem().toString(),Integer.parseInt(ComboBoxEID.getSelectedItem().toString()),Integer.parseInt(TextFieldQuantity.getText()), TextFieldDRecd.getText());
-        try {
-        ordersDAO.updateOrders(update);
-        JOptionPane.showMessageDialog(this,"Your item has been updated!");
-        }catch (NumberFormatException ex){
-            JOptionPane.showMessageDialog(this, "Value Error : " + ex, "Error", JOptionPane.ERROR_MESSAGE);
-
-        } catch (Exception ex) {
-			// Code for making error messages easier to read
-            String error = "";
-            if (ex.getMessage().contains("for key 'PRIMARY'"))
-                error = "Fund Name is already being used.";
-            JOptionPane.showMessageDialog(this, "Database Error : " + error, "Error", JOptionPane.ERROR_MESSAGE);
-        } 
-        
-        */     
+        // TODO add your handling code here:  
     }//GEN-LAST:event_ButtonUpdateOrdersMouseClicked
 
     private void TableOrdersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableOrdersMouseClicked
         // TODO add your handling code here:
+       //Populates the fields with information from the row clicked 
        int selectedRowIndex = TableOrders.getSelectedRow();
        int selectedRowModel = TableOrders.convertRowIndexToModel(selectedRowIndex);
        TextFieldOID.setText(TableOrders.getValueAt(selectedRowModel, 0).toString());
@@ -318,28 +342,45 @@ public class OrdersFrame extends javax.swing.JFrame {
        TextFieldDRecd.setText(TableOrders.getValueAt(selectedRowModel, 4).toString());
        ComboBoxEID.setSelectedItem(TableOrders.getValueAt(selectedRowModel, 2).toString());
        ComboBoxPID.setSelectedItem(TableOrders.getValueAt(selectedRowModel, 1).toString());
-       //disable add button
+       
+       //disables add button
        ButtonAddOrders.setEnabled(false);
                                            
     }//GEN-LAST:event_TableOrdersMouseClicked
 
     private void ButtonDeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonDeleteButtonActionPerformed
         // TODO add your handling code here:
+        
+       // Comfirms if the user wants to delete
        int p = JOptionPane.showConfirmDialog(null,"Are you sure you wish to delete this order?","Delete",JOptionPane.YES_NO_OPTION);
-       if (p==0)
-       {
-           try {
-          Orders deleteOrder = new Orders(Integer.parseInt(TextFieldOID.getText()),ComboBoxPID.getSelectedItem().toString(),Integer.parseInt(ComboBoxEID.getSelectedItem().toString()),Integer.parseInt(TextFieldQuantity.getText()),TextFieldDRecd.getText());
-          ordersDAO.deleteOrders(deleteOrder);
-          JOptionPane.showMessageDialog(this,"Your order has been deleted!");
-        OrdersTableModel model = new OrdersTableModel(ordersDAO.getAllOrders());
-        TableOrders.setModel(model);
+       // if yes is selected 
+       if (p==0){
+          // Gets the data from the fields and deletes the order
+          try {
+            Orders deleteOrder = new Orders(Integer.parseInt(TextFieldOID.getText()),ComboBoxPID.getSelectedItem().toString(),Integer.parseInt(ComboBoxEID.getSelectedItem().toString()),Integer.parseInt(TextFieldQuantity.getText()),TextFieldDRecd.getText());
+            ordersDAO.deleteOrders(deleteOrder);
+            // Refreshes
+            OrdersTableModel model = new OrdersTableModel(ordersDAO.getAllOrders());
+            TableOrders.setModel(model);
+            // Notifies user that their order has been deleted
+            JOptionPane.showMessageDialog(this,"Your order has been deleted!");
+            
         }
         catch(Exception ex) {
-            JOptionPane.showMessageDialog(this, "Database Error : " + ex, "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error deleting order : " + ex, "Error Deleting Order", JOptionPane.ERROR_MESSAGE);
         }
+          finally{
+          //Resets the fields
+          TextFieldOID.setText("");
+          TextFieldQuantity.setText("");
+          TextFieldDRecd.setText(formatter.format(date));
+          ComboBoxEID.setSelectedItem(null);
+          ComboBoxPID.setSelectedItem(null); 
+          ButtonAddOrders.setEnabled(true);
+          }
          
        }
+       // If no is selected the user is notified
        else {
            JOptionPane.showMessageDialog(this, "Delete Cancelled");
        }
@@ -348,10 +389,10 @@ public class OrdersFrame extends javax.swing.JFrame {
 
     private void ButtonResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonResetActionPerformed
       // TODO add your handling code here:
-      
+      /*Resets all fields*/
       TextFieldOID.setText("");
       TextFieldQuantity.setText("");
-      TextFieldDRecd.setText("");
+      TextFieldDRecd.setText(formatter.format(date));
       ComboBoxEID.setSelectedItem(null);
       ComboBoxPID.setSelectedItem(null); 
       ButtonAddOrders.setEnabled(true);
@@ -359,15 +400,35 @@ public class OrdersFrame extends javax.swing.JFrame {
 
     private void ButtonUpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonUpdateButtonActionPerformed
         // TODO add your handling code here:
+        // gets the information from the text fields
         try {
-          Orders updateOrder = new Orders(Integer.parseInt(TextFieldOID.getText()),ComboBoxPID.getSelectedItem().toString(),Integer.parseInt(ComboBoxEID.getSelectedItem().toString()),Integer.parseInt(TextFieldQuantity.getText()),TextFieldDRecd.getText());
-          ordersDAO.updateOrders(updateOrder);
-          JOptionPane.showMessageDialog(this,"Your order has been updated!");
-          OrdersTableModel model = new OrdersTableModel(ordersDAO.getAllOrders());
-          TableOrders.setModel(model);
+           if (Integer.parseInt(TextFieldQuantity.getText())<=0 ||Integer.parseInt(TextFieldOID.getText())<0 ){
+              JOptionPane.showMessageDialog(this,"Invalid Order Entry","Error Updating Order",JOptionPane.ERROR_MESSAGE);
+            }
+           else{
+            Orders updateOrder = new Orders(Integer.parseInt(TextFieldOID.getText()),ComboBoxPID.getSelectedItem().toString(),Integer.parseInt(ComboBoxEID.getSelectedItem().toString()),Integer.parseInt(TextFieldQuantity.getText()),TextFieldDRecd.getText());
+            // Updates the order
+            ordersDAO.updateOrders(updateOrder);
+            // Table is refreshed
+            OrdersTableModel model = new OrdersTableModel(ordersDAO.getAllOrders());
+            TableOrders.setModel(model);
+            // User notified that their order has been update
+            JOptionPane.showMessageDialog(this,"Your order has been updated!");
+
+            
+           }
         }
         catch(Exception ex) {
-            JOptionPane.showMessageDialog(this, "Database Error : " + ex, "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "One or more fields are blank. Error Message: " + ex, "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        finally{
+           //Fields reset         
+           TextFieldOID.setText("");
+           TextFieldQuantity.setText("");
+           TextFieldDRecd.setText(formatter.format(date));
+           ComboBoxEID.setSelectedItem(null);
+           ComboBoxPID.setSelectedItem(null);
+           ButtonAddOrders.setEnabled(true);
         }
     }//GEN-LAST:event_ButtonUpdateButtonActionPerformed
 
