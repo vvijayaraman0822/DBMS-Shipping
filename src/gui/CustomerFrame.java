@@ -156,6 +156,12 @@ public class CustomerFrame extends javax.swing.JFrame {
         name_label.setText("Name");
 
         jScrollPane2.setViewportView(jScrollBar1);
+        // Add a listener for mouse click on table row
+         customer_table.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                customer_tableMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -262,6 +268,21 @@ public class CustomerFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
+    
+     private void customer_tableMouseClicked(java.awt.event.MouseEvent evt) {                                          
+        int selectedRow = customer_table.getSelectedRow();
+        int selectedRowModel = customer_table.convertRowIndexToModel(selectedRow);
+        
+        id_txtfld.setText(model.getValueAt(selectedRowModel,0).toString());
+        name_txtfld.setText(model.getValueAt(selectedRowModel,1).toString());       
+        address_txtfld.setText(model.getValueAt(selectedRowModel,2).toString());
+        city_txtfld.setText(model.getValueAt(selectedRowModel,3).toString());
+        state_txtfld.setText(model.getValueAt(selectedRowModel,4).toString());       
+        zipcode_txtfld.setText(model.getValueAt(selectedRowModel,5).toString());
+        contact_txtfld.setText(model.getValueAt(selectedRowModel,6).toString());
+        add_bttn.setEnabled(false);
+        
+    }        
     private void add_bttnActionPerformed(java.awt.event.ActionEvent evt){
         Customer customer = new Customer(Integer.parseInt(id_txtfld.getText()),
             name_txtfld.getText(), address_txtfld.getText(),city_txtfld.getText(),
