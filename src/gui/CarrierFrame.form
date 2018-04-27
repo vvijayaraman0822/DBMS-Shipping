@@ -26,41 +26,55 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jScrollPane1" alignment="0" min="-2" pref="721" max="-2" attributes="0"/>
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="NameLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="WalkinLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="CIDLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="77" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="NameTextField" alignment="0" min="-2" pref="138" max="-2" attributes="0"/>
-                                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                      <Component id="WalkinTextField" alignment="0" pref="55" max="32767" attributes="0"/>
-                                      <Component id="GroundShipTextField" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="RedShipTextField" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="BlueShipTextField" alignment="0" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="DeleteButton" min="-2" pref="67" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="WalkinLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="RedShipLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="BlueShipLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="GroundShipLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="CIDTextField" alignment="0" min="-2" pref="55" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="RedShipComboBox" min="-2" max="-2" attributes="0"/>
+                                      <Component id="BlueShipComboBox" min="-2" max="-2" attributes="0"/>
+                                      <Component id="GroundComboBox" min="-2" max="-2" attributes="0"/>
+                                      <Component id="WalkinComboBox" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="NameLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="CIDLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="73" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="NameTextField" min="-2" pref="138" max="-2" attributes="0"/>
+                                      <Component id="CIDTextField" min="-2" pref="55" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                           </Group>
-                          <Component id="RedShipLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="BlueShipLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="GroundShipLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="105" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="AddButton" alignment="0" max="32767" attributes="0"/>
-                          <Component id="DeleteButton" alignment="0" max="32767" attributes="0"/>
-                          <Component id="UpdateButton" alignment="0" max="32767" attributes="0"/>
-                          <Component id="ResetButton" alignment="0" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+                                  <Component id="AddButton" min="-2" pref="67" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="UpdateButton" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="ResetButton" alignment="1" min="-2" pref="67" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                          </Group>
                       </Group>
                   </Group>
+                  <Component id="jScrollPane1" alignment="0" min="-2" pref="798" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="174" max="32767" attributes="0"/>
+              <EmptySpace pref="97" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -84,22 +98,22 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="RedShipLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="RedShipTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="RedShipComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="BlueShipLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="BlueShipTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="BlueShipComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="GroundShipLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="GroundShipTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="GroundComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="WalkinLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="WalkinTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="WalkinComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="191" max="32767" attributes="0"/>
                   </Group>
@@ -107,11 +121,11 @@
                       <Component id="AddButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="DeleteButton" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="UpdateButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="ResetButton" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="223" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="228" max="-2" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -132,10 +146,10 @@
               <Table columnCount="6" rowCount="4">
                 <Column editable="true" title="CID" type="java.lang.Integer"/>
                 <Column editable="true" title="Name" type="java.lang.String"/>
-                <Column editable="true" title=" Red Shipment" type="java.lang.String"/>
-                <Column editable="true" title="Blue Shipment" type="java.lang.String"/>
-                <Column editable="true" title=" Ground Shipment" type="java.lang.String"/>
-                <Column editable="true" title="Walk-in" type="java.lang.String"/>
+                <Column editable="true" title="Red Shipment Available" type="java.lang.String"/>
+                <Column editable="true" title="Blue Shipment Available" type="java.lang.String"/>
+                <Column editable="true" title="Groud Shipment Available" type="java.lang.String"/>
+                <Column editable="true" title="Walk-ins Available" type="java.lang.String"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -199,11 +213,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="NameTextField">
     </Component>
-    <Component class="javax.swing.JTextField" name="RedShipTextField">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="554"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JLabel" name="BlueShipLabel">
       <Properties>
         <Property name="text" type="java.lang.String" value="Blue Shipment:"/>
@@ -218,12 +227,6 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Walk-in:"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="BlueShipTextField">
-    </Component>
-    <Component class="javax.swing.JTextField" name="GroundShipTextField">
-    </Component>
-    <Component class="javax.swing.JTextField" name="WalkinTextField">
     </Component>
     <Component class="javax.swing.JTextField" name="CIDTextField">
     </Component>
@@ -258,6 +261,62 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ResetButtonActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="RedShipComboBox">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="3">
+            <StringItem index="0" value=""/>
+            <StringItem index="1" value="yes"/>
+            <StringItem index="2" value="no"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="BlueShipComboBox">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="3">
+            <StringItem index="0" value=""/>
+            <StringItem index="1" value="yes"/>
+            <StringItem index="2" value="no"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="GroundComboBox">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="3">
+            <StringItem index="0" value=""/>
+            <StringItem index="1" value="yes"/>
+            <StringItem index="2" value="no"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="WalkinComboBox">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="3">
+            <StringItem index="0" value=""/>
+            <StringItem index="1" value="yes"/>
+            <StringItem index="2" value="no"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>

@@ -11,6 +11,7 @@ import dao.DBConnection;
 import java.util.List;
 import javax.swing.JOptionPane;
 import java.awt.event.KeyEvent;
+import javax.swing.JComboBox;
 
 /**
  *
@@ -28,7 +29,7 @@ public class CarrierFrame extends javax.swing.JFrame {
         initComponents();
         this.conn = myConn;
         carrierDAO = new CarrierDAO(this.conn);
-        
+        CarrierTable.setAutoCreateRowSorter(true);
         try{
             carrierList = carrierDAO.getAllCarriers();
             model = new CarrierTableModel(carrierList);
@@ -36,7 +37,6 @@ public class CarrierFrame extends javax.swing.JFrame {
         }
         catch(Exception e)
         {
-            
             JOptionPane.showMessageDialog(this, "Message: " + e,"ERROR",JOptionPane.ERROR_MESSAGE);
         }
     };
@@ -56,18 +56,18 @@ public class CarrierFrame extends javax.swing.JFrame {
         NameLabel = new javax.swing.JLabel();
         RedShipLabel = new javax.swing.JLabel();
         NameTextField = new javax.swing.JTextField();
-        RedShipTextField = new javax.swing.JTextField();
         BlueShipLabel = new javax.swing.JLabel();
         GroundShipLabel = new javax.swing.JLabel();
         WalkinLabel = new javax.swing.JLabel();
-        BlueShipTextField = new javax.swing.JTextField();
-        GroundShipTextField = new javax.swing.JTextField();
-        WalkinTextField = new javax.swing.JTextField();
         CIDTextField = new javax.swing.JTextField();
         AddButton = new javax.swing.JButton();
         DeleteButton = new javax.swing.JButton();
         UpdateButton = new javax.swing.JButton();
         ResetButton = new javax.swing.JButton();
+        RedShipComboBox = new javax.swing.JComboBox<>();
+        BlueShipComboBox = new javax.swing.JComboBox<>();
+        GroundComboBox = new javax.swing.JComboBox<>();
+        WalkinComboBox = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -79,7 +79,7 @@ public class CarrierFrame extends javax.swing.JFrame {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "CID", "Name", " Red Shipment", "Blue Shipment", " Ground Shipment", "Walk-in"
+                "CID", "Name", "Red Shipment Available", "Blue Shipment Available", "Groud Shipment Available", "Walk-ins Available"
             }
         ) {
             Class[] types = new Class [] {
@@ -102,8 +102,6 @@ public class CarrierFrame extends javax.swing.JFrame {
         NameLabel.setText("Name:");
 
         RedShipLabel.setText("Red Shipment:");
-
-        RedShipTextField.setText("554");
 
         BlueShipLabel.setText("Blue Shipment:");
 
@@ -139,6 +137,14 @@ public class CarrierFrame extends javax.swing.JFrame {
             }
         });
 
+        RedShipComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "yes", "no" }));
+
+        BlueShipComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "yes", "no" }));
+
+        GroundComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "yes", "no" }));
+
+        WalkinComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "yes", "no" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -146,33 +152,41 @@ public class CarrierFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 721, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(NameLabel)
-                                    .addComponent(WalkinLabel)
-                                    .addComponent(CIDLabel))
-                                .addGap(77, 77, 77)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(NameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(WalkinTextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
-                                        .addComponent(GroundShipTextField, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(RedShipTextField, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(BlueShipTextField, javax.swing.GroupLayout.Alignment.LEADING))
-                                    .addComponent(CIDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(RedShipLabel)
-                            .addComponent(BlueShipLabel)
-                            .addComponent(GroundShipLabel))
-                        .addGap(105, 105, 105)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(AddButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(DeleteButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(UpdateButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(ResetButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(174, Short.MAX_VALUE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(DeleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(WalkinLabel)
+                                        .addComponent(RedShipLabel)
+                                        .addComponent(BlueShipLabel)
+                                        .addComponent(GroundShipLabel))
+                                    .addGap(18, 18, 18)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(RedShipComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(BlueShipComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(GroundComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(WalkinComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(NameLabel)
+                                        .addComponent(CIDLabel))
+                                    .addGap(73, 73, 73)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(NameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(CIDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(41, 41, 41)
+                                    .addComponent(AddButton, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(UpdateButton, javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(ResetButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 798, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(97, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -192,29 +206,29 @@ public class CarrierFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(RedShipLabel)
-                            .addComponent(RedShipTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(RedShipComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(BlueShipLabel)
-                            .addComponent(BlueShipTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(BlueShipComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(GroundShipLabel)
-                            .addComponent(GroundShipTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(GroundComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(WalkinLabel)
-                            .addComponent(WalkinTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(WalkinComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(191, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(AddButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(DeleteButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(UpdateButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(ResetButton)
-                        .addGap(223, 223, 223))))
+                        .addGap(228, 228, 228))))
         );
 
         pack();
@@ -227,19 +241,45 @@ public class CarrierFrame extends javax.swing.JFrame {
         
         CIDTextField.setText(model.getValueAt(selectedRowModel,0).toString());
         NameTextField.setText(model.getValueAt(selectedRowModel,1).toString());
-        RedShipTextField.setText(model.getValueAt(selectedRowModel,2).toString());
-        BlueShipTextField.setText(model.getValueAt(selectedRowModel,3).toString());
-        GroundShipTextField.setText(model.getValueAt(selectedRowModel,4).toString());
-        WalkinTextField.setText(model.getValueAt(selectedRowModel,5).toString());
+        
+        String redval = model.getValueAt(selectedRowModel, 2).toString();
+        int redShipBox = getIndexInComboBox(redval, RedShipComboBox);
+        RedShipComboBox.setSelectedIndex(redShipBox);
+        String blueval = model.getValueAt(selectedRowModel, 3).toString();
+        int blueShipBox = getIndexInComboBox(blueval, BlueShipComboBox);
+        BlueShipComboBox.setSelectedIndex(blueShipBox);
+        String gval = model.getValueAt(selectedRowModel, 4).toString();
+        int gShipBox = getIndexInComboBox(gval, GroundComboBox);
+        GroundComboBox.setSelectedIndex(gShipBox);
+        String walkval = model.getValueAt(selectedRowModel, 5).toString();
+        int wShipBox = getIndexInComboBox(walkval, WalkinComboBox);
+        WalkinComboBox.setSelectedIndex(wShipBox);
         
         AddButton.setEnabled(false);
         
     }//GEN-LAST:event_CarrierTableMouseClicked
-
+//Searches a combo box for the index of a string value and returns it
+    private int getIndexInComboBox(String toFind, JComboBox jBox)
+    {
+        String item;
+        boolean found = false;
+        int index = -1;
+       for(int i = 0; i < jBox.getItemCount() && !found; i++)
+       {
+           item = jBox.getItemAt(i).toString();
+           if(item.equals(toFind))
+           {
+               index = i;
+               found = true;
+           }
+       }
+       
+       return index;
+    }
     private void AddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddButtonActionPerformed
         // TODO add your handling code here:
         try {
-          Carrier addCarrier = new Carrier(Integer.parseInt(CIDTextField.getText()),NameTextField.getText(),RedShipTextField.getText(),BlueShipTextField.getText(), GroundShipTextField.getText(), WalkinTextField.getText());
+          Carrier addCarrier = new Carrier(Integer.parseInt(CIDTextField.getText()),NameTextField.getText(),RedShipComboBox.getSelectedItem().toString(),BlueShipComboBox.getSelectedItem().toString(),GroundComboBox.getSelectedItem().toString(),WalkinComboBox.getSelectedItem().toString());
           carrierDAO.addCarrier(addCarrier);
           JOptionPane.showMessageDialog(this,"Your Carrier has been added!");
           CarrierTableModel model = new CarrierTableModel(carrierDAO.getAllCarriers());
@@ -256,8 +296,8 @@ public class CarrierFrame extends javax.swing.JFrame {
        if (p==0)
        {
            try {
-          Carrier deleteCarrier = new Carrier(Integer.parseInt(CIDTextField.getText()),NameTextField.getText(),RedShipTextField.getText(),BlueShipTextField.getText(), GroundShipTextField.getText(), WalkinTextField.getText());
-          carrierDAO.deleteCarrier(deleteCarrier);
+          Carrier deleteCarrier = new Carrier(Integer.parseInt(CIDTextField.getText()),NameTextField.getText(),RedShipComboBox.getSelectedItem().toString(),BlueShipComboBox.getSelectedItem().toString(),GroundComboBox.getSelectedItem().toString(),WalkinComboBox.getSelectedItem().toString());
+           carrierDAO.deleteCarrier(deleteCarrier);
           JOptionPane.showMessageDialog(this,"Your carrier has been deleted!");
         CarrierTableModel model = new CarrierTableModel(carrierDAO.getAllCarriers());
         CarrierTable.setModel(model);
@@ -275,7 +315,7 @@ public class CarrierFrame extends javax.swing.JFrame {
     private void UpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateButtonActionPerformed
         // TODO add your handling code here:
         try {
-          Carrier updateCarrier = new Carrier(Integer.parseInt(CIDTextField.getText()),NameTextField.getText(),RedShipTextField.getText(),BlueShipTextField.getText(), GroundShipTextField.getText(), WalkinTextField.getText());
+          Carrier updateCarrier = new Carrier(Integer.parseInt(CIDTextField.getText()),NameTextField.getText(),RedShipComboBox.getSelectedItem().toString(),BlueShipComboBox.getSelectedItem().toString(),GroundComboBox.getSelectedItem().toString(),WalkinComboBox.getSelectedItem().toString());
           carrierDAO.updateCarrier(updateCarrier);
           JOptionPane.showMessageDialog(this,"Your carrier has been updated!");
           CarrierTableModel model = new CarrierTableModel(carrierDAO.getAllCarriers());
@@ -290,10 +330,10 @@ public class CarrierFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
       CIDTextField.setText("");
       NameTextField.setText("");
-      RedShipTextField.setText("");
-      BlueShipTextField.setText("");
-      GroundShipTextField.setText(""); 
-      WalkinTextField.setText("");
+      RedShipComboBox.setSelectedIndex(0);
+      BlueShipComboBox.setSelectedIndex(0);
+      GroundComboBox.setSelectedIndex(0);
+      WalkinComboBox.setSelectedIndex(0);
       AddButton.setEnabled(true);
     }//GEN-LAST:event_ResetButtonActionPerformed
 /*
@@ -334,22 +374,22 @@ public class CarrierFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddButton;
+    private javax.swing.JComboBox<String> BlueShipComboBox;
     private javax.swing.JLabel BlueShipLabel;
-    private javax.swing.JTextField BlueShipTextField;
     private javax.swing.JLabel CIDLabel;
     private javax.swing.JTextField CIDTextField;
     private javax.swing.JTable CarrierTable;
     private javax.swing.JButton DeleteButton;
+    private javax.swing.JComboBox<String> GroundComboBox;
     private javax.swing.JLabel GroundShipLabel;
-    private javax.swing.JTextField GroundShipTextField;
     private javax.swing.JLabel NameLabel;
     private javax.swing.JTextField NameTextField;
+    private javax.swing.JComboBox<String> RedShipComboBox;
     private javax.swing.JLabel RedShipLabel;
-    private javax.swing.JTextField RedShipTextField;
     private javax.swing.JButton ResetButton;
     private javax.swing.JButton UpdateButton;
+    private javax.swing.JComboBox<String> WalkinComboBox;
     private javax.swing.JLabel WalkinLabel;
-    private javax.swing.JTextField WalkinTextField;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }
