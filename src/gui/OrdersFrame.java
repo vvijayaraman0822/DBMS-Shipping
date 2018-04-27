@@ -289,9 +289,10 @@ public class OrdersFrame extends javax.swing.JFrame {
                 if (p==0){
                    try{
                     ordersDAO.updateOrders(addOrder);
-                    JOptionPane.showMessageDialog(this,"Your order has been updated!");
                     OrdersTableModel model = new OrdersTableModel(ordersDAO.getAllOrders());
-                    TableOrders.setModel(model);}
+                    TableOrders.setModel(model);
+                    JOptionPane.showMessageDialog(this,"Your order has been updated!");
+                    }
                    catch(Exception e){
                        JOptionPane.showMessageDialog(null, "Error updating order! Error Message:" + e, "Error Updating", JOptionPane.ERROR_MESSAGE);
                     }
@@ -358,11 +359,12 @@ public class OrdersFrame extends javax.swing.JFrame {
           try {
             Orders deleteOrder = new Orders(Integer.parseInt(TextFieldOID.getText()),ComboBoxPID.getSelectedItem().toString(),Integer.parseInt(ComboBoxEID.getSelectedItem().toString()),Integer.parseInt(TextFieldQuantity.getText()),TextFieldDRecd.getText());
             ordersDAO.deleteOrders(deleteOrder);
-            // Notifies user that their order has been deleted
-            JOptionPane.showMessageDialog(this,"Your order has been deleted!");
             // Refreshes
             OrdersTableModel model = new OrdersTableModel(ordersDAO.getAllOrders());
             TableOrders.setModel(model);
+            // Notifies user that their order has been deleted
+            JOptionPane.showMessageDialog(this,"Your order has been deleted!");
+            
         }
         catch(Exception ex) {
             JOptionPane.showMessageDialog(this, "Error deleting order : " + ex, "Error Deleting Order", JOptionPane.ERROR_MESSAGE);
@@ -407,12 +409,13 @@ public class OrdersFrame extends javax.swing.JFrame {
             Orders updateOrder = new Orders(Integer.parseInt(TextFieldOID.getText()),ComboBoxPID.getSelectedItem().toString(),Integer.parseInt(ComboBoxEID.getSelectedItem().toString()),Integer.parseInt(TextFieldQuantity.getText()),TextFieldDRecd.getText());
             // Updates the order
             ordersDAO.updateOrders(updateOrder);
-            // User notified that their order has been update
-            JOptionPane.showMessageDialog(this,"Your order has been updated!");
-
             // Table is refreshed
             OrdersTableModel model = new OrdersTableModel(ordersDAO.getAllOrders());
             TableOrders.setModel(model);
+            // User notified that their order has been update
+            JOptionPane.showMessageDialog(this,"Your order has been updated!");
+
+            
            }
         }
         catch(Exception ex) {
