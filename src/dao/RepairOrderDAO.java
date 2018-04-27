@@ -119,4 +119,35 @@ public class RepairOrderDAO {
 //        int shipIn_CID = rs.getInt("shipIn_CID");
         return new RepairOrder(RID, dateRecd, dateShipped, shipOutType, shipOut_CID, EID, shipIn_CID);
     }
+    
+    // Added by Jesse Houk for access to attribute data for RepairOrderFrame
+    public List getAllShipTypes() throws Exception {
+        Statement stmt = null;
+        ResultSet rs = null;
+        String sql = "select `COLUMN_NAME` FROM `INFORMATION_SCHEMA`.`COLUMNS`"
+            + " WHERE `TABLE_SCHEMA`='echo' AND `TABLE_NAME`='carrier' AND " +
+            "(COLUMN_NAME like 'ship%' OR COLUMN_NAME = 'walk_in')";
+        List shipTypes = new ArrayList<>();
+        stmt = conn.createStatement();
+        rs = stmt.executeQuery(sql);
+        //rs.beforeFirst();
+        while (rs.next()) {
+            shipTypes.add(rs.getString("COLUMN_NAME"));
+        }
+        conn.close(stmt, rs);
+        return shipTypes;
+    }
+    
+    public List getAllRIDs() throws Exception {
+        Statement stmt = null;
+        ResultSet rs = null;
+        List RIDs = new ArrayList<>();
+        stmt = conn.createStatement();
+        rs = stmt.executeQuery("select RID from repairOrder");
+        while (rs.next()) {
+            RIDs.add(rs.getString("RID"));
+        }
+        conn.close(stmt, rs);
+        return RIDs;
+    }
 }

@@ -139,10 +139,8 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="SerialNum3Label" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="SN3ComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="SN3FormattedTextField" alignment="0" min="-2" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="SN3FormattedTextField" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="SN3ComboBox" min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="dateShippedLabel" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
                       <Component id="dateShippedTextField" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -151,11 +149,13 @@
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="SerialNum4Label" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="SN4ComboBox" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="SN4FormattedTextField" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="shipOutTypeLabel" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="SerialNum4Label" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="shipOutTypeLabel" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -378,11 +378,8 @@
     <Component class="javax.swing.JComboBox" name="receivingEIDComboBox">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
+          <StringArray count="1">
+            <StringItem index="0" value="empty"/>
           </StringArray>
         </Property>
       </Properties>
@@ -393,11 +390,8 @@
     <Component class="javax.swing.JComboBox" name="shipIn_CIDComboBox">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
+          <StringArray count="1">
+            <StringItem index="0" value="empty"/>
           </StringArray>
         </Property>
       </Properties>
@@ -408,11 +402,8 @@
     <Component class="javax.swing.JComboBox" name="shipOut_CIDComboBox">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
+          <StringArray count="1">
+            <StringItem index="0" value="empty"/>
           </StringArray>
         </Property>
       </Properties>
@@ -423,11 +414,12 @@
     <Component class="javax.swing.JComboBox" name="shipTypeComboBox">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
+          <StringArray count="5">
+            <StringItem index="0" value="empty"/>
+            <StringItem index="1" value="Ground"/>
+            <StringItem index="2" value="Blue"/>
+            <StringItem index="3" value="Brown"/>
+            <StringItem index="4" value="Red"/>
           </StringArray>
         </Property>
       </Properties>

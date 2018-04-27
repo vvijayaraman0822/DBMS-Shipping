@@ -7,12 +7,17 @@ package gui;
 
 import java.util.List;
 import core.RepairOrder;
+import core.Carrier;
+import core.Fixes;
 import dao.RepairOrderDAO;
+import dao.FixesDAO;
 import dao.DBConnection;
+import dao.CarrierDAO;
 
 // **** //
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 // **** //
 
@@ -23,7 +28,12 @@ import javax.swing.JOptionPane;
 public class RepairOrderFrame extends javax.swing.JFrame {
     private DBConnection conn;
     private RepairOrderDAO RODAO;
+    private FixesDAO FDAO;
+    private CarrierDAO CDAO;
     private List<RepairOrder> repairOrders;
+    private List EIDList;
+    private List CIDList;
+    private List shipTypeList;
     RepairOrderTableModel model;
     /**
      * Creates new form RepairOrderFrame
@@ -33,22 +43,48 @@ public class RepairOrderFrame extends javax.swing.JFrame {
         
         conn = myConn;
         RODAO = new RepairOrderDAO(conn);
+        FDAO = new FixesDAO(conn);
+        CDAO = new CarrierDAO(conn);
+        
         // enable column sorting on any attribute in the table
         // follows from https://github.com/LegendaryZReborn/4123-DatabaseManagement/blob/master/Donation%20Tracker/src/gui/FundFrame.java
         TableRepairOrders.setAutoCreateRowSorter(true);
         try {
             repairOrders = RODAO.getAllRepairOrders();
-            model = new RepairOrderTableModel(repairOrders);
-            TableRepairOrders.setModel(model);
+            
         }
         catch(Exception ex) {
             Logger.getLogger(RepairOrderFrame.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(this, "Error 2: " + ex, "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error setting up table connection: " + ex, "Error", JOptionPane.ERROR_MESSAGE);
         }
-//        catch(Exception ex) {
-//            Logger.getLogger(ContributionFrame.class.getName()).log(Level.SEVERE, null, ex);
-//            JOptionPane.showMessageDialog(this, "Error 2: " + ex, "Error", JOptionPane.ERROR_MESSAGE);
-//        }
+        model = new RepairOrderTableModel(repairOrders);
+        TableRepairOrders.setModel(model);
+        try {
+            shipTypeList = RODAO.getAllShipTypes();
+//            for(int i = 0; i < shipTypeList.size(); i++)
+//                shipTypeComboBox.addItem(shipTypeList.get(i).toString());
+        }
+        catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Error setting up ship types: " + ex, "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        try {
+            CIDList = CDAO.getAllCIDs();
+            for(int i = 0; i < CIDList.size(); i++) {
+                shipIn_CIDComboBox.addItem(CIDList.get(i).toString());
+                shipOut_CIDComboBox.addItem(CIDList.get(i).toString());
+            }
+        }
+        catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Error setting up shipping CIDs: " + ex, "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        try {
+            EIDList = FDAO.getAllEIDs();
+            for(int i = 0; i < EIDList.size(); i++)
+                receivingEIDComboBox.addItem(EIDList.get(i).toString());
+        }
+        catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Error setting up EIDs: " + ex, "Error", JOptionPane.ERROR_MESSAGE);
+        }
         
     }
 
@@ -169,40 +205,20 @@ public class RepairOrderFrame extends javax.swing.JFrame {
         dateRecdTextField.setText("Date Repair Order Received");
 
         ROAddButton.setText("Add");
-        ROAddButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ROAddButtonMouseClicked(evt);
-            }
-        });
 
         ROUpdateButton.setText("Update");
-        ROUpdateButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ROUpdateButtonMouseClicked(evt);
-            }
-        });
 
         RORemoveButton.setText("Remove");
-        RORemoveButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                RORemoveButtonMouseClicked(evt);
-            }
-        });
 
         ROResetButton.setText("Reset");
-        ROResetButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ROResetButtonMouseClicked(evt);
-            }
-        });
 
-        receivingEIDComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        receivingEIDComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "empty" }));
 
-        shipIn_CIDComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        shipIn_CIDComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "empty" }));
 
-        shipOut_CIDComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        shipOut_CIDComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "empty" }));
 
-        shipTypeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        shipTypeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "empty", "Ground", "Blue", "Brown", "Red" }));
 
         SN1ComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -403,13 +419,30 @@ public class RepairOrderFrame extends javax.swing.JFrame {
         dateRecdTextField.setText(TableRepairOrders.getValueAt(rowIndex, 1).toString());
         dateShippedTextField.setText(TableRepairOrders.getValueAt(rowIndex, 2).toString());
         shipTypeComboBox.setSelectedItem(TableRepairOrders.getValueAt(rowIndex, 3).toString());
-        shipIn_CIDComboBox.setSelectedItem(TableRepairOrders.getValueAt(rowIndex, 4).toString());
-        receivingEIDComboBox.setSelectedItem(TableRepairOrders.getValueAt(rowIndex, 5).toString());
-        shipOut_CIDComboBox.setSelectedItem(TableRepairOrders.getValueAt(rowIndex, 6).toString());
+        if (TableRepairOrders.getValueAt(rowIndex, 4).equals(0)) {
+            shipOut_CIDComboBox.setSelectedItem("empty");
+        }
+        else {
+            shipOut_CIDComboBox.setSelectedItem(TableRepairOrders.getValueAt(rowIndex, 4).toString());
+        }
+        if (TableRepairOrders.getValueAt(rowIndex, 5).equals(0)) {
+            receivingEIDComboBox.setSelectedItem("empty");
+        }
+        else {
+            receivingEIDComboBox.setSelectedItem(TableRepairOrders.getValueAt(rowIndex, 5).toString());
+        }
+        if (TableRepairOrders.getValueAt(rowIndex, 6).equals(0)) {
+            shipIn_CIDComboBox.setSelectedItem("empty");
+        }
+        else {
+            shipIn_CIDComboBox.setSelectedItem(TableRepairOrders.getValueAt(rowIndex, 6).toString());
+        }
         
         
         
-        ROAddButton.setEnabled(true);
+        
+        
+        ROAddButton.setEnabled(false);
     }//GEN-LAST:event_TableRepairOrdersMouseClicked
 
     private void reset(){

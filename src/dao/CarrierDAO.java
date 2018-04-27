@@ -105,4 +105,18 @@ public class CarrierDAO {
         int CID = rs.getInt("CID");
         return new Carrier(CID, name, shipType1, shipType2, shipType3, shipType4);
     }
+    
+    // Added by Jesse Houk
+    public List getAllCIDs() throws Exception {
+        Statement stmt = null;
+        ResultSet rs = null;
+        List CIDs = new ArrayList<>();
+        stmt = conn.createStatement();
+        rs = stmt.executeQuery("select CID from carrier");
+        while (rs.next()) {
+            CIDs.add(rs.getString("CID"));
+        }
+        conn.close(stmt, rs);
+        return CIDs;
+    }
 }
