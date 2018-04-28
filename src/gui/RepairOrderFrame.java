@@ -8,9 +8,9 @@ package gui;
 import java.util.List;
 import core.RepairOrder;
 import core.Carrier;
-import core.Fixes;
+import core.Employee;
 import dao.RepairOrderDAO;
-import dao.FixesDAO;
+import dao.EmployeeDAO;
 import dao.DBConnection;
 import dao.CarrierDAO;
 
@@ -28,7 +28,7 @@ import javax.swing.JOptionPane;
 public class RepairOrderFrame extends javax.swing.JFrame {
     private DBConnection conn;
     private RepairOrderDAO RODAO;
-    private FixesDAO FDAO;
+    private EmployeeDAO EDAO;
     private CarrierDAO CDAO;
     private List<RepairOrder> repairOrders;
     private List EIDList;
@@ -43,7 +43,7 @@ public class RepairOrderFrame extends javax.swing.JFrame {
         
         conn = myConn;
         RODAO = new RepairOrderDAO(conn);
-        FDAO = new FixesDAO(conn);
+        EDAO = new EmployeeDAO(conn);
         CDAO = new CarrierDAO(conn);
         
         // enable column sorting on any attribute in the table
@@ -78,7 +78,7 @@ public class RepairOrderFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Error setting up shipping CIDs: " + ex, "Error", JOptionPane.ERROR_MESSAGE);
         }
         try {
-            EIDList = FDAO.getAllEIDs();
+            EIDList = EDAO.comboValues();
             for(int i = 0; i < EIDList.size(); i++)
                 receivingEIDComboBox.addItem(EIDList.get(i).toString());
         }
@@ -149,7 +149,7 @@ public class RepairOrderFrame extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null}
             },
             new String [] {
-                "RID", "Date Received", "Date Shipped", "Carrier Delivery Type", "Outbound CID", "EID", "Inbound CID"
+                "Repair Order ID", "Date Received", "Date Shipped", "Carrier Delivery Type", "Outbound CID", "EID", "Inbound CID"
             }
         ) {
             Class[] types = new Class [] {

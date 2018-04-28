@@ -80,18 +80,4 @@ public class FixesDAO {
         }
     }
     
-    // Added by Jesse Houk
-    public List getAllEIDs() throws Exception {
-        Statement stmt1 = null;
-        ResultSet rs1 = null;
-        String eid;
-        List EIDs = new ArrayList<>();
-        stmt1 = conn.createStatement();
-        rs1 = stmt1.executeQuery("select EID from fixes");
-        while(rs1.next()) {
-            eid = rs1.getString("EID");
-            EIDs.add(eid);
-        }
-        return EIDs;
-    }
 }
