@@ -19,6 +19,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.sql.ResultSet;
 // **** //
 
 /**
@@ -40,18 +43,18 @@ public class RepairOrderFrame extends javax.swing.JFrame {
      */
     public RepairOrderFrame(DBConnection myConn) {
         initComponents();
-        
+
         conn = myConn;
         RODAO = new RepairOrderDAO(conn);
         FDAO = new FixesDAO(conn);
         CDAO = new CarrierDAO(conn);
-        
+
         // enable column sorting on any attribute in the table
         // follows from https://github.com/LegendaryZReborn/4123-DatabaseManagement/blob/master/Donation%20Tracker/src/gui/FundFrame.java
         TableRepairOrders.setAutoCreateRowSorter(true);
         try {
             repairOrders = RODAO.getAllRepairOrders();
-            
+
         }
         catch(Exception ex) {
             Logger.getLogger(RepairOrderFrame.class.getName()).log(Level.SEVERE, null, ex);
@@ -85,7 +88,7 @@ public class RepairOrderFrame extends javax.swing.JFrame {
         catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Error setting up EIDs: " + ex, "Error", JOptionPane.ERROR_MESSAGE);
         }
-        
+
     }
 
     /**
@@ -205,12 +208,32 @@ public class RepairOrderFrame extends javax.swing.JFrame {
         dateRecdTextField.setText("Date Repair Order Received");
 
         ROAddButton.setText("Add");
+        ROAddButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ROAddButtonMouseClicked(evt);
+            }
+        });
 
         ROUpdateButton.setText("Update");
+        ROUpdateButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ROUpdateButtonActionPerformed(evt);
+            }
+        });
 
         RORemoveButton.setText("Remove");
+        RORemoveButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RORemoveButtonActionPerformed(evt);
+            }
+        });
 
         ROResetButton.setText("Reset");
+        ROResetButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ROResetButtonMouseClicked(evt);
+            }
+        });
 
         receivingEIDComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "empty" }));
 
@@ -407,14 +430,15 @@ public class RepairOrderFrame extends javax.swing.JFrame {
     private void SN4FormattedTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SN4FormattedTextFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_SN4FormattedTextFieldActionPerformed
+    
 
 //////    shipTypeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "GG2220", "RE1410", "WG3100", "WG3720", "WR0103" }));
-        
+
     private void TableRepairOrdersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableRepairOrdersMouseClicked
         // TODO add your handling code here:
         int rowIndex = TableRepairOrders.getSelectedRow();
         int rowModel = TableRepairOrders.convertRowIndexToModel(rowIndex);
-        
+
         RIDTextField.setText(TableRepairOrders.getValueAt(rowIndex, 0).toString());
         dateRecdTextField.setText(TableRepairOrders.getValueAt(rowIndex, 1).toString());
         dateShippedTextField.setText(TableRepairOrders.getValueAt(rowIndex, 2).toString());
@@ -437,14 +461,92 @@ public class RepairOrderFrame extends javax.swing.JFrame {
         else {
             shipIn_CIDComboBox.setSelectedItem(TableRepairOrders.getValueAt(rowIndex, 6).toString());
         }
-        
-        
-        
-        
-        
+
+
+
+
+
         ROAddButton.setEnabled(false);
     }//GEN-LAST:event_TableRepairOrdersMouseClicked
 
+    private void ROResetButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ROResetButtonMouseClicked
+        // TODO add your handling code here:
+        reset();
+        ROAddButton.setEnabled(true);
+    }//GEN-LAST:event_ROResetButtonMouseClicked
+
+    private void RORemoveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RORemoveButtonActionPerformed
+    
+        RepairOrder deleteOrder = new RepairOrder(Integer.parseInt(RIDTextField.getText().toString()),
+                    dateRecdTextField.getText().toString(),dateShippedTextField.getText().toString(),
+                    shipTypeComboBox.getSelectedItem().toString(),
+                    Integer.parseInt(shipOut_CIDComboBox.getSelectedItem().toString()),
+                    Integer.parseInt(receivingEIDComboBox.getSelectedItem().toString()),
+                    Integer.parseInt(shipIn_CIDComboBox.getSelectedItem().toString()));
+
+       try{    
+           RODAO.deleteRepairOrder(deleteOrder);
+           repairOrders = RODAO.getAllRepairOrders();
+           model = new RepairOrderTableModel(repairOrders);
+           TableRepairOrders.setModel(model);
+           JOptionPane.showMessageDialog(this,"Repair order deleted!");
+           System.out.println("Repair order deleted!");
+       }catch(Exception exc){
+            System.out.println("A Problem occured while deleting a Repair Order: " + exc);
+            JOptionPane.showMessageDialog(this,"Repair Orderd not deleted!");
+           
+       }
+      
+        
+    }//GEN-LAST:event_RORemoveButtonActionPerformed
+ 
+    private void ROAddButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ROAddButtonMouseClicked
+        // TODO add your handling code here:
+            
+             RepairOrder addOrder = new RepairOrder(Integer.parseInt(RIDTextField.getText().toString()),
+                    dateRecdTextField.getText().toString(),dateShippedTextField.getText().toString(),
+                    shipTypeComboBox.getSelectedItem().toString(),
+                    Integer.parseInt(shipOut_CIDComboBox.getSelectedItem().toString()),
+                    (Integer.parseInt(receivingEIDComboBox.getSelectedItem().toString())),
+                    Integer.parseInt(shipIn_CIDComboBox.getSelectedItem().toString()));
+
+       try{    
+           RODAO.addRepairOrder(addOrder);
+           repairOrders = RODAO.getAllRepairOrders();
+           model = new RepairOrderTableModel(repairOrders);
+           TableRepairOrders.setModel(model);
+           JOptionPane.showMessageDialog(this,"Repair Orderd added!");
+       }catch(Exception exc){
+            System.out.println("A Problem occured while adding a Repair Order: " + exc);
+            JOptionPane.showMessageDialog(this,"Repair Order was not added!");
+      
+    }//GEN-LAST:event_ROAddButtonMouseClicked
+    }
+    private void ROUpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ROUpdateButtonActionPerformed
+        // TODO add your handling code here:
+        RepairOrder updateOrder = new RepairOrder(
+                    Integer.parseInt(RIDTextField.getText().toString()),
+                    dateRecdTextField.getText().toString(),
+                    dateShippedTextField.getText().toString(),
+                    shipTypeComboBox.getSelectedItem().toString(),
+                    Integer.parseInt(shipOut_CIDComboBox.getSelectedItem().toString()),
+                    Integer.parseInt(receivingEIDComboBox.getSelectedItem().toString()),
+                    Integer.parseInt(shipIn_CIDComboBox.getSelectedItem().toString()));
+
+       try{    
+           RODAO.updateRepairOrder(updateOrder);
+           repairOrders = RODAO.getAllRepairOrders();
+           model = new RepairOrderTableModel(repairOrders);
+           TableRepairOrders.setModel(model);
+           JOptionPane.showMessageDialog(this,"Repair Order was updated!");
+           
+       }catch(Exception exc){
+            System.out.println("A Problem occured while updating a Repair Order: " + exc);
+            JOptionPane.showMessageDialog(this,"Repair Order was not updated!");
+           
+       }
+    }//GEN-LAST:event_ROUpdateButtonActionPerformed
+    
     private void reset(){
        RIDTextField.setText("");
        receivingEIDComboBox.setSelectedItem("");
@@ -466,73 +568,8 @@ public class RepairOrderFrame extends javax.swing.JFrame {
        SN3FormattedTextField.setText("");
        SN4FormattedTextField.setText("");
     }
+
     
-    private void ROResetButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ROResetButtonMouseClicked
-        // TODO add your handling code here:
-       reset();
-    }//GEN-LAST:event_ROResetButtonMouseClicked
-
-    private void ROUpdateButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ROUpdateButtonMouseClicked
-        // TODO add your handling code here:
-   int r =Integer.parseInt(RIDTextField.getText());
-   String dr = dateRecdTextField.getText().toString();
-   String ds = dateShippedTextField.getText().toString();
-   String st = shipTypeComboBox.getSelectedItem().toString();
-   int sc = Integer.parseInt(shipOut_CIDComboBox.getSelectedItem().toString());
-   int e = Integer.parseInt(receivingEIDComboBox.getSelectedItem().toString());
-   int sc2 = Integer.parseInt(shipIn_CIDComboBox.getSelectedItem().toString());
-   RepairOrder newOrder = new RepairOrder(r,dr,ds,st,sc,e,sc2);
-   try{RODAO.updateRepairOrder(newOrder);}
-   catch(Exception ex){
-        JOptionPane.showMessageDialog(this, "Error! Unable to update");
-   }
-   finally{
-       JOptionPane.showMessageDialog(this,"Order will be updated");
-       reset();
-   }
-    }//GEN-LAST:event_ROUpdateButtonMouseClicked
-
-    private void RORemoveButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RORemoveButtonMouseClicked
-        // TODO add your handling code here:
-   int r =Integer.parseInt(RIDTextField.getText());
-   String dr = dateRecdTextField.getText().toString();
-   String ds = dateShippedTextField.getText().toString();
-   String st = shipTypeComboBox.getSelectedItem().toString();
-   int sc = Integer.parseInt(shipOut_CIDComboBox.getSelectedItem().toString());
-   int e = Integer.parseInt(receivingEIDComboBox.getSelectedItem().toString());
-   int sc2 = Integer.parseInt(shipIn_CIDComboBox.getSelectedItem().toString());
-
-   RepairOrder newOrder = new RepairOrder(r,dr,ds,st,sc,e,sc2);
-   try{RODAO.deleteRepairOrder(newOrder);}
-   catch(Exception ex){
-       JOptionPane.showMessageDialog(this, "Error! Unable to remove");
-   }
-   finally{
-       JOptionPane.showMessageDialog(this, "Order will be deleted");
-       reset();
-   }
-    }//GEN-LAST:event_RORemoveButtonMouseClicked
-
-    private void ROAddButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ROAddButtonMouseClicked
-        // TODO add your handling code here:
-   int r = Integer.parseInt(RIDTextField.getText());
-   String dr = dateRecdTextField.getText().toString();
-   String ds = dateShippedTextField.getText().toString();
-   String st = shipTypeComboBox.getSelectedItem().toString();
-   int sc = Integer.parseInt(shipOut_CIDComboBox.getSelectedItem().toString());
-   int e = Integer.parseInt(receivingEIDComboBox.getSelectedItem().toString());
-   int sc2 = Integer.parseInt(shipIn_CIDComboBox.getSelectedItem().toString());
-
-   RepairOrder newOrder = new RepairOrder(r,dr,ds,st,sc,e,sc2);
-   try{RODAO.addRepairOrder(newOrder);}
-   catch(Exception ex){
-       JOptionPane.showMessageDialog(this, "Error, New entry not added!");
-   }
-   finally{
-       JOptionPane.showMessageDialog(this, "Order will be added");
-       reset();
-   }
-    }//GEN-LAST:event_ROAddButtonMouseClicked
 
     /**
      * @param args the command line arguments
@@ -541,7 +578,7 @@ public class RepairOrderFrame extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {

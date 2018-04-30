@@ -41,7 +41,7 @@ public class RepairOrderDAO {
     public void addRepairOrder(RepairOrder repairOrder) throws Exception {
         PreparedStatement stmt = null;
         try {
-            stmt = conn.prepareStatement("insert into repair order values (?, ?, ?, ?, ?, ?, ?)");
+            stmt = conn.prepareStatement("insert into repairOrder values (?, ?, ?, ?, ?, ?, ?)");
 
 //            stmt.setInt(1, repairOrder.shipOut_CID);
 //            stmt.setInt(2, repairOrder.shipIn_CID);
@@ -66,7 +66,7 @@ public class RepairOrderDAO {
     public void deleteRepairOrder(RepairOrder repairOrder) throws Exception {
         PreparedStatement stmt = null;
         try {
-            stmt = conn.prepareStatement("delete from repair order where RID = ?");
+            stmt = conn.prepareStatement("delete from repairOrder where RID = ?");
             //stmt.setInt(1, repairOrder.RID);
             stmt.setInt(1, repairOrder.getRID());
             stmt.execute();
@@ -76,30 +76,28 @@ public class RepairOrderDAO {
     }
     
     public void updateRepairOrder(RepairOrder repairOrder) throws Exception {
+       
         PreparedStatement stmt = null;
-        try {
-            stmt = conn.prepareStatement("update repair order set dataRecd = ?," 
+        String sql ="update repairOrder set dateRecd = ?,"
                     + "dateShipped = ?,"
                     + "shipOutType = ?,"
                     + "shipOut_CID = ?,"
                     + "EID = ?,"
                     + "shipIn_CID = ?"
-                    + "where RID = ?");
-//            stmt.setInt(1, repairOrder.shipOut_CID);
-//            stmt.setInt(2, repairOrder.shipIn_CID);
-//            stmt.setInt(3, repairOrder.EID);
-//            stmt.setInt(4, repairOrder.RID);
-//            stmt.setString(5, repairOrder.dateRecd);
-//            stmt.setString(6, repairOrder.dateShipped);
-//            stmt.setString(7, repairOrder.shipOutType);
-            stmt.setInt(1, repairOrder.getRID());
-            stmt.setString(2, repairOrder.getDateRecd());
-            stmt.setString(3, repairOrder.getDateShipped());
-            stmt.setString(4, repairOrder.getShipOutType());
-            stmt.setInt(5, repairOrder.getShipOut_CID());
-            stmt.setInt(6, repairOrder.getEID());
-            stmt.setInt(7, repairOrder.getShipIn_CID());
+                    + "where RID = ?";
+        try {
+
+            stmt = conn.prepareStatement(sql);
+           
+            stmt.setString(1, repairOrder.getDateRecd());
+            stmt.setString(2, repairOrder.getDateShipped());
+            stmt.setString(3, repairOrder.getShipOutType());
+            stmt.setInt(4, repairOrder.getShipOut_CID());
+            stmt.setInt(5, repairOrder.getEID());
+            stmt.setInt(6, repairOrder.getShipIn_CID());
+            stmt.setInt(7, repairOrder.getRID());
             stmt.execute();
+           
         } finally {
             conn.close(stmt, null);
         }
