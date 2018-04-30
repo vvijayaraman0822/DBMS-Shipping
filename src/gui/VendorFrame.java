@@ -8,6 +8,7 @@ import core.Vendor;
 import dao.VendorDAO;
 import dao.DBConnection;
 import java.util.List;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Holden.Hall
@@ -319,7 +320,8 @@ public class VendorFrame extends javax.swing.JFrame {
             vendorList = vendorDAO.getAllVendors();
         }
         catch(Exception exc){
-            System.out.println("Problem Adding Vendor" + exc);
+           JOptionPane.showMessageDialog(this, "There was an error adding this vendor please make sure you're entered information is matching"
+                   + "                   this example:\n VID: X2Z3 (must be diffrent for each vendor) \n Name: Store Name \n contact: xxx-xxx-xxxx \n address: 123 Example St \n city: Wichita Falls \n state: TX \n zip: 76301");
         }
         
         model = new VendorTableModel(vendorList);
@@ -364,7 +366,7 @@ public class VendorFrame extends javax.swing.JFrame {
             vendorList = vendorDAO.getAllVendors();
         }
         catch(Exception exc){
-            System.out.println("Problem Deleting Vendor" + exc);
+            JOptionPane.showMessageDialog(this, "Error: there was a problem deleting this vendor");
         }  
         
         model = new VendorTableModel(vendorList);
@@ -398,7 +400,8 @@ public class VendorFrame extends javax.swing.JFrame {
             vendorList = vendorDAO.getAllVendors();
         }
         catch(Exception exc){
-            System.out.println("Problem Updating Vendor " + exc);
+             JOptionPane.showMessageDialog(this, "There was an error updating this vendor please make sure you're entered information is matching this example:"
+                     + "\n 105 (must be diffrent for each vendor) \n Store Name \n xxx-xxx-xxxx \n 123 Example St \n Wichita Falls \n TX\n 76301");
         }
         
         model = new VendorTableModel(vendorList);
