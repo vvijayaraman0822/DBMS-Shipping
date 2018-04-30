@@ -31,7 +31,9 @@ public class EmployeeFrame extends javax.swing.JFrame {
         initComponents();
         this.conn = myConn;
         employeeDAO = new EmployeeDAO(this.conn);
+        EmployeeTable.setAutoCreateRowSorter(true);
 
+        
         try{
         employee = employeeDAO.getAllEmployees();
 
