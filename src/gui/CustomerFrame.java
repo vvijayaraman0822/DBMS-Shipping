@@ -284,23 +284,42 @@ public class CustomerFrame extends javax.swing.JFrame {
         
     }        
     private void add_bttnActionPerformed(java.awt.event.ActionEvent evt){
-        Customer customer = new Customer(Integer.parseInt(id_txtfld.getText()),
-            name_txtfld.getText(), address_txtfld.getText(),city_txtfld.getText(),
-            state_txtfld.getText(), zipcode_txtfld.getText(), contact_txtfld.getText());
         
         
-        try{
-            customerDAO.addCustomer(customer);
-            
-            customers = customerDAO.getAllCustomers();
-        }
-        catch(Exception exc){
-            System.out.println("A Problem occured while adding a Customer: " + exc);
-        }
+        int ans = JOptionPane.showConfirmDialog(null,"Are you sure you want to add this cutomer?","Add",JOptionPane.YES_NO_OPTION);
         
-        model = new CustomerTableModel(customers);
-        customer_table.setModel(model);
+        if(ans == 0){
+            try{
+                Customer customer = new Customer(Integer.parseInt(id_txtfld.getText()),
+                    name_txtfld.getText(), address_txtfld.getText(),city_txtfld.getText(),
+                    state_txtfld.getText(), zipcode_txtfld.getText(), contact_txtfld.getText());
+                
+                customerDAO.addCustomer(customer);
+                customers = customerDAO.getAllCustomers();
+                model = new CustomerTableModel(customers);
+                customer_table.setModel(model);
+                JOptionPane.showMessageDialog(this,"Customer added!");
+                System.out.println("Customer added!");
 
+            }
+            catch (NumberFormatException ex){
+                String errorMessage = "";
+                if(ex.getMessage().contains("input string"))
+                {
+                    errorMessage = "Invalid format entered in textfields";
+                    errorMessage += ". Please ensure that integer value is\n";
+                    errorMessage += "entered for ID .\n";
+                    JOptionPane.showMessageDialog(this, "Value Error : " + errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                else
+                    JOptionPane.showMessageDialog(this, "Value Error : " + ex, "Error", JOptionPane.ERROR_MESSAGE);
+
+            }
+            catch(Exception exc){
+                System.out.println("A Problem occured while adding a Customer: " + exc);
+                JOptionPane.showMessageDialog(this,"A problem ocurred while trying to add a customer!");
+            }
+        }
         resetTextFields();
     }
 
@@ -309,38 +328,93 @@ public class CustomerFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_reset_bttnActionPerformed
 
     private void delete_bttnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reset_bttnActionPerformed
-        Customer customer = new Customer(Integer.parseInt(id_txtfld.getText()),
-            name_txtfld.getText(), address_txtfld.getText(),city_txtfld.getText(),
-            state_txtfld.getText(), zipcode_txtfld.getText(), contact_txtfld.getText());
-        
         try{
-            customerDAO.deleteCustomer(customer);
-            
-            customers = customerDAO.getAllCustomers();
+            if(inDatabase(Integer.parseInt(id_txtfld.getText())) == false){
+                String notInDatabase = "";
+                notInDatabase += "Error: The ID you have entered is not in the Table.\n";
+                notInDatabase += "Please make sure the ID you have entered is an ID listed ";
+                notInDatabase += "in the table.\n";
+                JOptionPane.showMessageDialog(this, notInDatabase, "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            else{
+                Customer customer = new Customer(Integer.parseInt(id_txtfld.getText()),
+                    name_txtfld.getText(), address_txtfld.getText(),city_txtfld.getText(),
+                    state_txtfld.getText(), zipcode_txtfld.getText(), contact_txtfld.getText());
+                int ans = JOptionPane.showConfirmDialog(null,"Are you sure you want to delete this cutomer?","Delete",JOptionPane.YES_NO_OPTION);
+                if(ans ==0){
+                    customerDAO.deleteCustomer(customer);
+                    customers = customerDAO.getAllCustomers();
+                    model = new CustomerTableModel(customers);
+                    customer_table.setModel(model);
+                    JOptionPane.showMessageDialog(this,"Customer deleted!");
+                    System.out.println("Customer deleted!");
+                    
+                }
+            } 
+        } 
+        catch (NumberFormatException ex){
+            String errorMessage = "";
+             if(ex.getMessage().contains("input string"))
+             {
+                errorMessage = "Invalid format entered in textfields";
+                errorMessage += ". Please ensure that the ID entered\n";
+                errorMessage += " is the correct ID of the customer you";
+                errorMessage += " wish to delete.";
+                JOptionPane.showMessageDialog(this, "Value Error : " + errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            else
+                JOptionPane.showMessageDialog(this, "Value Error : " + ex, "Error", JOptionPane.ERROR_MESSAGE);
         }
         catch(Exception exc){
             System.out.println("A Problem occured while deleting a Customer: " + exc);
+            JOptionPane.showMessageDialog(this,"A problem ocurred while trying to delete a customer!");
         }
-        
-        model = new CustomerTableModel(customers);
-        customer_table.setModel(model);
+        resetTextFields();
     }
     
+    
     private void update_bttnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reset_bttnActionPerformed
-        Customer customer = new Customer(Integer.parseInt(id_txtfld.getText()),
-            name_txtfld.getText(), address_txtfld.getText(),city_txtfld.getText(),
-            state_txtfld.getText(), zipcode_txtfld.getText(), contact_txtfld.getText());
-        
         try{
-            customerDAO.updateCustomer(customer);
-            customers = customerDAO.getAllCustomers();
+            if(inDatabase(Integer.parseInt(id_txtfld.getText())) == false){
+                String notInDatabase = "";
+                notInDatabase += "Error: The ID you have entered is not in the Table.\n";
+                notInDatabase += "Please make sure the ID you have entered is an ID listed ";
+                notInDatabase += "in the table.\n";
+                JOptionPane.showMessageDialog(this, notInDatabase, "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            else{
+                Customer customer = new Customer(Integer.parseInt(id_txtfld.getText()),
+                    name_txtfld.getText(), address_txtfld.getText(),city_txtfld.getText(),
+                     state_txtfld.getText(), zipcode_txtfld.getText(), contact_txtfld.getText());
+                int ans = JOptionPane.showConfirmDialog(null,"Are you sure you want to update this cutomer?","Update",JOptionPane.YES_NO_OPTION);
+                if(ans ==0){
+                    customerDAO.updateCustomer(customer);
+                    customers = customerDAO.getAllCustomers();
+                    model = new CustomerTableModel(customers);
+                    customer_table.setModel(model);
+                    JOptionPane.showMessageDialog(this,"Customer updated!");
+                    System.out.println("Customer updated!");
+                }
+            }    
+        }
+        catch (NumberFormatException ex){
+            String errorMessage = "";
+             if(ex.getMessage().contains("input string"))
+             {
+                errorMessage = "Invalid format entered in textfields";
+                errorMessage += ". Please ensure that the ID entered\n";
+                errorMessage += " is the correct ID of the customer you";
+                errorMessage += " wish to update.";
+                JOptionPane.showMessageDialog(this, "Value Error : " + errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            else
+                JOptionPane.showMessageDialog(this, "Value Error : " + ex, "Error", JOptionPane.ERROR_MESSAGE);
         }
         catch(Exception exc){
-            System.out.println("A Problem occured while updating a Customer: " + exc);
+            System.out.println("A Problem occured while deleting a Customer: " + exc);
+            JOptionPane.showMessageDialog(this,"A problem ocurred while trying to delete a customer!");
         }
-        
-        model = new CustomerTableModel(customers);
-        customer_table.setModel(model);
+        resetTextFields();
     }
     
     
@@ -395,6 +469,23 @@ public class CustomerFrame extends javax.swing.JFrame {
         
         add_bttn.setEnabled(true);
     }
+    
+     private boolean inDatabase(int id){
+         try{
+            List<Customer> list = customerDAO.getAllCustomers();
+            int size = list.size();
+            for(int i =0; i < size; i++){
+                Customer cust = list.get(i);
+                if(cust.getID() == id){
+                    return true;
+                }
+            }
+         }
+         catch(Exception exc){
+             
+         }
+         return false;
+     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton add_bttn;
