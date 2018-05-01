@@ -23,6 +23,8 @@ public class VendorFrame extends javax.swing.JFrame {
         initComponents();
         this.conn = myConn;
         vendorDAO = new VendorDAO(this.conn);
+        VendorTable.setAutoCreateRowSorter(true);
+
         try{
             //Get a connection to the DB
             
