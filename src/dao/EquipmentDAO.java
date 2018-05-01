@@ -51,10 +51,10 @@ public class EquipmentDAO {
     public void addEquipment(Equipment equip) throws Exception{
         PreparedStatement stmt = null;
         try {
-            stmt = conn.prepareStatement("insert into equipment values(?,?,?)");
+            stmt = conn.prepareStatement("insert into equipment values(?, ?, ?)");
             stmt.setString(1, equip.getSerialNum());
-            stmt.setString(2, equip.getID());
-            stmt.setString(3, equip.getName());
+            stmt.setString(3, equip.getID());
+            stmt.setString(2, equip.getName());
             stmt.execute();
         } finally {
             conn.close(stmt, null);
