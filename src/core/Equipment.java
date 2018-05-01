@@ -10,17 +10,17 @@ package core;
 
 public class Equipment {
     private String serialNum;
-    private int ID;
+    private String ID;
     private String name;
 
 
     public Equipment() {
         serialNum = "";
-        ID = -1;
+        ID = "";
         name = "";
     }
 
-    public Equipment(String s, int i, String n) {
+    public Equipment(String s, String i, String n) {
         serialNum = s;
         ID = i;
         name = n;
@@ -34,11 +34,11 @@ public class Equipment {
         this.serialNum = serialNum;
     }
 
-    public int getID() {
+    public String getID() {
         return ID;
     }
 
-    public void setID(int ID) {
+    public void setID(String ID) {
         this.ID = ID;
     }
 

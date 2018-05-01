@@ -56,7 +56,7 @@ public class EquipmentTableModel extends AbstractTableModel{
             case SERIALNUM_COL:
                 tempEquipment.setSerialNum((String) val);
             case ID_COL:
-                tempEquipment.setID(col);
+                tempEquipment.setID((String)val);
             case NAME_COL:
                 tempEquipment.setName((String) val);
         }

@@ -43,7 +43,7 @@ public class EquipmentDAO {
     
     private Equipment convertRowToEquipment(ResultSet rs) throws Exception {
         String serialNum = rs.getString("serialNum");
-        int ID = rs.getInt("ID");
+        String ID = rs.getString("ID");
         String _name = rs.getString("name");
         return new Equipment(serialNum,ID,_name);
     }
@@ -51,10 +51,10 @@ public class EquipmentDAO {
     public void addEquipment(Equipment equip) throws Exception{
         PreparedStatement stmt = null;
         try {
-            stmt = conn.prepareStatement("insert into equipment values (?, ?, ?)");
+            stmt = conn.prepareStatement("insert into equipment values(?,?,?)");
             stmt.setString(1, equip.getSerialNum());
-            stmt.setInt(2, equip.getID());
-            stmt.setString(3,equip.getName());
+            stmt.setString(2, equip.getID());
+            stmt.setString(3, equip.getName());
             stmt.execute();
         } finally {
             conn.close(stmt, null);
@@ -62,26 +62,34 @@ public class EquipmentDAO {
     }
      
     public void deleteEquipment(Equipment equip) throws Exception{
+        
+        String remove = "delete from equipment where serialNum = ?";
         PreparedStatement stmt = null;
-        try{
-            stmt = conn.prepareStatement("delete from equipment where serial number = ?");
-            stmt.setString(1,equip.getSerialNum());
-            stmt.execute();
+        String serNum = equip.getSerialNum();
+        try {
+            stmt=conn.prepareStatement(remove);
+            stmt.setString(1,serNum );
+            stmt.executeUpdate();
         }
-        finally{
+        finally {
             conn.close(stmt, null);
         }
     }
     
     public void updateEquipment(Equipment equip) throws Exception{
         PreparedStatement stmt = null;
+        String update = "update equipment " 
+                + "SET name = ?, "
+                + "ID = ? "
+                + "where serialNum = ?";
         try {
-            stmt = conn.prepareStatement("update equipment set serialNum= ? where name = ?");
-            stmt.setString(1, equip.getSerialNum());
-            stmt.setInt(2, equip.getID());
-            stmt.setString(3,equip.getName());
+            stmt = conn.prepareStatement(update);
+            stmt.setString(3, equip.getSerialNum());
+            stmt.setString(2, equip.getID());
+            stmt.setString(1, equip.getName());
             stmt.execute();
-        } finally {
+        }
+        finally {
             conn.close(stmt, null);
         }
     }

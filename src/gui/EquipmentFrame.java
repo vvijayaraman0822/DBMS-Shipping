@@ -133,9 +133,6 @@ public class EquipmentFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(206, 206, 206)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(55, 55, 55)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
@@ -143,31 +140,35 @@ public class EquipmentFrame extends javax.swing.JFrame {
                             .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(serNumField, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(IDField, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(61, 61, 61)
-                        .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(resetButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(deleteButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(updateButton)))
-                .addContainerGap(120, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(78, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(77, 77, 77))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(serNumField, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                                    .addComponent(IDField))
+                                .addGap(14, 14, 14)
+                                .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(resetButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(deleteButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(updateButton))
+                            .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 611, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(237, 237, 237)
+                        .addComponent(jLabel1)))
+                .addContainerGap(337, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(31, 31, 31)
+                .addContainerGap()
                 .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(serNumField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
@@ -190,15 +191,29 @@ public class EquipmentFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
-        try {
-          Equipment deleteEquipment = new Equipment(serNumField.getText().toString(), Integer.parseInt(IDField.getText().toString()), nameField.getText());
-          EDAO.deleteEquipment(deleteEquipment);
-            EquipmentTableModel model = new EquipmentTableModel(EDAO.getallEquipment());
-            EquipmentTable.setModel(model);
+        String serialNum, name, ID;
+        serialNum = serNumField.getText();
+        ID = IDField.getText();
+        name = nameField.getText();
+        
+        Equipment oldEquipment = new Equipment(serialNum, ID, name);
+        
+        try{
+            EDAO.deleteEquipment(oldEquipment);
+            //refresh table after adding new tuple
+            equipment = EDAO.getallEquipment();
         }
-        catch(Exception ex) {
-            JOptionPane.showMessageDialog(this, "Database Error : " + ex, "Error", JOptionPane.ERROR_MESSAGE);
-        }
+        catch(Exception exc){
+            JOptionPane.showMessageDialog(this, "Error: there was a problem deleting this equipment");
+        }  
+             
+        model = new EquipmentTableModel(equipment);
+        EquipmentTable.setModel(model);
+        addButton.setEnabled(true);
+        
+        serNumField.setText("");
+        IDField.setText("");
+        nameField.setText("");
     }//GEN-LAST:event_deleteButtonActionPerformed
 
     private void EquipmentTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EquipmentTableMouseClicked
@@ -208,31 +223,56 @@ public class EquipmentFrame extends javax.swing.JFrame {
         IDField.setText(EquipmentTable.getValueAt(selectedRowModel,1).toString());
         nameField.setText(EquipmentTable.getValueAt(selectedRowModel,2).toString());
         
+        addButton.setEnabled((false));
     }//GEN-LAST:event_EquipmentTableMouseClicked
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
-       try {
-            Equipment equipmentAdd = new Equipment(serNumField.getText(), Integer.parseInt(IDField.getText()), nameField.getText());
-            EDAO.addEquipment(equipmentAdd);
-            EquipmentTableModel model = new EquipmentTableModel(EDAO.getallEquipment());
-            EquipmentTable.setModel(model);
+        String serialNum, name, ID;
+        
+        serialNum = serNumField.getText();
+        ID = IDField.getText();
+        name = nameField.getText();
+        
+        Equipment newEquipment = new Equipment(serialNum, ID, name);
+        
+        try{
+            EDAO.addEquipment(newEquipment);
+            //refresh table after adding new tuple
+            equipment = EDAO.getallEquipment();
+        }
+        catch(Exception exc){
+           JOptionPane.showMessageDialog(this, "There was an error adding this equipment please make sure you're entered information is matching"
+                   + "                   this example:\n SerialNum: 1231 (must be unique),\n ID:12312,\n name: Screwdriver)");
         }
         
-        catch (Exception ex){
-            JOptionPane.showMessageDialog(this, "Error 2: " + ex, "Error", JOptionPane.ERROR_MESSAGE);
-        }
+        model = new EquipmentTableModel(equipment);
+        EquipmentTable.setModel(model);
+        
+        serNumField.setText("");
+        IDField.setText("");
+        nameField.setText("");
     }//GEN-LAST:event_addButtonActionPerformed
 
     private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
-        try {
-          Equipment equipmentUpdate = new Equipment(serNumField.getText().toString(), Integer.parseInt(IDField.getText().toString()), nameField.getText());
-          EDAO.updateEquipment(equipmentUpdate);
-          EquipmentTableModel model = new EquipmentTableModel(EDAO.getallEquipment());
-          EquipmentTable.setModel(model);
+        String serialNum, ID, name;
+        serialNum = serNumField.getText();
+        ID = IDField.getText();
+        name = nameField.getText();
+        
+        Equipment updatedEquipment = new Equipment(serialNum, ID, name);
+        
+        try{
+            EDAO.updateEquipment(updatedEquipment);
+            //refresh table after adding new tuple
+            equipment = EDAO.getallEquipment();
         }
-        catch(Exception ex) {
-            JOptionPane.showMessageDialog(this, "Database Error : " + ex, "Error", JOptionPane.ERROR_MESSAGE);
+        catch(Exception exc){
+             JOptionPane.showMessageDialog(this, "There was an error updating this vendor please make sure you're entered information is matching  \n this example:"
+                     + "\n Serial Num: 12314 (must be unique) \n ID: 1231 (must belong to an customer), name: Screwdriver");
         }
+        
+        model = new EquipmentTableModel(equipment);
+        EquipmentTable.setModel(model);
     }//GEN-LAST:event_updateButtonActionPerformed
 
     private void resetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetButtonActionPerformed
