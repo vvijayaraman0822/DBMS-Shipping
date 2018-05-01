@@ -68,7 +68,8 @@ public class EmployeeFrame extends javax.swing.JFrame {
         ResetButton = new javax.swing.JButton();
         jScrollBar1 = new javax.swing.JScrollBar();
         jLabel3 = new javax.swing.JLabel();
-        EIDTextField = new java.awt.TextField();
+        first_name1 = new javax.swing.JTextField();
+        EIDTextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -173,10 +174,9 @@ public class EmployeeFrame extends javax.swing.JFrame {
 
         jLabel3.setText("EID");
 
-        EIDTextField.setText("textField1");
-        EIDTextField.addActionListener(new java.awt.event.ActionListener() {
+        first_name1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EIDTextFieldActionPerformed(evt);
+                first_name1ActionPerformed(evt);
             }
         });
 
@@ -200,10 +200,12 @@ public class EmployeeFrame extends javax.swing.JFrame {
                             .addComponent(jLabel1)
                             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(first_name, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
-                            .addComponent(last_name)
-                            .addComponent(EIDTextField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(first_name, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
+                                .addComponent(last_name)
+                                .addComponent(first_name1, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE))
+                            .addComponent(EIDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(AddButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -212,6 +214,9 @@ public class EmployeeFrame extends javax.swing.JFrame {
                             .addComponent(ResetButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(742, Short.MAX_VALUE))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {AddButton, DeleteButton, ResetButton, UpdateButton});
+
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -220,27 +225,31 @@ public class EmployeeFrame extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(AddButton)
+                        .addComponent(EIDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(AddButton, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(first_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(first_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel1))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(UpdateButton)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(DeleteButton)
-                                    .addComponent(last_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel2))))
-                        .addGap(11, 11, 11)
-                        .addComponent(ResetButton))
-                    .addComponent(EIDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 238, Short.MAX_VALUE))
+                        .addComponent(first_name1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(UpdateButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(DeleteButton)
+                            .addComponent(last_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ResetButton)
+                .addGap(0, 243, Short.MAX_VALUE))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {AddButton, DeleteButton, ResetButton, UpdateButton});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -256,7 +265,9 @@ public class EmployeeFrame extends javax.swing.JFrame {
        
        EIDTextField.setText(model.getValueAt(selectedRowModel, 0).toString());
        first_name.setText(model.getValueAt(selectedRowModel, 1).toString());
-       last_name.setText(model.getValueAt(selectedRowModel, 2).toString());     
+       last_name.setText(model.getValueAt(selectedRowModel, 2).toString()); 
+       
+       AddButton.setEnabled(false);
     }//GEN-LAST:event_EmployeeTableMouseClicked
 
     private void AddButtonKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_AddButtonKeyPressed
@@ -301,41 +312,36 @@ public class EmployeeFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         try {
-          Employee newEmployee = new Employee(Integer.parseInt(EIDTextField.getText()),first_name.getText(),last_name.getText());
-          employeeDAO.addEmployee(newEmployee);
-          JOptionPane.showMessageDialog(this,"Your employee has been added!");
-          EmployeeTableModel model = new EmployeeTableModel(employeeDAO.getAllEmployees());
-          EmployeeTable.setModel(model);
-          
+          Employee newEmployee = new Employee(Integer.parseInt(EIDTextField.getText()),first_name.getText(),last_name.getText()); 
+          employeeDAO.addEmployee(newEmployee);         
+          employee = employeeDAO.getAllEmployees();
+          JOptionPane.showMessageDialog(this,"Your employee will be added!");
         }
         catch(Exception ex) {
             JOptionPane.showMessageDialog(this, "Database Error : " + ex, "Error", JOptionPane.ERROR_MESSAGE);
-        }      
-
+        } 
+      model = new EmployeeTableModel(employee);
+      EmployeeTable.setModel(model);
       EIDTextField.setText("");
       first_name.setText("");
       last_name.setText("");                                             
   
     }                                         
    
-    private void EIDTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EIDTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_EIDTextFieldActionPerformed
-
     private void UpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateButtonActionPerformed
         // TODO add your handling code here:
         try {
           Employee newEmployees = new Employee(Integer.parseInt(EIDTextField.getText()),first_name.getText(),last_name.getText());
           employeeDAO.updateEmployee(newEmployees);
-          JOptionPane.showMessageDialog(this,"Your employee has been updated!");
-          EmployeeTableModel model = new EmployeeTableModel(employeeDAO.getAllEmployees());
-          EmployeeTable.setModel(model);
+          employee = employeeDAO.getAllEmployees();
+          JOptionPane.showMessageDialog(this,"Your employee weill be updated!");
         }
         catch(Exception ex) {
             JOptionPane.showMessageDialog(this, "Database Error : " + ex, "Error", JOptionPane.ERROR_MESSAGE);
         }
         
-        
+      model = new EmployeeTableModel(employee);
+      EmployeeTable.setModel(model); 
       EIDTextField.setText("");
       first_name.setText("");
       last_name.setText("");
@@ -344,15 +350,15 @@ public class EmployeeFrame extends javax.swing.JFrame {
 
     private void DeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteButtonActionPerformed
         // TODO add your handling code here:
-        int p = JOptionPane.showConfirmDialog(null,"Are you sure you wish to delete this order?","Delete",JOptionPane.YES_NO_OPTION);
+        int p = JOptionPane.showConfirmDialog(null,"Are you sure you wish to delete this employee?","Delete",JOptionPane.YES_NO_OPTION);
        if (p==0)
        {
            try {
           Employee deleteEmployee = new Employee(Integer.parseInt(EIDTextField.getText()),first_name.getText(),last_name.getText());
           employeeDAO.deleteEmployee(deleteEmployee);
           JOptionPane.showMessageDialog(this,"Your employee will be deleted!");
-        EmployeeTableModel model = new EmployeeTableModel(employeeDAO.getAllEmployees());
-        EmployeeTable.setModel(model);
+          employee = employeeDAO.getAllEmployees();
+
         }
         catch(Exception ex) {
             JOptionPane.showMessageDialog(this, "Database Error : " + ex, "Error", JOptionPane.ERROR_MESSAGE);
@@ -362,7 +368,8 @@ public class EmployeeFrame extends javax.swing.JFrame {
        else {
            JOptionPane.showMessageDialog(this, "Delete Cancelled");
        }
-       
+      model = new EmployeeTableModel(employee);
+      EmployeeTable.setModel(model); 
       EIDTextField.setText("");
       first_name.setText("");
       last_name.setText("");
@@ -370,11 +377,16 @@ public class EmployeeFrame extends javax.swing.JFrame {
 
     private void ResetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResetButtonActionPerformed
         // TODO add your handling code here:
+      AddButton.setEnabled(true);
       EIDTextField.setText("");
       first_name.setText("");
       last_name.setText("");
 
     }//GEN-LAST:event_ResetButtonActionPerformed
+
+    private void first_name1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_first_name1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_first_name1ActionPerformed
 
     
     
@@ -420,11 +432,12 @@ public class EmployeeFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddButton;
     private javax.swing.JButton DeleteButton;
-    private java.awt.TextField EIDTextField;
+    private javax.swing.JTextField EIDTextField;
     private javax.swing.JTable EmployeeTable;
     private javax.swing.JButton ResetButton;
     private javax.swing.JButton UpdateButton;
     private javax.swing.JTextField first_name;
+    private javax.swing.JTextField first_name1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
