@@ -261,16 +261,46 @@ public class CarrierFrame extends javax.swing.JFrame {
     }
     private void AddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddButtonActionPerformed
         // TODO add your handling code here:
+        Carrier addCarrier = new Carrier(Integer.parseInt(CIDTextField.getText()),NameTextField.getText(),RedShipComboBox.getSelectedItem().toString(),BlueShipComboBox.getSelectedItem().toString(),GroundComboBox.getSelectedItem().toString(),WalkinComboBox.getSelectedItem().toString());
+          
         try {
-          Carrier addCarrier = new Carrier(Integer.parseInt(CIDTextField.getText()),NameTextField.getText(),RedShipComboBox.getSelectedItem().toString(),BlueShipComboBox.getSelectedItem().toString(),GroundComboBox.getSelectedItem().toString(),WalkinComboBox.getSelectedItem().toString());
+        if (Integer.parseInt(CIDTextField.getText())<0){
+              JOptionPane.showMessageDialog(this,"Invalid Carrier Entry","Error Adding Carrier",JOptionPane.ERROR_MESSAGE);
+          }
+        else{
+          //Adds order to the database
           carrierDAO.addCarrier(addCarrier);
-          JOptionPane.showMessageDialog(this,"Your Carrier has been added!");
+          //Refreshes the table
           CarrierTableModel model = new CarrierTableModel(carrierDAO.getAllCarriers());
           CarrierTable.setModel(model);
+          //Notifies the user that their order has been added
+          JOptionPane.showMessageDialog(this,"Your carrier has been added!");
         }
+        }
+
         catch(Exception ex) {
-            JOptionPane.showMessageDialog(this, "Database Error : " + ex, "Error", JOptionPane.ERROR_MESSAGE);
-        }        
+             String error;
+             //Prints error message if OID is already used
+             if (ex.getMessage().contains("for key 'PRIMARY'")){
+                error = "CID is already being used.";
+                JOptionPane.showMessageDialog(this, error, "Error Adding Carrier", JOptionPane.ERROR_MESSAGE);
+                int p = JOptionPane.showConfirmDialog(null,"Do you wish to update this Carrier instead?","Update",JOptionPane.YES_NO_OPTION);
+                if (p==0){
+                   try{
+                    carrierDAO.updateCarrier(addCarrier);
+                   CarrierTableModel model = new CarrierTableModel(carrierDAO.getAllCarriers());
+                   CarrierTable.setModel(model);
+                    JOptionPane.showMessageDialog(this,"Your carrier has been updated!");
+                    }
+                   catch(Exception e){
+                       JOptionPane.showMessageDialog(null, "Error updating carrier! Error Message:" + e, "Error Updating", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+             }
+             else{
+                JOptionPane.showMessageDialog(null, "Error adding order! Error Message: " + ex, "Error Adding Order", JOptionPane.ERROR_MESSAGE);
+        }     
+        }
     }//GEN-LAST:event_AddButtonActionPerformed
 
     private void DeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteButtonActionPerformed
@@ -305,8 +335,20 @@ public class CarrierFrame extends javax.swing.JFrame {
           CarrierTable.setModel(model);
         }
         catch(Exception ex) {
-            JOptionPane.showMessageDialog(this, "Database Error : " + ex, "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "One or more fields are blank. Error Message: " + ex, "Error", JOptionPane.ERROR_MESSAGE);
         }
+        finally{
+           //Fields reset         
+      CIDTextField.setText("");
+      NameTextField.setText("");
+      RedShipComboBox.setSelectedIndex(0);
+      BlueShipComboBox.setSelectedIndex(0);
+      GroundComboBox.setSelectedIndex(0);
+      WalkinComboBox.setSelectedIndex(0);
+      AddButton.setEnabled(true);
+        }
+        
+        
     }//GEN-LAST:event_UpdateButtonActionPerformed
 
     private void ResetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResetButtonActionPerformed
