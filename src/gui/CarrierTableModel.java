@@ -19,7 +19,8 @@ public class CarrierTableModel extends AbstractTableModel{
     private static final int SHIP_GROUND = 4;
     private static final int WALK_IN = 5;
     private final String[] columnNames = 
-        {"CID", "Name", "Ship_Red","Ship_Blue","Ship_ground","Walk_in"};
+        {"Carrier ID", "Name", "Red Shipment Available","Blue Shipment Available",
+            "Ground Shipment Available","Walk_ins Available"};
     private List<Carrier> carriers;
     
     public CarrierTableModel(List<Carrier> c) {
