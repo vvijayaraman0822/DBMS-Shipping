@@ -29,8 +29,9 @@ public class VendorFrame extends javax.swing.JFrame {
         state_Label.setText("State:");
         address_Label.setText("Address:");
         zip_Label.setText("Zip:");
-        
-        
+       
+        VendorTable.setAutoCreateRowSorter(true);
+
         try{
             //Get a connection to the DB
             

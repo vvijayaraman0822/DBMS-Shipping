@@ -435,6 +435,7 @@ public class RepairOrderFrame extends javax.swing.JFrame {
 //////    shipTypeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "GG2220", "RE1410", "WG3100", "WG3720", "WR0103" }));
 
     private void TableRepairOrdersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableRepairOrdersMouseClicked
+  //FIRST:event_TableRepairOrdersMouseClicked
         // TODO add your handling code here:
         int rowIndex = TableRepairOrders.getSelectedRow();
         int rowModel = TableRepairOrders.convertRowIndexToModel(rowIndex);
@@ -461,12 +462,6 @@ public class RepairOrderFrame extends javax.swing.JFrame {
         else {
             shipIn_CIDComboBox.setSelectedItem(TableRepairOrders.getValueAt(rowIndex, 6).toString());
         }
-
-
-
-
-
-        ROAddButton.setEnabled(false);
     }//GEN-LAST:event_TableRepairOrdersMouseClicked
 
     private void ROResetButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ROResetButtonMouseClicked
@@ -477,24 +472,21 @@ public class RepairOrderFrame extends javax.swing.JFrame {
 
     private void RORemoveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RORemoveButtonActionPerformed
     
-        RepairOrder deleteOrder = new RepairOrder(Integer.parseInt(RIDTextField.getText().toString()),
-                    dateRecdTextField.getText().toString(),dateShippedTextField.getText().toString(),
-                    shipTypeComboBox.getSelectedItem().toString(),
-                    Integer.parseInt(shipOut_CIDComboBox.getSelectedItem().toString()),
-                    Integer.parseInt(receivingEIDComboBox.getSelectedItem().toString()),
-                    Integer.parseInt(shipIn_CIDComboBox.getSelectedItem().toString()));
-
-       try{    
-           RODAO.deleteRepairOrder(deleteOrder);
+      try{
+           RODAO.deleteRepairOrder(Integer.parseInt(RIDTextField.getText().toString()));
            repairOrders = RODAO.getAllRepairOrders();
            model = new RepairOrderTableModel(repairOrders);
            TableRepairOrders.setModel(model);
-           JOptionPane.showMessageDialog(this,"Repair order deleted!");
-           System.out.println("Repair order deleted!");
+           JOptionPane.showMessageDialog(this,"Repair Order was deleted!");
+
        }catch(Exception exc){
+           String error ="";
+           if(exc.getMessage().contains("for key 'PRIMARY'"))
+               error="Repair ID not found!\n";
             System.out.println("A Problem occured while deleting a Repair Order: " + exc);
-            JOptionPane.showMessageDialog(this,"Repair Orderd not deleted!");
-           
+            JOptionPane.showMessageDialog(this,"Repair Order was not deleted!"
+                                                +error);
+
        }
       
         
@@ -502,13 +494,21 @@ public class RepairOrderFrame extends javax.swing.JFrame {
  
     private void ROAddButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ROAddButtonMouseClicked
         // TODO add your handling code here:
-            
+        
+           
              RepairOrder addOrder = new RepairOrder(Integer.parseInt(RIDTextField.getText().toString()),
                     dateRecdTextField.getText().toString(),dateShippedTextField.getText().toString(),
                     shipTypeComboBox.getSelectedItem().toString(),
                     Integer.parseInt(shipOut_CIDComboBox.getSelectedItem().toString()),
                     (Integer.parseInt(receivingEIDComboBox.getSelectedItem().toString())),
                     Integer.parseInt(shipIn_CIDComboBox.getSelectedItem().toString()));
+             
+        System.out.println(addOrder.getDateShipped());
+        System.out.println(addOrder.getShipOutType());
+        System.out.println(addOrder.getShipOut_CID());
+        System.out.println(addOrder.getEID());
+        System.out.println(addOrder.getShipIn_CID());
+        System.out.println(addOrder.getRID());
 
        try{    
            RODAO.addRepairOrder(addOrder);
@@ -523,18 +523,86 @@ public class RepairOrderFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_ROAddButtonMouseClicked
     }
     private void ROUpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ROUpdateButtonActionPerformed
-        // TODO add your handling code here:
-        RepairOrder updateOrder = new RepairOrder(
-                    Integer.parseInt(RIDTextField.getText().toString()),
-                    dateRecdTextField.getText().toString(),
-                    dateShippedTextField.getText().toString(),
-                    shipTypeComboBox.getSelectedItem().toString(),
-                    Integer.parseInt(shipOut_CIDComboBox.getSelectedItem().toString()),
-                    Integer.parseInt(receivingEIDComboBox.getSelectedItem().toString()),
-                    Integer.parseInt(shipIn_CIDComboBox.getSelectedItem().toString()));
+        
+        
+        if(receivingEIDComboBox.getSelectedItem().toString() == "empty" ||
+            RIDTextField.getText().toString() =="" ||
+            RIDTextField.getText().toString()== "Order Repair ID" ||
+            dateRecdTextField.getText().toString() == "Repair Order Received"||
+            dateRecdTextField.getText().toString()== "")
+        {
+            JOptionPane.showMessageDialog(this,"Please Include all mandatory values\n"
+                                             + "Date Received\n"
+                                             + "RID\n"
+                                             + "EID Received by\n");
+        }
+        else{
+              int rid = Integer.parseInt(RIDTextField.getText().toString());
+              String dateR = dateRecdTextField.getText().toString();
+              String dateS;
+              String shipType;
+              int so_CID,
+                  si_CID,
+                    eid = Integer.parseInt(receivingEIDComboBox.getSelectedItem().toString());
+     
+            //check for null value present in dateShipped
+            if(dateRecdTextField.getText().toString() == "empty")
+                dateR = "";
+            else{
+                dateR = dateRecdTextField.getText().toString();
+            }
 
+            //check for null in shiptype
+            if(shipTypeComboBox.getSelectedItem().toString() == "empty")
+                shipType = "";
+            else
+                shipType = shipTypeComboBox.getSelectedItem().toString();
+
+            //check for null in shipOut_CID
+            if(shipOut_CIDComboBox.getSelectedItem().toString() == "empty")
+                so_CID = -1;
+            else
+               so_CID = Integer.parseInt(shipOut_CIDComboBox.getSelectedItem().toString());
+            
+            //check for shipIn_CID
+            if(shipIn_CIDComboBox.getSelectedItem().toString() == "empty")
+                si_CID = -1;
+            else
+                si_CID =Integer.parseInt(shipIn_CIDComboBox.getSelectedItem().toString());
+            
+            //check for null dateShippedTextField
+            if(dateShippedTextField.getText().toString() == ""||
+               dateShippedTextField.getText().toString() == "Date Order Shipped")
+                 dateS = "";
+            else
+                dateS =dateShippedTextField.getText().toString();
+  /**
+    public RepairOrder(int r, String dr, String ds, String st, int sc,int e, int sc2)
+    {
+        RID = r;
+        dateRecd = dr;
+        dateShipped = ds;
+        shipOutType = st;
+        shipOut_CID = sc;
+        shipIn_CID = sc2;
+        EID = e;
+    }
+   ***/
+            
+            RepairOrder upOrder = new RepairOrder(rid,dateR,dateS,shipType,so_CID,eid,si_CID);
+        
+//        RepairOrder updateOrder = new RepairOrder(
+//                    Integer.parseInt(RIDTextField.getText().toString()),
+//                    dateRecdTextField.getText().toString(),
+//                    dateShippedTextField.getText().toString(),
+//                    shipTypeComboBox.getSelectedItem().toString(),
+//                    Integer.parseInt(shipOut_CIDComboBox.getSelectedItem().toString()),
+//                    Integer.parseInt(receivingEIDComboBox.getSelectedItem().toString()),
+//                    Integer.parseInt(shipIn_CIDComboBox.getSelectedItem().toString()));
+
+       
        try{    
-           RODAO.updateRepairOrder(updateOrder);
+           RODAO.updateRepairOrder(upOrder);
            repairOrders = RODAO.getAllRepairOrders();
            model = new RepairOrderTableModel(repairOrders);
            TableRepairOrders.setModel(model);
@@ -545,25 +613,26 @@ public class RepairOrderFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this,"Repair Order was not updated!");
            
        }
+       }
     }//GEN-LAST:event_ROUpdateButtonActionPerformed
     
     private void reset(){
        RIDTextField.setText("");
-       receivingEIDComboBox.setSelectedItem("");
-       shipIn_CIDComboBox.setSelectedItem("");
-       shipOut_CIDComboBox.setSelectedItem("");
-       shipTypeComboBox.setSelectedItem("");
+       receivingEIDComboBox.setSelectedItem("empty");
+       shipIn_CIDComboBox.setSelectedItem("empty");
+       shipOut_CIDComboBox.setSelectedItem("empty");
+       shipTypeComboBox.setSelectedItem("empty");
        dateShippedTextField.setText("");
        dateRecdTextField.setText("");
-       SN1ComboBox.setSelectedItem("");
+       SN1ComboBox.setSelectedItem("empty");
        SN1FormattedTextField.setText("");
        SN2ComboBox.setSelectedItem("");
        SN3ComboBox.setSelectedItem("");
        SN4ComboBox.setSelectedItem("");
-       workEID1ComboBox.setSelectedItem("");
-       workEID2ComboBox.setSelectedItem("");
-       workEID3ComboBox.setSelectedItem("");
-       workEID4ComboBox.setSelectedItem("");
+       workEID1ComboBox.setSelectedItem("empty");
+       workEID2ComboBox.setSelectedItem("empty");
+       workEID3ComboBox.setSelectedItem("empty");
+       workEID4ComboBox.setSelectedItem("empty");
        SN2FormattedTextField.setText("");
        SN3FormattedTextField.setText("");
        SN4FormattedTextField.setText("");
