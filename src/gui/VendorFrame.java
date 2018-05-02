@@ -23,6 +23,14 @@ public class VendorFrame extends javax.swing.JFrame {
         initComponents();
         this.conn = myConn;
         vendorDAO = new VendorDAO(this.conn);
+        name_Label.setText("Name:");
+        contact_Label.setText("Contact:");
+        city_Label.setText("City:");
+        state_Label.setText("State:");
+        address_Label.setText("Address:");
+        zip_Label.setText("Zip:");
+        
+        
         try{
             //Get a connection to the DB
             
