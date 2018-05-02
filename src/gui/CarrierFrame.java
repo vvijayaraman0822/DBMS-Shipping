@@ -39,6 +39,7 @@ public class CarrierFrame extends javax.swing.JFrame {
         {
             JOptionPane.showMessageDialog(this, "Message: " + e,"ERROR",JOptionPane.ERROR_MESSAGE);
         }
+        
     };
 
     /**
@@ -321,25 +322,47 @@ public class CarrierFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_AddButtonActionPerformed
 
     private void DeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteButtonActionPerformed
-        // TODO add your handling code here:
+        
+//TODO add your handling code here:
               int p = JOptionPane.showConfirmDialog(null,"Are you sure you wish to delete this order?","Delete",JOptionPane.YES_NO_OPTION);
        if (p==0)
        {
+         
            try {
           Carrier deleteCarrier = new Carrier(Integer.parseInt(CIDTextField.getText()),NameTextField.getText(),RedShipComboBox.getSelectedItem().toString(),BlueShipComboBox.getSelectedItem().toString(),GroundComboBox.getSelectedItem().toString(),WalkinComboBox.getSelectedItem().toString());
            carrierDAO.deleteCarrier(deleteCarrier);
           JOptionPane.showMessageDialog(this,"Your carrier has been deleted!");
-        CarrierTableModel model = new CarrierTableModel(carrierDAO.getAllCarriers());
-        CarrierTable.setModel(model);
+            carrierList = carrierDAO.getAllCarriers();
+            model = new CarrierTableModel(carrierList);
+            CarrierTable.setModel(model);
+
+        //CarrierTableModel model = new CarrierTableModel(carrierDAO.getAllCarriers());
+        //CarrierTable.setModel(model);
         }
         catch(Exception ex) {
             JOptionPane.showMessageDialog(this, "Database Error : " + ex, "Error", JOptionPane.ERROR_MESSAGE);
         }
          
+           finally{
+           //Fields reset         
+      CIDTextField.setText("");
+      NameTextField.setText("");
+      RedShipComboBox.setSelectedIndex(0);
+      BlueShipComboBox.setSelectedIndex(0);
+      GroundComboBox.setSelectedIndex(0);
+      WalkinComboBox.setSelectedIndex(0);
+      AddButton.setEnabled(true);
+           
+           }
        }
        else {
            JOptionPane.showMessageDialog(this, "Delete Cancelled");
        }
+       
+       
+       
+       
+       
     }//GEN-LAST:event_DeleteButtonActionPerformed
 
     private void UpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateButtonActionPerformed
