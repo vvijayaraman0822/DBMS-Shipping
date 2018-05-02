@@ -154,6 +154,11 @@ public class CarrierFrame extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        CarrierTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                CarrierTableMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(CarrierTable);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -361,6 +366,20 @@ public class CarrierFrame extends javax.swing.JFrame {
       WalkinComboBox.setSelectedIndex(0);
       AddButton.setEnabled(true);
     }//GEN-LAST:event_ResetButtonActionPerformed
+
+    private void CarrierTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CarrierTableMouseClicked
+        // TODO add your handling code here:
+        int selectedRowIndex = CarrierTable.getSelectedRow();
+        int selectedRowModel = CarrierTable.convertRowIndexToModel(selectedRowIndex);     
+        CIDTextField.setText(CarrierTable.getValueAt(selectedRowModel, 0).toString());
+        NameTextField.setText(CarrierTable.getValueAt(selectedRowModel, 1).toString());
+        RedShipComboBox.setSelectedItem(CarrierTable.getValueAt(selectedRowModel, 2).toString());
+        BlueShipComboBox.setSelectedItem(CarrierTable.getValueAt(selectedRowModel, 3).toString());
+        GroundComboBox.setSelectedItem(CarrierTable.getValueAt(selectedRowModel, 4).toString());
+        WalkinComboBox.setSelectedItem(CarrierTable.getValueAt(selectedRowModel, 5).toString());
+        
+        AddButton.setEnabled(false);  
+    }//GEN-LAST:event_CarrierTableMouseClicked
 /*
     /*
      * @param args the command line arguments
