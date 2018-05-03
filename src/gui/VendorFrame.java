@@ -74,7 +74,7 @@ public class VendorFrame extends javax.swing.JFrame {
         city_TextField = new javax.swing.JTextField();
         state_TextField = new javax.swing.JTextField();
         zip_TextField = new javax.swing.JTextField();
-        Create_Button = new javax.swing.JButton();
+        Add_Button = new javax.swing.JButton();
         Update_Button = new javax.swing.JButton();
         Delete_Button = new javax.swing.JButton();
         Reset_Button = new javax.swing.JButton();
@@ -155,10 +155,10 @@ public class VendorFrame extends javax.swing.JFrame {
             }
         });
 
-        Create_Button.setText("Create");
-        Create_Button.addActionListener(new java.awt.event.ActionListener() {
+        Add_Button.setText("Add");
+        Add_Button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Create_ButtonActionPerformed(evt);
+                Add_ButtonActionPerformed(evt);
             }
         });
 
@@ -192,7 +192,7 @@ public class VendorFrame extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 920, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Create_Button)
+                            .addComponent(Add_Button)
                             .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -226,7 +226,7 @@ public class VendorFrame extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Create_Button)
+                    .addComponent(Add_Button)
                     .addComponent(Update_Button)
                     .addComponent(Delete_Button)
                     .addComponent(Reset_Button))
@@ -304,14 +304,14 @@ public class VendorFrame extends javax.swing.JFrame {
        zip_TextField.setText(model.getValueAt(selectedRowModel, 6).toString());
        
        //disable create button
-       Create_Button.setEnabled(false);
+       Add_Button.setEnabled(false);
     }//GEN-LAST:event_VendorTableMouseClicked
 
     private void address_TextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_address_TextFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_address_TextFieldActionPerformed
 
-    private void Create_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Create_ButtonActionPerformed
+    private void Add_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Add_ButtonActionPerformed
         String VID, name, contact, address, city, state, zip;
         VID = VID_TextField.getText();
         name = name_TextField.getText();
@@ -343,7 +343,7 @@ public class VendorFrame extends javax.swing.JFrame {
         city_TextField.setText("");
         state_TextField.setText("");
         zip_TextField.setText("");        
-    }//GEN-LAST:event_Create_ButtonActionPerformed
+    }//GEN-LAST:event_Add_ButtonActionPerformed
 
     private void Reset_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Reset_ButtonActionPerformed
        VID_TextField.setText("");
@@ -353,7 +353,7 @@ public class VendorFrame extends javax.swing.JFrame {
        city_TextField.setText("");
        state_TextField.setText("");
        zip_TextField.setText("");
-       Create_Button.setEnabled(true);
+       Add_Button.setEnabled(true);
 
     }//GEN-LAST:event_Reset_ButtonActionPerformed
 
@@ -380,7 +380,7 @@ public class VendorFrame extends javax.swing.JFrame {
         
         model = new VendorTableModel(vendorList);
         VendorTable.setModel(model);
-        Create_Button.setEnabled(true);
+        Add_Button.setEnabled(true);
 
         VID_TextField.setText("");
         name_TextField.setText("");
@@ -453,7 +453,7 @@ public class VendorFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Create_Button;
+    private javax.swing.JButton Add_Button;
     private javax.swing.JButton Delete_Button;
     private javax.swing.JButton Reset_Button;
     private javax.swing.JButton Update_Button;
