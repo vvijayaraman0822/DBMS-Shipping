@@ -55,11 +55,23 @@ public class RepairOrderDAO {
 //            stmt.setString(7, repairOrder.shipOutType);
             stmt.setInt(1, repairOrder.getRID());
             stmt.setString(2, repairOrder.getDateRecd());
-            stmt.setString(3, repairOrder.getDateShipped());
-            stmt.setString(4, repairOrder.getShipOutType());
-            stmt.setInt(5, repairOrder.getShipOut_CID());
+            if(repairOrder.getDateShipped() != null && !repairOrder.getDateShipped().isEmpty())
+                  stmt.setString(3, repairOrder.getDateShipped());
+            else
+                stmt.setNull(3, java.sql.Types.DATE);
+            if(repairOrder.getShipOutType() != null && !repairOrder.getShipOutType().isEmpty())
+                stmt.setString(4, repairOrder.getShipOutType().toString());
+            else
+                stmt.setNull(4, java.sql.Types.VARCHAR);
+            if(repairOrder.getShipIn_CID() != 0)
+                stmt.setInt(7, repairOrder.getShipIn_CID());
+            else
+                stmt.setNull(7, java.sql.Types.INTEGER);
+            if(repairOrder.getShipOut_CID() != 0)
+                stmt.setInt(5, repairOrder.getShipOut_CID());
+            else
+                stmt.setNull(5, java.sql.Types.INTEGER);
             stmt.setInt(6, repairOrder.getEID());
-            stmt.setInt(7, repairOrder.getShipIn_CID());
             stmt.execute();
         } finally {
             conn.close(stmt, null);
@@ -88,64 +100,32 @@ public class RepairOrderDAO {
                     + " EID = ?,"
                     + " shipIn_CID = ?"
                     + " where RID = ?";
-       System.out.println(repairOrder.getDateRecd());
-        System.out.println(repairOrder.getDateShipped());
-         System.out.println(repairOrder.getShipOutType());
-          System.out.println(repairOrder.getShipOut_CID());
-           System.out.println(repairOrder.getEID());
-            System.out.println(repairOrder.getShipIn_CID());
-             System.out.println(repairOrder.getRID());
-         
         
         try {
 
             stmt = conn.prepareStatement(sql);
             //dateRecd has been validated already
-           // stmt.setDate(1, java.sql.Date.valueOf(repairOrder.getDateRecd()));
-           stmt.setString(1, repairOrder.getDateRecd());
             //check date shipped in case of null
-            if(repairOrder.getDateShipped() == "")
-                stmt.setNull(2, java.sql.Types.DATE);
-            else{
-                //java.sql.Date dateShip = java.sql.Date.valueOf(repairOrder.getDateShipped());
-                //stmt.setDate(2,dateShip);
-                stmt.setString(2,repairOrder.getDateShipped());
-            }
-            //check shipout type
-            if(repairOrder.getShipOutType() == "")
-                stmt.setNull(3, java.sql.Types.VARCHAR);
-            else{
-                stmt.setString(3,repairOrder.getShipOutType());
-            }
-            //check cid null
-            if(repairOrder.getShipOut_CID() == -1)
-                //stmt.setNull(4,java.sql.Types.INTEGER);
-                stmt.setInt(4, 3);
-            
-            else
-                stmt.setInt(4, repairOrder.getShipOut_CID());
-                
-            //set eid
-            stmt.setInt(5, repairOrder.getEID());
-            
-            //check shipIN_CID
-            if(repairOrder.getShipIn_CID() == -1)
-                stmt.setNull(6, java.sql.Types.INTEGER);
-            else
-                stmt.setInt(6,repairOrder.getShipOut_CID());
-            
-            //set RID already check for null
             stmt.setInt(7, repairOrder.getRID());
-            
-//            stmt.setString(2, repairOrder.getDateShipped());
-//           
-//            stmt.setString(3, repairOrder.getShipOutType());
-//            stmt.setInt(4, repairOrder.getShipOut_CID());
-//            stmt.setInt(5, repairOrder.getEID());
-//            stmt.setInt(6, repairOrder.getShipIn_CID());
-//            stmt.setInt(7, repairOrder.getRID());
+            stmt.setString(1, repairOrder.getDateRecd());
+            if(repairOrder.getDateShipped() != null && !repairOrder.getDateShipped().isEmpty())
+                  stmt.setString(2, repairOrder.getDateShipped());
+            else
+                stmt.setNull(2, java.sql.Types.DATE);
+            if(repairOrder.getShipOutType() != null && !repairOrder.getShipOutType().isEmpty())
+                stmt.setString(3, repairOrder.getShipOutType().toString());
+            else
+                stmt.setNull(3, java.sql.Types.VARCHAR);
+            if(repairOrder.getShipIn_CID() != 0)
+                stmt.setInt(6, repairOrder.getShipIn_CID());
+            else
+                stmt.setNull(6, java.sql.Types.INTEGER);
+            if(repairOrder.getShipOut_CID() != 0)
+                stmt.setInt(4, repairOrder.getShipOut_CID());
+            else
+                stmt.setNull(4, java.sql.Types.INTEGER);
+            stmt.setInt(5, repairOrder.getEID());
             stmt.execute();
-           
         } finally {
             conn.close(stmt, null);
         }
