@@ -72,18 +72,20 @@ public class PartFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPIDTextField.setText("PIDTextField");
-
-        jNameTextField.setText("nameTextField");
         jNameTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jNameTextFieldActionPerformed(evt);
             }
         });
 
-        jDescriptionTextField.setText("descriptionTextField");
+        jDescriptionTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jDescriptionTextFieldActionPerformed(evt);
+            }
+        });
 
         jVIDCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jVIDCombo.setSelectedIndex(-1);
 
         jNameLabel.setText("Name");
 
@@ -94,10 +96,25 @@ public class PartFrame extends javax.swing.JFrame {
         jDescriptionLabel.setText("Description");
 
         jButtonInsert.setText("Create");
+        jButtonInsert.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonInsertActionPerformed(evt);
+            }
+        });
 
         jButtonUpdate.setText("Edit");
+        jButtonUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonUpdateActionPerformed(evt);
+            }
+        });
 
         jButtonDelete.setText("Delete");
+        jButtonDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDeleteActionPerformed(evt);
+            }
+        });
 
         partTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -153,6 +170,11 @@ public class PartFrame extends javax.swing.JFrame {
         );
 
         jButtonReset.setText("Reset");
+        jButtonReset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonResetActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -230,6 +252,35 @@ public class PartFrame extends javax.swing.JFrame {
         jButtonInsert.setEnabled(false);       
     }//GEN-LAST:event_partTableMouseClicked
 
+    private void jDescriptionTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jDescriptionTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jDescriptionTextFieldActionPerformed
+
+    private void jButtonResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonResetActionPerformed
+        // TODO add your handling code here:
+        reset();
+    }//GEN-LAST:event_jButtonResetActionPerformed
+
+    private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonDeleteActionPerformed
+
+    private void jButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonUpdateActionPerformed
+
+    private void jButtonInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInsertActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonInsertActionPerformed
+
+    private void reset(){
+        jPIDTextField.setText("");
+        jDescriptionTextField.setText("");
+        jNameTextField.setText("");
+        jVIDCombo.setSelectedIndex(-1);
+           
+    }
+           
     /**
      * @param args the command line arguments
      */
