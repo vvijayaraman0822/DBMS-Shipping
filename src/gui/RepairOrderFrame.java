@@ -22,6 +22,11 @@ import javax.swing.JOptionPane;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.sql.ResultSet;
+
+//Clorissa Callender
+   
+import java.text.SimpleDateFormat;
+import java.util.Date;
 // **** //
 
 /**
@@ -38,6 +43,10 @@ public class RepairOrderFrame extends javax.swing.JFrame {
     private List CIDList;
     private List shipTypeList;
     RepairOrderTableModel model;
+    //Clorissa Callender
+    
+    SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+    Date date = new Date();
     /**
      * Creates new form RepairOrderFrame
      */
@@ -48,6 +57,8 @@ public class RepairOrderFrame extends javax.swing.JFrame {
         RODAO = new RepairOrderDAO(conn);
         EDAO = new EmployeeDAO(conn);
         CDAO = new CarrierDAO(conn);
+
+        dateRecdTextField.setText(formatter.format(date));
 
         // enable column sorting on any attribute in the table
         // follows from https://github.com/LegendaryZReborn/4123-DatabaseManagement/blob/master/Donation%20Tracker/src/gui/FundFrame.java
@@ -645,7 +656,7 @@ public class RepairOrderFrame extends javax.swing.JFrame {
        shipOut_CIDComboBox.setSelectedItem("");
        shipTypeComboBox.setSelectedItem("");
        dateShippedTextField.setText("");
-       dateRecdTextField.setText("");
+       dateRecdTextField.setText(formatter.format(date));
        SN1ComboBox.setSelectedItem("");
        SN1FormattedTextField.setText("");
        SN2ComboBox.setSelectedItem("");
