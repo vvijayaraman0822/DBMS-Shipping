@@ -255,7 +255,7 @@ public class PartFrame extends javax.swing.JFrame {
     private void jDescriptionTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jDescriptionTextFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jDescriptionTextFieldActionPerformed
-
+    //Clorissa Callender
     private void jButtonResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonResetActionPerformed
         // TODO add your handling code here:
         reset();
@@ -272,7 +272,7 @@ public class PartFrame extends javax.swing.JFrame {
     private void jButtonInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInsertActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonInsertActionPerformed
-
+    //Clorissa Callender
     private void reset(){
         jPIDTextField.setText("");
         jDescriptionTextField.setText("");
