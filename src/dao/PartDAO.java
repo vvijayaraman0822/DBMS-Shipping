@@ -64,6 +64,7 @@ public class PartDAO {
     }
   //edit by Michael Lewis to fix PID and VID to strings instead of ints as they
   //are varchars in database, cascading issue from part.java
+  //Cory Press - fixed syntax errors in sql statement
     public void updatePart(Part part)throws Exception{
        PreparedStatement stmt = null;
        String sql = "update part "
@@ -89,7 +90,7 @@ public class PartDAO {
     public void addPart(Part part)throws Exception{
         PreparedStatement stmt = null;
         try{
-            stmt = conn.prepareStatement("insert into part values(?,?,?,?)");
+            stmt = conn.prepareStatement("insert into part values(? ,? ,? ,?)");
             stmt.setString(1, part.getPID());
             stmt.setString(2, part.getname());
             stmt.setString(3, part.getdescription());
