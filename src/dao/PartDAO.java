@@ -67,17 +67,17 @@ public class PartDAO {
   //Cory Press - fixed syntax errors in sql statement
     public void updatePart(Part part)throws Exception{
        PreparedStatement stmt = null;
-       String sql = "update part"
-                  + "set PID = ?,"
-                  + "set name = ?,"
-                  + "set description = ?,"
-                  + "set VID = ?";
+       String sql = "update part "
+                  + "set name = ?, "
+                  + "description = ?, "
+                  + "VID = ? "
+                  + "where PID = ?";
        try{
            stmt = conn.prepareStatement(sql);
-           stmt.setString(1, part.getPID());
-           stmt.setString(2, part.getname());
-           stmt.setString(3,part.getdescription());
-           stmt.setString(4, part.getVID());
+           stmt.setString(1, part.getname());
+           stmt.setString(2, part.getdescription());
+           stmt.setString(3, part.getVID());
+           stmt.setString(4, part.getPID());
            stmt.execute();
        }
        finally{
@@ -124,4 +124,6 @@ public class PartDAO {
               }
         return list;
     }
+       
+    
 }
