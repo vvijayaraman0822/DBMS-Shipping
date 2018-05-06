@@ -9,10 +9,15 @@ import java.util.List;
 import core.RepairOrder;
 import core.Carrier;
 import core.Employee;
+import core.Equipment;
+import core.Contains;
 import dao.RepairOrderDAO;
 import dao.EmployeeDAO;
 import dao.DBConnection;
 import dao.CarrierDAO;
+import dao.EquipmentDAO;
+import dao.ContainsDAO;
+import gui.ContainsTableModel;
 
 // **** //
 import java.util.logging.Level;
@@ -22,6 +27,11 @@ import javax.swing.JOptionPane;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.sql.ResultSet;
+import javax.swing.event.DocumentListener;
+import javax.swing.event.DocumentEvent;
+import javax.swing.text.Document;
+import java.util.ArrayList;
+
 
 //Clorissa Callender
    
@@ -38,10 +48,15 @@ public class RepairOrderFrame extends javax.swing.JFrame {
     private RepairOrderDAO RODAO;
     private EmployeeDAO EDAO;
     private CarrierDAO CDAO;
+    private EquipmentDAO EqDAO;
+    private ContainsDAO CoDAO;
     private List<RepairOrder> repairOrders;
     private List EIDList;
     private List CIDList;
     private List shipTypeList;
+    private List equipmentList;
+    private List containsList;
+    private ContainsTableModel cmodel;
     RepairOrderTableModel model;
     //Clorissa Callender
     
@@ -52,12 +67,27 @@ public class RepairOrderFrame extends javax.swing.JFrame {
      */
     public RepairOrderFrame(DBConnection myConn) {
         initComponents();
-
+        shipTypeComboBox.addItem("");
+        shipOut_CIDComboBox.addItem("");
+        shipIn_CIDComboBox.addItem("");
+        receivingEIDComboBox.addItem("");
+        SN1ComboBox.addItem("");
+        SN2ComboBox.addItem("");
+        SN3ComboBox.addItem("");
+        SN4ComboBox.addItem("");
+        workEID1ComboBox.addItem("");
+        workEID2ComboBox.addItem("");
+        workEID3ComboBox.addItem("");
+        workEID4ComboBox.addItem("");
+        this.reset();
+        
         conn = myConn;
         RODAO = new RepairOrderDAO(conn);
         EDAO = new EmployeeDAO(conn);
         CDAO = new CarrierDAO(conn);
-
+        EqDAO = new EquipmentDAO(conn);
+        CoDAO = new ContainsDAO(conn);
+        
         dateRecdTextField.setText(formatter.format(date));
 
         // enable column sorting on any attribute in the table
@@ -79,7 +109,7 @@ public class RepairOrderFrame extends javax.swing.JFrame {
 //                shipTypeComboBox.addItem(shipTypeList.get(i).toString());
         }
         catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Error setting up ship types: " + ex, "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error retrieving ship types: " + ex, "Error", JOptionPane.ERROR_MESSAGE);
         }
         try {
             CIDList = CDAO.getAllCIDs();
@@ -89,17 +119,41 @@ public class RepairOrderFrame extends javax.swing.JFrame {
             }
         }
         catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Error setting up shipping CIDs: " + ex, "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error retrieveing shipping CIDs: " + ex, "Error", JOptionPane.ERROR_MESSAGE);
         }
         try {
             EIDList = EDAO.comboValues();
-            for(int i = 0; i < EIDList.size(); i++)
+            for(int i = 0; i < EIDList.size(); i++) {
                 receivingEIDComboBox.addItem(EIDList.get(i).toString());
+                workEID1ComboBox.addItem(EIDList.get(i).toString());
+                workEID2ComboBox.addItem(EIDList.get(i).toString());
+                workEID3ComboBox.addItem(EIDList.get(i).toString());
+                workEID4ComboBox.addItem(EIDList.get(i).toString());
+                
+            }
         }
         catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Error setting up EIDs: " + ex, "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error retrieving EIDs: " + ex, "Error", JOptionPane.ERROR_MESSAGE);
         }
-
+        try {
+            equipmentList = EqDAO.comboValues();
+            for(int i = 0; i < equipmentList.size(); i++) {
+                SN1ComboBox.addItem(equipmentList.get(i).toString());
+                SN2ComboBox.addItem(equipmentList.get(i).toString());
+                SN3ComboBox.addItem(equipmentList.get(i).toString());
+                SN4ComboBox.addItem(equipmentList.get(i).toString());
+            }
+        }
+        catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Error retrieving Parts: " + ex, "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        try {
+            containsList = CoDAO.getAllContains();
+            cmodel = new ContainsTableModel(containsList);
+        }
+        catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Error retrieving Repair Order Parts (contains): " + ex, "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     /**
@@ -246,37 +300,8 @@ public class RepairOrderFrame extends javax.swing.JFrame {
             }
         });
 
-        receivingEIDComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "empty" }));
+        shipTypeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ground", "Blue", "Brown", "Red" }));
 
-        shipIn_CIDComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "empty" }));
-
-        shipOut_CIDComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "empty" }));
-
-        shipTypeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "empty", "Ground", "Blue", "Brown", "Red" }));
-
-        SN1ComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        SN2ComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        SN3ComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        SN4ComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        workEID1ComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        workEID2ComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        workEID3ComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        workEID4ComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        SN1FormattedTextField.setText("Part 1 Name");
-
-        SN2FormattedTextField.setText("Part 2 Name");
-
-        SN3FormattedTextField.setText("Part 3 Name");
-
-        SN4FormattedTextField.setText("Part 4 Name");
         SN4FormattedTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SN4FormattedTextFieldActionPerformed(evt);
@@ -286,6 +311,11 @@ public class RepairOrderFrame extends javax.swing.JFrame {
         RIDLabel.setText("RID:");
 
         RIDTextField.setText("Order Repair ID");
+        RIDTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RIDTextFieldActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -448,31 +478,141 @@ public class RepairOrderFrame extends javax.swing.JFrame {
     private void TableRepairOrdersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableRepairOrdersMouseClicked
   //FIRST:event_TableRepairOrdersMouseClicked
         // TODO add your handling code here:
+        this.reset();
         int rowIndex = TableRepairOrders.getSelectedRow();
         int rowModel = TableRepairOrders.convertRowIndexToModel(rowIndex);
-
-        RIDTextField.setText(TableRepairOrders.getValueAt(rowIndex, 0).toString());
+        // get the value of RID
+        Object tableVal = TableRepairOrders.getValueAt(rowIndex, 0);
+        RIDTextField.setText(tableVal.toString());
+        // get the values of the Serial number(s) associated with the RID
+        ResultSet contains = CoDAO.getContains(Integer.parseInt(tableVal.toString()));
+        ResultSet employee = EDAO.getEmployees(Integer.parseInt(tableVal.toString()));
+        List partNamesInROList = new ArrayList<>();
+        List partSNsInROList = new ArrayList<>();
+        List ROEIDs = new ArrayList<>();
+        try {
+            while (contains.next()) {
+                partNamesInROList.add(contains.getString("name"));
+                partSNsInROList.add(contains.getString("serialNum"));
+            }
+        }
+        catch (Exception ex) {
+            JOptionPane.showMessageDialog(this,"Error retrieving Part Name (3)"
+                + ex, "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        try {
+            for (int i = 1; i <= partNamesInROList.size(); i++) {
+                switch (i) {
+                    case 1:
+                        SN1FormattedTextField.setText(partNamesInROList.get(i - 1).toString());
+                        SN1ComboBox.setSelectedItem(partSNsInROList.get(i - 1).toString());
+                        break;
+                    case 2:
+                        SN2FormattedTextField.setText(partNamesInROList.get(i - 1).toString());
+                        SN2ComboBox.setSelectedItem(partSNsInROList.get(i - 1).toString());
+                        break;
+                    case 3:
+                        SN3FormattedTextField.setText(partNamesInROList.get(i - 1).toString());
+                        SN3ComboBox.setSelectedItem(partSNsInROList.get(i - 1).toString());
+                        break;
+                    case 4:
+                        SN4FormattedTextField.setText(partNamesInROList.get(i - 1).toString());
+                        SN4ComboBox.setSelectedItem(partSNsInROList.get(i - 1).toString());
+                        break;
+                    default:
+                        SN1FormattedTextField.setText(partNamesInROList.get(i - 1).toString());
+                        SN1ComboBox.setSelectedItem(partSNsInROList.get(i - 1).toString());
+                }
+            }
+        }
+        catch (Exception ex) { 
+            
+        }
+        try {
+            while (employee.next()) {
+                ROEIDs.add(employee.getString("EID"));
+            }
+        }
+        catch (Exception ex) {
+            JOptionPane.showMessageDialog(this,"Error retrieving EID (2)"
+                + ex, "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        try {
+            for (int i = 1; i <= ROEIDs.size(); i++) {
+                switch (i) {
+                    case 1:
+                        workEID1ComboBox.setSelectedItem(ROEIDs.get(i - 1).toString());
+                        break;
+                    case 2:
+                        workEID2ComboBox.setSelectedItem(ROEIDs.get(i - 1).toString());
+                        break;
+                    case 3:
+                        workEID3ComboBox.setSelectedItem(ROEIDs.get(i - 1).toString());
+                        break;
+                    case 4:
+                        workEID4ComboBox.setSelectedItem(ROEIDs.get(i - 1).toString());
+                        break;
+                    default:
+                        workEID1ComboBox.setSelectedItem(ROEIDs.get(i - 1).toString());
+                }
+            }
+        }
+        catch (Exception ex) {
+            
+        }
         dateRecdTextField.setText(TableRepairOrders.getValueAt(rowIndex, 1).toString());
-        dateShippedTextField.setText(TableRepairOrders.getValueAt(rowIndex, 2).toString());
-        shipTypeComboBox.setSelectedItem(TableRepairOrders.getValueAt(rowIndex, 3).toString());
-        if (TableRepairOrders.getValueAt(rowIndex, 4).equals(0)) {
-            shipOut_CIDComboBox.setSelectedItem("empty");
+        // get the value of dateShipped
+        tableVal = TableRepairOrders.getValueAt(rowIndex, 2);
+        if (tableVal == null) {
+            dateShippedTextField.setText("");
         }
         else {
-            shipOut_CIDComboBox.setSelectedItem(TableRepairOrders.getValueAt(rowIndex, 4).toString());
+            dateShippedTextField.setText(tableVal.toString());
         }
-        if (TableRepairOrders.getValueAt(rowIndex, 5).equals(0)) {
-            receivingEIDComboBox.setSelectedItem("empty");
-        }
-        else {
-            receivingEIDComboBox.setSelectedItem(TableRepairOrders.getValueAt(rowIndex, 5).toString());
-        }
-        if (TableRepairOrders.getValueAt(rowIndex, 6).equals(0)) {
-            shipIn_CIDComboBox.setSelectedItem("empty");
+        // get the value of shipOutType
+        tableVal = TableRepairOrders.getValueAt(rowIndex, 3);
+	if (tableVal == null) {
+            shipTypeComboBox.setSelectedItem("");
         }
         else {
-            shipIn_CIDComboBox.setSelectedItem(TableRepairOrders.getValueAt(rowIndex, 6).toString());
+            // convert the first character of shipOutType to a capital value
+            String temp = 
+                Character.toString(Character.toUpperCase(tableVal.toString().substring(0).charAt(0))) 
+                + tableVal.toString().substring(1, tableVal.toString().length());
+            shipTypeComboBox.setSelectedItem(temp);
         }
+        // get value of shipOut_CID
+        tableVal = TableRepairOrders.getValueAt(rowIndex, 4);
+	if (Integer.parseInt(tableVal.toString()) == 0) {
+            shipOut_CIDComboBox.setSelectedItem("");
+        }
+        else {
+            shipOut_CIDComboBox.setSelectedItem(tableVal.toString());
+        }
+        receivingEIDComboBox.setSelectedItem(TableRepairOrders.getValueAt(rowIndex, 5).toString());
+        // get value of shipIn_CID
+        tableVal = TableRepairOrders.getValueAt(rowIndex, 6);
+	if (Integer.parseInt(tableVal.toString()) == 0) {
+            shipIn_CIDComboBox.setSelectedItem("");
+        }
+        else {
+            shipIn_CIDComboBox.setSelectedItem(tableVal.toString());
+        }
+        
+        ROAddButton.setEnabled(false);
+		
+        DocumentListener dl = new DocumentListener() {
+            public void changedUpdate(DocumentEvent e) {warn(e);}
+            public void insertUpdate(DocumentEvent e) {warn(e);}
+            public void removeUpdate(DocumentEvent e) {warn(e);}
+            private void warn(DocumentEvent e) {
+                DocumentEvent.EventType type = e.getType();
+                if (type.equals(DocumentEvent.EventType.CHANGE)) {
+                    ROAddButton.setEnabled(true);
+                }
+            }
+        };
+        RIDTextField.getDocument().addDocumentListener(dl);
     }//GEN-LAST:event_TableRepairOrdersMouseClicked
 
     private void ROResetButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ROResetButtonMouseClicked
@@ -506,10 +646,8 @@ public class RepairOrderFrame extends javax.swing.JFrame {
     private void ROAddButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ROAddButtonMouseClicked
         // TODO add your handling code here:
         if(
-            receivingEIDComboBox.getSelectedItem().toString() == "empty" ||    
+            receivingEIDComboBox.getSelectedItem().toString().isEmpty() ||    
             RIDTextField.getText().toString().isEmpty() ||
-            RIDTextField.getText().toString() == "Order Repair ID" ||
-            dateRecdTextField.getText().toString() == "Repair Order Received"||
             dateRecdTextField.getText().toString().isEmpty()
           )
         {
@@ -542,19 +680,19 @@ public class RepairOrderFrame extends javax.swing.JFrame {
         
         String temp = shipOut_CIDComboBox.getSelectedItem().toString();
         int soid = 0;
-        if(temp != "empty")
+        if(!temp.isEmpty())
             soid = Integer.parseInt(shipOut_CIDComboBox.getSelectedItem().toString());   
         int rid = Integer.parseInt(RIDTextField.getText().toString());
         String dr = dateRecdTextField.getText().toString();
         String ds = dateShippedTextField.getText().toString();
         String temp2 = shipTypeComboBox.getSelectedItem().toString();
         String stype = "";
-        if(temp2 != "empty")
+        if(!temp2.isEmpty())
             stype = shipTypeComboBox.getSelectedItem().toString();
         int eid = Integer.parseInt(receivingEIDComboBox.getSelectedItem().toString());
         String temp3 = shipIn_CIDComboBox.getSelectedItem().toString();
         int siid = 0;
-        if(temp3 != "empty")
+        if(!temp3.isEmpty())
             siid = Integer.parseInt(shipIn_CIDComboBox.getSelectedItem().toString());
         RepairOrder addOrder = new RepairOrder(rid, dr, ds, stype, soid, eid, siid);
              
@@ -582,10 +720,8 @@ public class RepairOrderFrame extends javax.swing.JFrame {
     
     private void ROUpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ROUpdateButtonActionPerformed
         if(
-            receivingEIDComboBox.getSelectedItem().toString() == "empty" ||    
+            receivingEIDComboBox.getSelectedItem().toString().isEmpty() ||    
             RIDTextField.getText().toString().isEmpty() ||
-            RIDTextField.getText().toString() == "Order Repair ID" ||
-            dateRecdTextField.getText().toString() == "Repair Order Received"||
             dateRecdTextField.getText().toString().isEmpty()
           )
         {
@@ -617,19 +753,19 @@ public class RepairOrderFrame extends javax.swing.JFrame {
               //regexp for dateRecd
               String temp = shipOut_CIDComboBox.getSelectedItem().toString();
                 int soid = 0;
-                if(temp != "empty")
+                if(!temp.isEmpty())
                     soid = Integer.parseInt(shipOut_CIDComboBox.getSelectedItem().toString());
                 int rid = Integer.parseInt(RIDTextField.getText().toString());
                 String dr = dateRecdTextField.getText().toString();
                 String ds = dateShippedTextField.getText().toString();
                 String temp2 = shipTypeComboBox.getSelectedItem().toString();
                 String stype = "";
-                if(temp2 != "empty")
+                if(!temp2.isEmpty())
                     stype = shipTypeComboBox.getSelectedItem().toString();
                 int eid = Integer.parseInt(receivingEIDComboBox.getSelectedItem().toString());
                 String temp3 = shipIn_CIDComboBox.getSelectedItem().toString();
                 int siid = 0;
-                if(temp3 != "empty")
+                if(!temp3.isEmpty())
                     siid = Integer.parseInt(shipIn_CIDComboBox.getSelectedItem().toString());
 
                 RepairOrder addOrder = new RepairOrder(rid, dr, ds, stype, soid, eid, siid);
@@ -648,6 +784,10 @@ public class RepairOrderFrame extends javax.swing.JFrame {
     }
         
     }//GEN-LAST:event_ROUpdateButtonActionPerformed
+
+    private void RIDTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RIDTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_RIDTextFieldActionPerformed
     
     private void reset(){
        RIDTextField.setText("");

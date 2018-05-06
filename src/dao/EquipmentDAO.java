@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import core.Equipment;
 import java.sql.PreparedStatement;
+import javax.swing.JOptionPane;
 
 public class EquipmentDAO {
     private DBConnection conn;
@@ -92,5 +93,23 @@ public class EquipmentDAO {
         finally {
             conn.close(stmt, null);
         }
+    }
+    // By Jesse Houk
+    // Returns a list of all Serial Numbers of the Customers' Equipment
+    public List comboValues() {
+        List eqList = new ArrayList<>();
+        Statement stmt = null;
+        ResultSet rs = null;
+        try {
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery("select * from equipment");
+            while (rs.next()) {
+                eqList.add(rs.getString("serialNum"));
+            }
+        }
+        catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error retrieving Equipment Serial Numbers: " + ex, "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        return eqList;
     }
 }
