@@ -13,6 +13,14 @@ import dao.PartDAO;
 import dao.VendorDAO;
 import dao.DBConnection;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.table.TableModel;
+import javax.swing.JLabel;
+import javax.swing.SwingUtilities;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableRowSorter;
 /**
  *
  * @author downw
@@ -22,7 +30,7 @@ public class PartFrame extends javax.swing.JFrame {
     private PartDAO PartDAO;
     private VendorDAO VDAO;
     private List<Part> parts;
-    private String[] vend = new String[100];
+    private List VIDList;
     PartsTableModel model;
     /**
      * Creates new form PartFrame
@@ -40,6 +48,15 @@ public class PartFrame extends javax.swing.JFrame {
         }
         PartsTableModel model = new PartsTableModel(parts);
         partTable.setModel(model);
+        try {
+            VIDList = VDAO.getAllVID();
+            for(int i = 0; i < VIDList.size(); i++) {
+                jVIDCombo.addItem(VIDList.get(i).toString());
+            }
+        }
+        catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Error setting up shipping CIDs: " + ex, "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     /**
@@ -72,18 +89,11 @@ public class PartFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPIDTextField.setText("PIDTextField");
-
-        jNameTextField.setText("nameTextField");
         jNameTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jNameTextFieldActionPerformed(evt);
             }
         });
-
-        jDescriptionTextField.setText("descriptionTextField");
-
-        jVIDCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jNameLabel.setText("Name");
 
@@ -93,11 +103,21 @@ public class PartFrame extends javax.swing.JFrame {
 
         jDescriptionLabel.setText("Description");
 
-        jButtonInsert.setText("Create");
+        jButtonInsert.setText("Add");
 
-        jButtonUpdate.setText("Edit");
+        jButtonUpdate.setText("Update");
+        jButtonUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonUpdateActionPerformed(evt);
+            }
+        });
 
         jButtonDelete.setText("Delete");
+        jButtonDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDeleteActionPerformed(evt);
+            }
+        });
 
         partTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -153,6 +173,11 @@ public class PartFrame extends javax.swing.JFrame {
         );
 
         jButtonReset.setText("Reset");
+        jButtonReset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonResetActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -227,9 +252,104 @@ public class PartFrame extends javax.swing.JFrame {
         jPIDTextField.setText(partTable.getValueAt(selectedRowModel, 0).toString());
         jNameTextField.setText(partTable.getValueAt(selectedRowModel, 1).toString());
         jDescriptionTextField.setText(partTable.getValueAt(selectedRowModel, 2).toString());
+        if (partTable.getValueAt(selectedRowModel, 3).equals(0)) {
+            jVIDCombo.setSelectedItem("empty");
+        }
+        else {
+            jVIDCombo.setSelectedItem(partTable.getValueAt(selectedRowModel, 3).toString());
+        }
         jButtonInsert.setEnabled(false);       
     }//GEN-LAST:event_partTableMouseClicked
 
+    private void jButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateActionPerformed
+         try{
+            if(inDatabase(jPIDTextField.getText()) == false){
+                String notInDatabase = "";
+                notInDatabase += "Error: The Part ID you have entered is not in the Table.\n";
+                notInDatabase += "Please make sure the Part ID you have entered is an ID listed ";
+                notInDatabase += "in the table.\n";
+                JOptionPane.showMessageDialog(this, notInDatabase, "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            else{
+                Part part = new Part(jPIDTextField.getText(), jNameTextField.getText(), jDescriptionTextField.getText(),
+                    jVIDCombo.getSelectedItem().toString());
+                int ans = JOptionPane.showConfirmDialog(null,"Are you sure you want to update this Part?","Update",JOptionPane.YES_NO_OPTION);
+                if(ans == 0){
+                    PartDAO.updatePart(part);
+                    parts = PartDAO.getAllPart();
+                    model = new PartsTableModel(parts);
+                    partTable.setModel(model);
+                    JOptionPane.showMessageDialog(this,"Part updated!");
+                    System.out.println("Part updated!");
+                }
+            }    
+        }
+        catch(Exception exc){
+            System.out.println("A Problem occured while deleting a Part: " + exc);
+            JOptionPane.showMessageDialog(this,"A problem ocurred while trying to delete a Part!");
+        }
+        resetTextFields();
+    }//GEN-LAST:event_jButtonUpdateActionPerformed
+
+    private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
+        try{
+            if(inDatabase(jPIDTextField.getText()) == false){
+                String notInDatabase = "";
+                notInDatabase += "Error: The Part ID you have entered is not in the Table.\n";
+                notInDatabase += "Please make sure the Part ID you have entered is an ID listed ";
+                notInDatabase += "in the table.\n";
+                JOptionPane.showMessageDialog(this, notInDatabase, "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            else{
+                Part part = new Part(jPIDTextField.getText(), jNameTextField.getText(), jDescriptionTextField.getText(),
+                    jVIDCombo.getSelectedItem().toString());
+                int ans = JOptionPane.showConfirmDialog(null,"Are you sure you want to delete this Part?","Delete",JOptionPane.YES_NO_OPTION);
+                if(ans ==0){
+                    PartDAO.deletePart(part);
+                    parts = PartDAO.getAllPart();
+                    model = new PartsTableModel(parts);
+                    partTable.setModel(model);
+                    JOptionPane.showMessageDialog(this,"Part deleted!");
+                    System.out.println("Part deleted!");
+                }
+            } 
+        } 
+        catch(Exception exc){
+            System.out.println("A Problem occured while deleting a Part: " + exc);
+            JOptionPane.showMessageDialog(this,"A problem ocurred while trying to delete a Part!");
+        }
+        resetTextFields();
+    }//GEN-LAST:event_jButtonDeleteActionPerformed
+
+    private void jButtonResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonResetActionPerformed
+        resetTextFields();
+    }//GEN-LAST:event_jButtonResetActionPerformed
+    
+    private boolean inDatabase(String id){
+         try{
+            List<Part> list = PartDAO.getAllPart();
+            int size = list.size();
+            for(int i =0; i < size; i++){
+                 Part part = list.get(i);
+                if(part.getPID().equals(id)){
+                    return true;
+                }
+            }
+         }
+         catch(Exception exc){
+             System.out.println("A Problem occured while checking the table: " + exc);
+         }
+         return false;
+     }
+    
+    private void resetTextFields(){
+        jPIDTextField.setText("");
+        jNameTextField.setText("");
+        jDescriptionTextField.setText("");
+        jVIDCombo.setSelectedItem(null);
+        jButtonInsert.setEnabled(true);
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -283,4 +403,6 @@ public class PartFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jVIDLabel;
     private javax.swing.JTable partTable;
     // End of variables declaration//GEN-END:variables
+
+    
 }
