@@ -95,6 +95,18 @@ public class PartFrame extends javax.swing.JFrame {
             }
         });
 
+<<<<<<< HEAD
+=======
+        jDescriptionTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jDescriptionTextFieldActionPerformed(evt);
+            }
+        });
+
+        jVIDCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jVIDCombo.setSelectedIndex(-1);
+
+>>>>>>> cd71c8935004b86d1afdbd3cc692fad08e95a88a
         jNameLabel.setText("Name");
 
         jPIDLabel.setText("Product ID");
@@ -103,9 +115,20 @@ public class PartFrame extends javax.swing.JFrame {
 
         jDescriptionLabel.setText("Description");
 
+<<<<<<< HEAD
         jButtonInsert.setText("Add");
 
         jButtonUpdate.setText("Update");
+=======
+        jButtonInsert.setText("Create");
+        jButtonInsert.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonInsertActionPerformed(evt);
+            }
+        });
+
+        jButtonUpdate.setText("Edit");
+>>>>>>> cd71c8935004b86d1afdbd3cc692fad08e95a88a
         jButtonUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonUpdateActionPerformed(evt);
@@ -261,6 +284,7 @@ public class PartFrame extends javax.swing.JFrame {
         jButtonInsert.setEnabled(false);       
     }//GEN-LAST:event_partTableMouseClicked
 
+<<<<<<< HEAD
     private void jButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateActionPerformed
          try{
             if(inDatabase(jPIDTextField.getText()) == false){
@@ -350,6 +374,37 @@ public class PartFrame extends javax.swing.JFrame {
         jButtonInsert.setEnabled(true);
     }
     
+=======
+    private void jDescriptionTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jDescriptionTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jDescriptionTextFieldActionPerformed
+    //Clorissa Callender
+    private void jButtonResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonResetActionPerformed
+        // TODO add your handling code here:
+        reset();
+    }//GEN-LAST:event_jButtonResetActionPerformed
+
+    private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonDeleteActionPerformed
+
+    private void jButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonUpdateActionPerformed
+
+    private void jButtonInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInsertActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonInsertActionPerformed
+    //Clorissa Callender
+    private void reset(){
+        jPIDTextField.setText("");
+        jDescriptionTextField.setText("");
+        jNameTextField.setText("");
+        jVIDCombo.setSelectedIndex(-1);
+           
+    }
+           
+>>>>>>> cd71c8935004b86d1afdbd3cc692fad08e95a88a
     /**
      * @param args the command line arguments
      */
