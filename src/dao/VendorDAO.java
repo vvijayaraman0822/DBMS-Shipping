@@ -110,18 +110,4 @@ public class VendorDAO {
         String zip = rs.getString("zip");
         return new Vendor(VID, name, contact, address, city, state, zip);
     }
-    
-    //added by Cory Press for partFrame    
-    public List getAllVID() throws Exception {
-        Statement stmt = null;
-        ResultSet rs = null;
-        List VIDs = new ArrayList<>();
-        stmt = conn.createStatement();
-        rs = stmt.executeQuery("select VID from vendor");
-        while (rs.next()) {
-            VIDs.add(rs.getString("VID"));
-        }
-        conn.close(stmt, rs);
-        return VIDs;
-    }
 }
