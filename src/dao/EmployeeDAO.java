@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -111,6 +112,20 @@ public class EmployeeDAO {
               }
         return list;
     }
-    
-    
+    // By Jesse Houk
+    // Returns all employee natural join fixes
+    public ResultSet getEmployees(Integer RID) {
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        try {
+            stmt = conn.prepareStatement("select * from" +
+                " employee natural join fixes where RID = ?");
+            stmt.setInt(1, RID);
+            rs = stmt.executeQuery();
+        }
+        catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error retrieving EIDs: " + ex, "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        return rs;
+    }
 }

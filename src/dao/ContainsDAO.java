@@ -9,6 +9,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import core.Contains;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -80,5 +81,22 @@ public class ContainsDAO {
         } finally {
             conn.close(stmt, null);
         }
+    }
+    // By Jesse Houk
+    // Returns the Contains tuples associated with a particular RID in a result 
+    // set
+    public ResultSet getContains(Integer RID) {
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        try {
+            stmt = conn.prepareStatement("select * from" +
+                " contains natural join equipment where RID = ?");
+            stmt.setInt(1, RID);
+            rs = stmt.executeQuery();
+        }
+        catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error retrieving Part Names: " + ex, "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        return rs;
     }
 }
