@@ -119,13 +119,15 @@ public class CustomerFrame extends javax.swing.JFrame {
                 add_bttnActionPerformed(evt);
             }
         });
-
+        contact_txtfld.setNextFocusableComponent(add_bttn);
+       
         reset_bttn.setText("Reset");
         reset_bttn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 reset_bttnActionPerformed(evt);
             }
         });
+        add_bttn.setNextFocusableComponent(delete_bttn);
 
         delete_bttn.setText("Delete");
         delete_bttn.addActionListener(new java.awt.event.ActionListener() {
@@ -133,6 +135,7 @@ public class CustomerFrame extends javax.swing.JFrame {
                 delete_bttnActionPerformed(evt);
             }
         });
+        reset_bttn.setNextFocusableComponent(id_txtfld);
 
         update_bttn.setText("Update");
         update_bttn.addActionListener(new java.awt.event.ActionListener() {
@@ -140,6 +143,8 @@ public class CustomerFrame extends javax.swing.JFrame {
                 update_bttnActionPerformed(evt);
             }
         });
+        delete_bttn.setNextFocusableComponent(update_bttn); 
+        update_bttn.setNextFocusableComponent(reset_bttn); 
 
         id_label.setText("ID");
 
@@ -155,6 +160,13 @@ public class CustomerFrame extends javax.swing.JFrame {
 
         name_label.setText("Name");
 
+        id_txtfld.setNextFocusableComponent(name_txtfld);
+        name_txtfld.setNextFocusableComponent(address_txtfld);
+        address_txtfld.setNextFocusableComponent(city_txtfld);
+        city_txtfld.setNextFocusableComponent(state_txtfld);
+        state_txtfld.setNextFocusableComponent(zipcode_txtfld);
+        zipcode_txtfld.setNextFocusableComponent(contact_txtfld);
+        
         jScrollPane2.setViewportView(jScrollBar1);
         // Add a listener for mouse click on table row
          customer_table.addMouseListener(new java.awt.event.MouseAdapter() {

@@ -84,7 +84,10 @@ public class CarrierFrame extends javax.swing.JFrame {
 
         WalkinLabel.setText("Walk-in:");
 
+        CIDTextField.setNextFocusableComponent(NameTextField);
+
         AddButton.setText("Add");
+        AddButton.setNextFocusableComponent(DeleteButton);
         AddButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AddButtonActionPerformed(evt);
@@ -92,6 +95,7 @@ public class CarrierFrame extends javax.swing.JFrame {
         });
 
         DeleteButton.setText("Delete");
+        DeleteButton.setNextFocusableComponent(UpdateButton);
         DeleteButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 DeleteButtonActionPerformed(evt);
@@ -99,6 +103,7 @@ public class CarrierFrame extends javax.swing.JFrame {
         });
 
         UpdateButton.setText("Update");
+        UpdateButton.setNextFocusableComponent(ResetButton);
         UpdateButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 UpdateButtonActionPerformed(evt);
@@ -113,12 +118,16 @@ public class CarrierFrame extends javax.swing.JFrame {
         });
 
         RedShipComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "yes", "no" }));
+        RedShipComboBox.setNextFocusableComponent(BlueShipComboBox);
 
         BlueShipComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "yes", "no" }));
+        BlueShipComboBox.setNextFocusableComponent(GroundComboBox);
 
         GroundComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "yes", "no" }));
+        GroundComboBox.setNextFocusableComponent(WalkinComboBox);
 
         WalkinComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "yes", "no" }));
+        WalkinComboBox.setNextFocusableComponent(AddButton);
 
         CarrierTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -161,6 +170,8 @@ public class CarrierFrame extends javax.swing.JFrame {
             }
         });
         jScrollPane2.setViewportView(CarrierTable);
+
+        NameTextField.setNextFocusableComponent(RedShipComboBox);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

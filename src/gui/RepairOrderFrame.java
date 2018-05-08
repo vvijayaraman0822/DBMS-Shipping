@@ -264,6 +264,7 @@ public class RepairOrderFrame extends javax.swing.JFrame {
         workingEID4Label.setText("EID 4 repairing:");
 
         dateShippedTextField.setText("Date Repair Order Shipped");
+        dateShippedTextField.setNextFocusableComponent(shipTypeComboBox);
         dateShippedTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 dateShippedTextFieldActionPerformed(evt);
@@ -271,6 +272,7 @@ public class RepairOrderFrame extends javax.swing.JFrame {
         });
 
         dateRecdTextField.setText("Date Repair Order Received");
+        dateRecdTextField.setNextFocusableComponent(dateShippedTextField);
 
         ROAddButton.setText("Add");
         ROAddButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -300,7 +302,56 @@ public class RepairOrderFrame extends javax.swing.JFrame {
             }
         });
 
+
         shipTypeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ground", "Blue", "Brown", "Red" }));
+
+        receivingEIDComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "empty" }));
+        receivingEIDComboBox.setNextFocusableComponent(shipIn_CIDComboBox);
+
+        shipIn_CIDComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "empty" }));
+        shipIn_CIDComboBox.setNextFocusableComponent(SN1ComboBox);
+
+        shipOut_CIDComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "empty" }));
+        shipOut_CIDComboBox.setNextFocusableComponent(receivingEIDComboBox);
+
+        //shipTypeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "empty", "Ground", "Blue", "Brown", "Red" }));
+        shipTypeComboBox.setNextFocusableComponent(shipOut_CIDComboBox);
+
+        SN1ComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        SN1ComboBox.setNextFocusableComponent(SN1FormattedTextField);
+
+        SN2ComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        SN2ComboBox.setNextFocusableComponent(SN2FormattedTextField);
+
+        SN3ComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        SN3ComboBox.setNextFocusableComponent(SN3FormattedTextField);
+
+        SN4ComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        SN4ComboBox.setNextFocusableComponent(SN4FormattedTextField);
+
+        workEID1ComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        workEID1ComboBox.setNextFocusableComponent(workEID2ComboBox);
+
+        workEID2ComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        workEID2ComboBox.setNextFocusableComponent(workEID3ComboBox);
+
+        workEID3ComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        workEID3ComboBox.setName(""); // NOI18N
+        workEID3ComboBox.setNextFocusableComponent(workEID4ComboBox);
+
+        workEID4ComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        SN1FormattedTextField.setText("Part 1 Name");
+        SN1FormattedTextField.setNextFocusableComponent(SN2ComboBox);
+
+        SN2FormattedTextField.setText("Part 2 Name");
+        SN2FormattedTextField.setNextFocusableComponent(SN3ComboBox);
+
+        SN3FormattedTextField.setText("Part 3 Name");
+        SN3FormattedTextField.setNextFocusableComponent(SN4ComboBox);
+
+        SN4FormattedTextField.setText("Part 4 Name");
+        SN4FormattedTextField.setNextFocusableComponent(workEID1ComboBox);
 
         SN4FormattedTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -311,11 +362,15 @@ public class RepairOrderFrame extends javax.swing.JFrame {
         RIDLabel.setText("RID:");
 
         RIDTextField.setText("Order Repair ID");
+
         RIDTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 RIDTextFieldActionPerformed(evt);
             }
         });
+
+        RIDTextField.setNextFocusableComponent(dateRecdTextField);
+
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
